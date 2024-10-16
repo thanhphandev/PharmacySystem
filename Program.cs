@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 using PharmacySystem.Views;
+using PharmacySystem.Views.LoginForm;
+using PharmacySystem.Presenters;
+using PharmacySystem.Views.RegisterForm;
 
 namespace PharmacySystem
 {
@@ -15,9 +19,14 @@ namespace PharmacySystem
         [STAThread]
         static void Main()
         {
+            string connectionString = "Server=127.0.0.1;Database=pharmacy_db;Uid=root;Pwd=;";
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Views.LoginView());
+            
+            ILoginView loginView = new LoginView();
+            new LoginPresenter(loginView, connectionString);
+            Application.Run((Form) loginView);
         }
     }
 }

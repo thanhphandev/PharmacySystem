@@ -1,6 +1,6 @@
 ﻿namespace PharmacySystem.Views
 {
-    partial class LoginView
+    partial class MainView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,26 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.components = new System.ComponentModel.Container();
+            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.SuspendLayout();
             // 
-            // label1
+            // kryptonLabel1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(537, 66);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Login Form";
+            this.kryptonLabel1.Location = new System.Drawing.Point(322, 99);
+            this.kryptonLabel1.Name = "kryptonLabel1";
+            this.kryptonLabel1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.ProfessionalSystem;
+            this.kryptonLabel1.Size = new System.Drawing.Size(64, 22);
+            this.kryptonLabel1.TabIndex = 0;
+            this.kryptonLabel1.Values.Text = "MainView";
             // 
-            // LoginView
+            // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
-            this.Name = "LoginView";
-            this.Text = "LoginView";
+            this.Controls.Add(this.kryptonLabel1);
+            this.Name = "MainView";
+            this.ShowIcon = false;
+            this.Text = "Hệ thống quản lý thuốc, dược phẩm";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -55,6 +58,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private ComponentFactory.Krypton.Toolkit.KryptonPalette kryptonPalette1;
     }
 }

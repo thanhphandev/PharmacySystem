@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ComponentFactory.Krypton.Toolkit;
 
 namespace PharmacySystem.Views
 {
-    public partial class LoginView : Form
+    public partial class MainView : Form
     {
-        public LoginView()
+        public MainView()
         {
             InitializeComponent();
         }
