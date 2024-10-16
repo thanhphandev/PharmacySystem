@@ -14,7 +14,6 @@ namespace PharmacySystem.Models
         private string username;
         private string password;
         private int birth_year;
-        private string citizenId;
         private string role;
 
         [DisplayName("Họ và tên")]
@@ -26,8 +25,10 @@ namespace PharmacySystem.Models
         public string Username { get => username; set => username = value; }
         [Required(ErrorMessage = "Mật khẩu không được bỏ trống")]
         public string Password { get => password; set => password = value; }
+
+        [Required(ErrorMessage = "Năm sinh không được bỏ trống")]
+        [Range(1900, 2100, ErrorMessage = "Năm sinh không hợp lệ")]
         public int Birth_year { get => birth_year; set => birth_year = value; }
-        public string CitizenId { get => citizenId; set => citizenId = value; }
         
         public string Role { get => role; set => role = value; }
     }

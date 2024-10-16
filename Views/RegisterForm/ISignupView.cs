@@ -11,6 +11,7 @@ namespace PharmacySystem.Views.RegisterForm
         string FullName { get; set; }
         string Username { get; set; }
         string Password { get; set; }
+        string BirthYear { get; set; }
         event EventHandler Signup;
         void CloseForm();
     }

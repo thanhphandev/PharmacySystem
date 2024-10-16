@@ -18,7 +18,7 @@ namespace PharmacySystem.Common
             if (isValid == false)
             {
                 foreach (var item in results)
-                    errorMessage += "- " + item.ErrorMessage + "\n";
+                    errorMessage += " - " + item.ErrorMessage + "\n";
                 throw new Exception(errorMessage);
             }
         }

@@ -9,17 +9,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ComponentFactory.Krypton.Toolkit;
 using PharmacySystem.Presenters;
 
 namespace PharmacySystem.Views
 {
-    public partial class LoginView : KryptonForm, ILoginView
+    public partial class LoginView : Form, ILoginView
     {
-        private string message;
-        public LoginView()
+        
+        private string _connectionString;
+
+        public LoginView(string connectionString)
         {
             InitializeComponent();
+            new LoginPresenter(this, connectionString);
+            _connectionString = connectionString;
+
             AsscociateAndRaiseViewEvents();
             
         }
@@ -27,13 +31,12 @@ namespace PharmacySystem.Views
         private void AsscociateAndRaiseViewEvents()
         {
             btnLogin.Click += delegate { Login?.Invoke(this, EventArgs.Empty); };
-            
-
+         
         }
 
         public string Username { get => txtUsername.Text; set => txtUsername.Text = value; }
         public string Password { get => txtPassword.Text; set => txtPassword.Text = value; }
-        public string Message { get => message; set => message = value; }
+        
 
         private void chkDisplayPassword_CheckedChanged(object sender, EventArgs e)
         {
@@ -48,16 +51,11 @@ namespace PharmacySystem.Views
             }
         }
 
-        public void CloseForm()
-        {
-            this.Hide();
-        }
-
 
         public event EventHandler Login;
         private void lkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            SignupView signupView = new SignupView();
+            SignupView signupView = new SignupView(_connectionString);
             signupView.Show();
             this.Hide();
         }

@@ -15,7 +15,7 @@ namespace PharmacySystem.Presenters
 {
     public class LoginPresenter
     {
-        private readonly string connectionString;
+       
         private ILoginView _loginView;
         private AuthService _authService;
         private UserRepository _userRepository;
@@ -25,21 +25,26 @@ namespace PharmacySystem.Presenters
         {
            
             _loginView = loginView;
-            this.connectionString = connectionString;
 
             _loginView.Login += OnLogin;
 
             _userRepository = new UserRepository(connectionString);
             _authService = new AuthService(_userRepository);
-
             
         }
 
         private void OnLogin(object sender, EventArgs e)
         {
-            MainView view = new MainView();
+            //UserModel user = new UserModel
+            //{
+            //    Username = _loginView.Username,
+            //    Password = _loginView.Password
+            //};
+
             try
             {
+                //new Common.ModelDataValidation().Validate(user);
+
                 bool loginSucessfull = _authService.Login(_loginView.Username, _loginView.Password);
                 
                 if (loginSucessfull)

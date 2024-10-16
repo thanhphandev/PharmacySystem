@@ -42,6 +42,8 @@
             this.txtFullName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lbusername = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtBirthYear = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -150,14 +152,14 @@
             // 
             this.txtFullName.Location = new System.Drawing.Point(460, 155);
             this.txtFullName.Name = "txtFullName";
-            this.txtFullName.Size = new System.Drawing.Size(219, 20);
+            this.txtFullName.Size = new System.Drawing.Size(133, 20);
             this.txtFullName.TabIndex = 12;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(457, 126);
+            this.label3.Location = new System.Drawing.Point(457, 135);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 17);
             this.label3.TabIndex = 18;
@@ -173,16 +175,35 @@
             this.lbusername.TabIndex = 19;
             this.lbusername.Text = "Username";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(615, 135);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(63, 17);
+            this.label6.TabIndex = 18;
+            this.label6.Text = "Năm sinh";
+            // 
+            // txtBirthYear
+            // 
+            this.txtBirthYear.Location = new System.Drawing.Point(618, 155);
+            this.txtBirthYear.Name = "txtBirthYear";
+            this.txtBirthYear.Size = new System.Drawing.Size(70, 20);
+            this.txtBirthYear.TabIndex = 12;
+            // 
             // SignupView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.lbusername);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lkLogin);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.chkDisplayPassword);
+            this.Controls.Add(this.txtBirthYear);
             this.Controls.Add(this.txtFullName);
             this.Controls.Add(this.btnSignup);
             this.Controls.Add(this.txtUsername);
@@ -216,5 +237,7 @@
         private System.Windows.Forms.TextBox txtFullName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbusername;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtBirthYear;
     }
 }

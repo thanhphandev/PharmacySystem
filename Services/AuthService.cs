@@ -17,7 +17,7 @@ namespace PharmacySystem.Services
             _userRepository = userRepository;
         }
 
-        public bool Signup(string username, string password, string fullname)
+        public bool Signup(string username, string password, string fullname, string birthYear)
         {
             var existingUser = _userRepository.GetUserByUsername(username);
             if (existingUser != null)
@@ -29,6 +29,7 @@ namespace PharmacySystem.Services
             user.Username = username;
             user.Password = HashPassword(password);
             user.FullName = fullname;
+            user.Birth_year = Convert.ToInt32(birthYear);
             _userRepository.AddUser(user);
             return true;
         }
@@ -41,7 +42,7 @@ namespace PharmacySystem.Services
             {
                 return false;
             }
-            bool isCorrectPassword =  VerifyPassword(password, user.Password);
+            bool isCorrectPassword = VerifyPassword(password, user.Password);
 
             return isCorrectPassword;
         }

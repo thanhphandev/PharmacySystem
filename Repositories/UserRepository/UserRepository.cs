@@ -22,12 +22,14 @@ namespace PharmacySystem.Repositories.UserRepository
             using (var connection = new MySqlConnection(connectionString))
             {
 
-                string query = "INSERT INTO employee(username, password, full_name) VALUES (@Username, @Password, @FullName)";
+                string query = "INSERT INTO employee(username, password, full_name, birth_year) VALUES (@Username, @Password, @FullName, @BirthYear)";
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Username", user.Username);
                     command.Parameters.AddWithValue("@Password", user.Password);
                     command.Parameters.AddWithValue("@FullName", user.FullName);
+                    command.Parameters.AddWithValue("@BirthYear", user.Birth_year);
+
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
@@ -64,7 +66,7 @@ namespace PharmacySystem.Repositories.UserRepository
                             UserModel user = new UserModel();
                             user.Username = reader["username"].ToString();
                             user.FullName = reader["full_name"].ToString();
-                            user.CitizenId = reader["citizen_id"].ToString();
+                            user.Birth_year = Convert.ToInt32(reader["birth_year"]);
                             user.Role = reader["role"].ToString();
                             users.Add(user);
                         }
@@ -81,7 +83,7 @@ namespace PharmacySystem.Repositories.UserRepository
 
             using (var connection = new MySqlConnection(connectionString))
             {
-                string query = "SELECT username, password, full_Name, birth_year, citizen_id, role  FROM employee WHERE username = @Username";
+                string query = "SELECT username, password, full_Name, birth_year, role  FROM employee WHERE username = @Username";
 
                 using (var command = new MySqlCommand(query, connection))
                 {
@@ -99,7 +101,6 @@ namespace PharmacySystem.Repositories.UserRepository
                                 Password = reader["password"].ToString(),
                                 FullName = reader["full_name"].ToString(),
                                 Birth_year = Convert.ToInt32(reader["birth_year"]),
-                                CitizenId = reader["citizen_id"].ToString(),
                                 Role = reader["role"].ToString()
                             };
                         }

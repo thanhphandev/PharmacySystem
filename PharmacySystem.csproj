@@ -36,9 +36,6 @@
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
       <HintPath>packages\BouncyCastle.Cryptography.2.3.1\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
     </Reference>
-    <Reference Include="ComponentFactory.Krypton.Toolkit">
-      <HintPath>..\..\..\Downloads\Krypton-master\Krypton-master\Bin\ComponentFactory.Krypton.Toolkit.dll</HintPath>
-    </Reference>
     <Reference Include="Google.Protobuf, Version=3.26.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>packages\Google.Protobuf.3.26.1\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
@@ -120,12 +117,6 @@
     <Compile Include="Views\LoginForm\LoginView.Designer.cs">
       <DependentUpon>LoginView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\MainView.Designer.cs">
-      <DependentUpon>MainView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\RegisterForm\ISignupView.cs" />
     <Compile Include="Views\RegisterForm\SignupView.cs">
       <SubType>Form</SubType>
@@ -144,9 +135,6 @@
     </Compile>
     <EmbeddedResource Include="Views\LoginForm\LoginView.resx">
       <DependentUpon>LoginView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\MainView.resx">
-      <DependentUpon>MainView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\RegisterForm\SignupView.resx">
       <DependentUpon>SignupView.cs</DependentUpon>

@@ -24,8 +24,7 @@ namespace PharmacySystem
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            ILoginView loginView = new LoginView();
-            new LoginPresenter(loginView, connectionString);
+            ILoginView loginView = new LoginView(connectionString);
             Application.Run((Form) loginView);
         }
     }

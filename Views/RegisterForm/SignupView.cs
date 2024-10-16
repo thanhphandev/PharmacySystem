@@ -14,10 +14,13 @@ namespace PharmacySystem.Views
 {
     public partial class SignupView : Form, ISignupView
     {
-       
-        public SignupView()
+        private string _connectionString;
+        public SignupView(string connectionString)
         {
             InitializeComponent();
+            new SignupPresenter(this, connectionString);
+
+            _connectionString = connectionString;
             AsscociateAndRaiseViewEvents();
         }
 
@@ -30,6 +33,7 @@ namespace PharmacySystem.Views
         public string FullName { get => txtFullName.Text; set => txtFullName.Text = value; }
         public string Username { get => txtUsername.Text; set => txtUsername.Text = value; }
         public string Password { get => txtPassword.Text; set => txtPassword.Text = value; }
+        public string BirthYear { get => txtBirthYear.Text; set => txtBirthYear.Text = value; }
 
         public event EventHandler Signup;
 
@@ -41,7 +45,7 @@ namespace PharmacySystem.Views
 
         private void lkLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LoginView loginView = new LoginView();
+            LoginView loginView = new LoginView(_connectionString);
             loginView.Show();
             this.Hide();
 
