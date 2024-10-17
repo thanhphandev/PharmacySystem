@@ -16,9 +16,9 @@ namespace PharmacySystem.Presenters
     {
         private readonly string _connectionString;
 
-        private ISignupView _signupView;
-        private UserRepository _userRepository;
-        private AuthService _authService;
+        private readonly ISignupView _signupView;
+        private readonly UserRepository _userRepository;
+        private readonly AuthService _authService;
 
         public SignupPresenter(ISignupView signupView, string connectionString)
         {
@@ -102,7 +102,13 @@ namespace PharmacySystem.Presenters
                 return false;
             }
 
-            return true;
+            bool hasUpperCase = password.Any(char.IsUpper);
+            bool hasLowerCase = password.Any(char.IsLower);
+            bool hasDigit = password.Any(char.IsDigit);
+            bool hasSpecialChar = password.Any(ch => !char.IsLetterOrDigit(ch));
+
+            return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar;
         }
+
     }
 }

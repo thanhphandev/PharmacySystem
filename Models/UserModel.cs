@@ -17,19 +17,16 @@ namespace PharmacySystem.Models
         private string role;
 
         [DisplayName("Họ và tên")]
-        [Required(ErrorMessage = "Họ và tên không được để trống")]
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "Họ và tên phải từ 5 đến 50 ký tự")]
         public string FullName { get => fullname; set => fullname = value; }
 
-        [Required(ErrorMessage = "Username không được bỏ trống!")]
+        [DisplayName("Tên đăng nhập")]
         public string Username { get => username; set => username = value; }
-        [Required(ErrorMessage = "Mật khẩu không được bỏ trống")]
+        [DisplayName("Mật khẩu")]
         public string Password { get => password; set => password = value; }
 
-        [Required(ErrorMessage = "Năm sinh không được bỏ trống")]
-        [Range(1900, 2100, ErrorMessage = "Năm sinh không hợp lệ")]
+        [DisplayName("Năm sinh")]
         public int Birth_year { get => birth_year; set => birth_year = value; }
-        
+        [DisplayName("Vai trò")]
         public string Role { get => role; set => role = value; }
     }
 

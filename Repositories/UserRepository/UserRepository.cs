@@ -63,11 +63,13 @@ namespace PharmacySystem.Repositories.UserRepository
                     {
                         while (reader.Read())
                         {
-                            UserModel user = new UserModel();
-                            user.Username = reader["username"].ToString();
-                            user.FullName = reader["full_name"].ToString();
-                            user.Birth_year = Convert.ToInt32(reader["birth_year"]);
-                            user.Role = reader["role"].ToString();
+                            UserModel user = new UserModel
+                            {
+                                Username = reader["username"].ToString(),
+                                FullName = reader["full_name"].ToString(),
+                                Birth_year = Convert.ToInt32(reader["birth_year"]),
+                                Role = reader["role"].ToString()
+                            };
                             users.Add(user);
                         }
                     }
@@ -114,7 +116,29 @@ namespace PharmacySystem.Repositories.UserRepository
 
         public void UpdateUser(UserModel user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    string query = "UPDATE employee SET full_name = @FullName, birth_year = @BirthYear, role = @Role WHERE username = @Username";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", user.Username);
+                        command.Parameters.AddWithValue("@FullName", user.FullName);
+                        command.Parameters.AddWithValue("@BirthYear", user.Birth_year);
+                        command.Parameters.AddWithValue("@Role", user.Role);
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while updating the user: {ex.Message}");
+                throw;
+            }
         }
+
     }
 }
