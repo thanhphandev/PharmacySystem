@@ -1,6 +1,6 @@
-﻿namespace PharmacySystem.Views
+﻿namespace PharmacySystem.Views.MainForm
 {
-    partial class LoginView
+    partial class MainView
     {
         /// <summary>
         /// Required designer variable.
@@ -34,20 +34,21 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(537, 66);
+            this.label1.Location = new System.Drawing.Point(344, 59);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 13);
+            this.label1.Size = new System.Drawing.Size(49, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Login Form";
+            this.label1.Text = "Xin chao";
             // 
-            // LoginView
+            // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.label1);
-            this.Name = "LoginView";
-            this.Text = "LoginView";
+            this.Name = "MainView";
+            this.ShowIcon = false;
+            this.Text = "Hệ thống quản lý thuốc, dược phẩm";
             this.ResumeLayout(false);
             this.PerformLayout();
 

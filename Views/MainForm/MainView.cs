@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PharmacySystem.Views
+namespace PharmacySystem.Views.MainForm
 {
-    public partial class LoginView : Form
+    public partial class MainView : Form
     {
-        public LoginView()
+        public MainView()
         {
             InitializeComponent();
         }
