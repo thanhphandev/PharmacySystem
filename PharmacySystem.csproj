@@ -100,7 +100,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\ModelDataValidation.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\SignupPresenter.cs" />
@@ -116,6 +115,13 @@
     </Compile>
     <Compile Include="Views\LoginForm\LoginView.Designer.cs">
       <DependentUpon>LoginView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainForm\IMainView.cs" />
+    <Compile Include="Views\MainForm\MainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MainForm\MainView.Designer.cs">
+      <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\RegisterForm\ISignupView.cs" />
     <Compile Include="Views\RegisterForm\SignupView.cs">
@@ -135,6 +141,9 @@
     </Compile>
     <EmbeddedResource Include="Views\LoginForm\LoginView.resx">
       <DependentUpon>LoginView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MainForm\MainView.resx">
+      <DependentUpon>MainView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\RegisterForm\SignupView.resx">
       <DependentUpon>SignupView.cs</DependentUpon>

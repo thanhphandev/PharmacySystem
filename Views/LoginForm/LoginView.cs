@@ -13,10 +13,11 @@ using PharmacySystem.Presenters;
 
 namespace PharmacySystem.Views
 {
+    
     public partial class LoginView : Form, ILoginView
     {
         
-        private string _connectionString;
+        private readonly string _connectionString;
 
         public LoginView(string connectionString)
         {
@@ -51,15 +52,19 @@ namespace PharmacySystem.Views
             }
         }
 
-
-        public event EventHandler Login;
         private void lkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             SignupView signupView = new SignupView(_connectionString);
             signupView.Show();
             this.Hide();
         }
+        public void CloseForm()
+        {
+            this.Hide();
+        }
 
+
+        public event EventHandler Login;
 
         private void label3_Click(object sender, EventArgs e)
         {

@@ -3,6 +3,7 @@ using PharmacySystem.Repositories.UserRepository;
 using PharmacySystem.Services;
 using PharmacySystem.Views;
 using PharmacySystem.Views.LoginForm;
+using PharmacySystem.Views.MainForm;
 using PharmacySystem.Views.RegisterForm;
 using System;
 using System.Collections.Generic;
@@ -35,22 +36,40 @@ namespace PharmacySystem.Presenters
 
         private void OnLogin(object sender, EventArgs e)
         {
-            //UserModel user = new UserModel
-            //{
-            //    Username = _loginView.Username,
-            //    Password = _loginView.Password
-            //};
+            if (string.IsNullOrWhiteSpace(_loginView.Username))
+            {
+                MessageBox.Show("Vui lòng nhập tên đăng nhập!", "Thông báo");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(_loginView.Password))
+            {
+                MessageBox.Show("Vui lòng nhập mật khẩu!", "Thông báo");
+                return;
+            }
+
 
             try
             {
-                //new Common.ModelDataValidation().Validate(user);
+                var accountExist = _authService.CheckAccountExist(_loginView.Username);
+                if(accountExist == null)
+                {
+                    MessageBox.Show("Tài khoản không tồn tại! vui lòng đăng ký", "Thông báo");
+                    return;
+                }
 
                 bool loginSucessfull = _authService.Login(_loginView.Username, _loginView.Password);
                 
                 if (loginSucessfull)
                 {
 
-                    MessageBox.Show("Đăng nhập thành công!", "Thông báo");
+                    var result = MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK);
+                    if(result == DialogResult.OK)
+                    {
+                        MainView mainView = new MainView();
+                        mainView.Show();
+                        _loginView.CloseForm();
+                    }
                 }
                 else
                 {
@@ -60,7 +79,7 @@ namespace PharmacySystem.Presenters
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Đăng nhập thất bại! Lỗi: {ex.Message}");
+                MessageBox.Show($"Đăng nhập thất bại! vui lòng liên hệ nhà cung cấp.\nLỗi: {ex.Message}");
             }
         }
     }

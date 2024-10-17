@@ -14,5 +14,6 @@ namespace PharmacySystem.Views.LoginForm
         string Password { get; set; }
 
         event EventHandler Login;
+        void CloseForm();
     }
 }

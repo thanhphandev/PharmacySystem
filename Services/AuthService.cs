@@ -36,15 +36,21 @@ namespace PharmacySystem.Services
 
         public bool Login(string username, string password)
         {
-            var user = _userRepository.GetUserByUsername(username);
-            // Kiểm tra xem user có tồn tại không
-            if (user == null)
-            {
-                return false;
-            }
+            var user  = CheckAccountExist(username);
+            
             bool isCorrectPassword = VerifyPassword(password, user.Password);
 
             return isCorrectPassword;
+        }
+
+        public UserModel CheckAccountExist(string username)
+        {
+            var user = _userRepository.GetUserByUsername(username);
+            if (user == null)
+            {
+                return null;
+            }
+            return user;
         }
 
         private string HashPassword(string password)

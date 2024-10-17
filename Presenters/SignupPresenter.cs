@@ -34,35 +34,75 @@ namespace PharmacySystem.Presenters
 
         private void OnSignup(object sender, EventArgs e)
         {
-            //UserModel user = new UserModel
-            //{
-            //    Username = _signupView.Username,
-            //    Password = _signupView.Password,
-            //    FullName = _signupView.FullName,
-            //    Birth_year = Convert.ToInt32(_signupView.BirthYear)
-            //};
+            
+            if (string.IsNullOrWhiteSpace(_signupView.Username))
+            {
+                MessageBox.Show("Vui lòng nhập tên đăng nhập!", "Thông báo");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(_signupView.Password))
+            {
+                MessageBox.Show("Vui lòng nhập mật khẩu!", "Thông báo");
+                return;
+            }
+            
+            if (string.IsNullOrWhiteSpace(_signupView.FullName))
+            {
+                MessageBox.Show("Vui lòng nhập mật khẩu!", "Thông báo");
+                return;
+            }
+            if (!IsStrongPassword(_signupView.Password))
+            {
+                MessageBox.Show("Mật khẩu phải từ 8 kí tự trở lên và chứa ít nhất 1 kí tự số!", "Thông báo");
+                return;
+            }
+
+            if (!int.TryParse(_signupView.BirthYear, out int birthYear) || birthYear < 1900 || birthYear > DateTime.Now.Year)
+            {
+                MessageBox.Show("Năm sinh không hợp lệ! Vui lòng nhập số hợp lệ.", "Thông báo");
+                return;
+            }
+
 
             try
             {
-                //new Common.ModelDataValidation().Validate(user);
+               
                 bool signupSuccessfull = _authService.Signup(_signupView.Username,
-                                                         _signupView.Password,
-                                                         _signupView.FullName,
-                                                         _signupView.BirthYear);
+                                                             _signupView.Password,
+                                                             _signupView.FullName, 
+                                                             _signupView.BirthYear);
                 if (signupSuccessfull)
                 {
-                    MessageBox.Show("Đăng ký thành công!", "Thông báo");
+                    var result = MessageBox.Show("Đăng ký thành công! Vui lòng đăng nhập", "Thông báo", MessageBoxButtons.OK);
+                    if (result == DialogResult.OK)
+                    {
+                        LoginView loginView = new LoginView(_connectionString);
+                        loginView.Show();
+                        _signupView.CloseForm();
+                    }
 
                 }
                 else
                 {
                     MessageBox.Show("Tên đăng nhập đã tồn tại!", "Thông báo");
                 }
+            
             } catch(Exception ex)
             {
-                MessageBox.Show($"Đăng ký thất bại do {ex.Message}");
+                MessageBox.Show($"Đăng ký thất bại! Vui lòng liên hệ nhà cung cấp\n {ex.Message}", "Cảnh báo");
             }
             
+        }
+
+        private bool IsStrongPassword(string password)
+        {
+            if (password.Length < 8)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

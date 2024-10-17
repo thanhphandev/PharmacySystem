@@ -48,7 +48,6 @@ namespace PharmacySystem.Views
             LoginView loginView = new LoginView(_connectionString);
             loginView.Show();
             this.Hide();
-
         }
 
         private void chkDisplayPassword_CheckedChanged_1(object sender, EventArgs e)
