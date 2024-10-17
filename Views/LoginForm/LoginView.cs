@@ -32,7 +32,14 @@ namespace PharmacySystem.Views
         private void AsscociateAndRaiseViewEvents()
         {
             btnLogin.Click += delegate { Login?.Invoke(this, EventArgs.Empty); };
-         
+            txtPassword.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    Login?.Invoke(this, EventArgs.Empty);
+                    e.SuppressKeyPress = true;;
+                }
+            };
         }
 
         public string Username { get => txtUsername.Text; set => txtUsername.Text = value; }

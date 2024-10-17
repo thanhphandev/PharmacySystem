@@ -17,9 +17,9 @@ namespace PharmacySystem.Presenters
     public class LoginPresenter
     {
        
-        private ILoginView _loginView;
-        private AuthService _authService;
-        private UserRepository _userRepository;
+        private readonly ILoginView _loginView;
+        private readonly AuthService _authService;
+        private readonly UserRepository _userRepository;
        
        
         public LoginPresenter(ILoginView loginView, string connectionString)
