@@ -16,6 +16,9 @@ namespace PharmacySystem.Models
         private int birth_year;
         private string role;
 
+        [DisplayName("ID")]
+        public int UserId { get; set; }
+
         [DisplayName("Họ và tên")]
         public string FullName { get => fullname; set => fullname = value; }
 

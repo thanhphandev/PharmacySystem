@@ -79,7 +79,7 @@ namespace PharmacySystem.Presenters
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Đăng nhập thất bại! vui lòng liên hệ nhà cung cấp.\nLỗi: {ex.Message}");
+                MessageBox.Show($"Đăng nhập thất bại! vui lòng liên hệ nhà cung cấp.\nLỗi: {ex.Message}", "Cảnh báo");
             }
         }
     }

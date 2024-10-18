@@ -65,6 +65,7 @@ namespace PharmacySystem.Repositories.UserRepository
                         {
                             UserModel user = new UserModel
                             {
+                                UserId = Convert.ToInt32(reader["id"]),
                                 Username = reader["username"].ToString(),
                                 FullName = reader["full_name"].ToString(),
                                 Birth_year = Convert.ToInt32(reader["birth_year"]),
@@ -85,7 +86,7 @@ namespace PharmacySystem.Repositories.UserRepository
 
             using (var connection = new MySqlConnection(connectionString))
             {
-                string query = "SELECT username, password, full_Name, birth_year, role  FROM employee WHERE username = @Username";
+                string query = "SELECT id, username, password, full_Name, birth_year, role  FROM employee WHERE username = @Username";
 
                 using (var command = new MySqlCommand(query, connection))
                 {
@@ -99,6 +100,7 @@ namespace PharmacySystem.Repositories.UserRepository
                         {
                             user = new UserModel
                             {
+                                UserId = Convert.ToInt32(reader["id"]),
                                 Username = reader["username"].ToString(),
                                 Password = reader["password"].ToString(),
                                 FullName = reader["full_name"].ToString(),

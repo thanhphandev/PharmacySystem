@@ -54,7 +54,7 @@ namespace PharmacySystem.Presenters
             }
             if (!IsStrongPassword(_signupView.Password))
             {
-                MessageBox.Show("Mật khẩu phải từ 8 kí tự trở lên và chứa ít nhất 1 kí tự số!", "Thông báo");
+                MessageBox.Show("Mật khẩu phải từ 8 kí tự trở lên và chứa tối thiểu 1 kí tự số, kí tự đặc biệt, in hoa!", "Thông báo");
                 return;
             }
 
