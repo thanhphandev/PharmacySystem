@@ -72,6 +72,16 @@ namespace PharmacySystem.Services
             return isCorrectPassword;
         }
 
+        public void Logout()
+        {
+            UserSession.UserId = 0;
+            UserSession.Username = string.Empty;
+            UserSession.FullName = string.Empty;
+            UserSession.BirthYear = 0;
+            UserSession.Role = string.Empty;
+            UserSession.LoginTime = DateTime.MinValue;
+        }
+
 
         private string HashPassword(string password)
         {

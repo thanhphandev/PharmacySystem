@@ -20,12 +20,14 @@ namespace PharmacySystem.Presenters
         private readonly ILoginView _loginView;
         private readonly AuthService _authService;
         private readonly UserRepository _userRepository;
+        private readonly string _connectionString;
        
        
         public LoginPresenter(ILoginView loginView, string connectionString)
         {
            
             _loginView = loginView;
+            _connectionString = connectionString;
 
             _loginView.Login += OnLogin;
 
@@ -66,7 +68,7 @@ namespace PharmacySystem.Presenters
                     var result = MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK);
                     if(result == DialogResult.OK)
                     {
-                        MainView mainView = new MainView();
+                        MainView mainView = new MainView(_connectionString);
                         mainView.Show();
                         _loginView.CloseForm();
                     }

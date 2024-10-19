@@ -8,5 +8,8 @@ namespace PharmacySystem.Views.MainForm
 {
     public interface IMainView
     {
+        event EventHandler Logout;
+        event EventHandler ShowDashboard;
+        void CloseForm();
     }
 }

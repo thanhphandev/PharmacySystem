@@ -52,6 +52,14 @@ namespace PharmacySystem.Presenters
                 MessageBox.Show("Vui lòng nhập mật khẩu!", "Thông báo");
                 return;
             }
+
+            if (_signupView.FullName.Length > 20)
+            {
+                MessageBox.Show("Vui lòng viết gọn họ và tên!", "Thông báo");
+                return;
+            }
+
+
             if (!IsStrongPassword(_signupView.Password))
             {
                 MessageBox.Show("Mật khẩu phải từ 8 kí tự trở lên và chứa tối thiểu 1 kí tự số, kí tự đặc biệt, in hoa!", "Thông báo");

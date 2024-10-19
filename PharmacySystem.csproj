@@ -106,6 +106,7 @@
     <Compile Include="Models\MedicineGroupModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
+    <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Presenters\SignupPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -116,6 +117,12 @@
     <Compile Include="Repositories\UserRepository\UserRepository.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\UserSession.cs" />
+    <Compile Include="Views\DashboardForm\DashboardView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\DashboardForm\DashboardView.Designer.cs">
+      <DependentUpon>DashboardView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginForm\ILoginView.cs" />
     <Compile Include="Views\LoginForm\LoginView.cs">
       <SubType>Form</SubType>
@@ -145,7 +152,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\DashboardForm\DashboardView.resx">
+      <DependentUpon>DashboardView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\LoginForm\LoginView.resx">
       <DependentUpon>LoginView.cs</DependentUpon>
     </EmbeddedResource>
@@ -169,6 +180,26 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\online-pharmacy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logout1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dashboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pill.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pharmacy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\DashboardForm\UIComponent\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
