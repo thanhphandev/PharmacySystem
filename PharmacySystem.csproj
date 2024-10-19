@@ -105,6 +105,7 @@
   <ItemGroup>
     <Compile Include="Models\MedicineGroupModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Presenters\DashboardPresenter.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Presenters\SignupPresenter.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Views\DashboardForm\DashboardView.Designer.cs">
       <DependentUpon>DashboardView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\DashboardForm\IDashboard.cs" />
     <Compile Include="Views\LoginForm\ILoginView.cs" />
     <Compile Include="Views\LoginForm\LoginView.cs">
       <SubType>Form</SubType>
@@ -200,6 +202,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\DashboardForm\UIComponent\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home-button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bg-login.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bg-signup.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\power.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
