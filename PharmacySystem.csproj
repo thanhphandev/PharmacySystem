@@ -108,6 +108,7 @@
     <Compile Include="Presenters\DashboardPresenter.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
+    <Compile Include="Presenters\MedicineGroupPresenter.cs" />
     <Compile Include="Presenters\SignupPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -157,6 +158,8 @@
     <Compile Include="Views\MainForm\MainView.Designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\MedicineCategoryForm\IMedicineCategoryView.cs" />
+    <Compile Include="Views\MedicineCategoryForm\IMedicineGroupAddForm.cs" />
     <Compile Include="Views\MedicineCategoryForm\MedicineCategoryAddForm.cs">
       <SubType>Form</SubType>
     </Compile>

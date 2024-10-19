@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.MedicineGroupDataGrid = new System.Windows.Forms.DataGridView();
             this.dgvIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvEdit = new System.Windows.Forms.DataGridViewImageColumn();
             this.dgvDelete = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MedicineGroupDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // txtHeader
@@ -47,23 +47,26 @@
             // 
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // dataGridView1
+            // MedicineGroupDataGrid
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.MedicineGroupDataGrid.AllowUserToAddRows = false;
+            this.MedicineGroupDataGrid.AllowUserToDeleteRows = false;
+            this.MedicineGroupDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MedicineGroupDataGrid.BackgroundColor = System.Drawing.Color.White;
+            this.MedicineGroupDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.MedicineGroupDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgvIndex,
             this.dgvCode,
             this.dgvName,
             this.dgvEdit,
             this.dgvDelete});
-            this.dataGridView1.Location = new System.Drawing.Point(46, 149);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(722, 322);
-            this.dataGridView1.TabIndex = 5;
+            this.MedicineGroupDataGrid.Location = new System.Drawing.Point(46, 149);
+            this.MedicineGroupDataGrid.Name = "MedicineGroupDataGrid";
+            this.MedicineGroupDataGrid.ReadOnly = true;
+            this.MedicineGroupDataGrid.Size = new System.Drawing.Size(722, 326);
+            this.MedicineGroupDataGrid.TabIndex = 5;
             // 
             // dgvIndex
             // 
@@ -115,14 +118,14 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(820, 500);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.MedicineGroupDataGrid);
             this.Name = "MedicineCategoryView";
             this.Text = "";
             this.Controls.SetChildIndex(this.btnAdd, 0);
-            this.Controls.SetChildIndex(this.dataGridView1, 0);
+            this.Controls.SetChildIndex(this.MedicineGroupDataGrid, 0);
             this.Controls.SetChildIndex(this.txtHeader, 0);
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MedicineGroupDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -130,7 +133,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView MedicineGroupDataGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvIndex;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvName;

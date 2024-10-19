@@ -15,10 +15,12 @@ namespace PharmacySystem.Views.DashboardForm
 {
     public partial class DashboardView : Form, IDashboard
     {
+        private readonly string _connectionString;
         public DashboardView(string connectionString)
         {
             InitializeComponent();
             new DashboardPresenter(this, connectionString);
+            _connectionString = connectionString;
             btnMain.Click += delegate { ShowMainView?.Invoke(this, EventArgs.Empty); };
             this.Load += new EventHandler(LoadUserData);
         }
@@ -52,7 +54,7 @@ namespace PharmacySystem.Views.DashboardForm
 
         private void btnCategory_Click(object sender, EventArgs e)
         {
-            MedicineCategoryView view = new MedicineCategoryView();
+            MedicineCategoryView view = new MedicineCategoryView(_connectionString);
             AddControls(view);
         }
 
