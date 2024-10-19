@@ -18,20 +18,40 @@ namespace PharmacySystem.Views.DashboardForm
         {
             InitializeComponent();
             new DashboardPresenter(this, connectionString);
-            btnHome.Click += delegate { ShowMainView?.Invoke(this, EventArgs.Empty); };
+            btnMain.Click += delegate { ShowMainView?.Invoke(this, EventArgs.Empty); };
             this.Load += new EventHandler(LoadUserData);
         }
 
         private void LoadUserData(object sender, EventArgs e)
         {
             lbuser.Text = $"Xin chào, {UserSession.FullName}\nBạn đang đăng nhập với vai trò là {UserSession.Role}";
+            HomeUI homeUI = new HomeUI();
+            AddControls(homeUI);
         }
-
-        public event EventHandler ShowMainView;
 
         public void CloseForm()
         {
             this.Hide();
         }
+
+        public void AddControls(Form form)
+        {
+            ControlsPanel.Controls.Clear();
+            form.Dock = DockStyle.Fill;
+            form.TopLevel = false;
+            ControlsPanel.Controls.Add(form);
+            form.Show();
+        }
+
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
+            HomeUI homeUI = new HomeUI();
+            AddControls(homeUI);
+        }
+
+
+        public event EventHandler ShowMainView;
+
+        
     }
 }
