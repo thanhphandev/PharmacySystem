@@ -41,6 +41,15 @@
             this.label1.Size = new System.Drawing.Size(119, 20);
             this.label1.Text = "Thêm loại thuốc";
             // 
+            // btnClose
+            // 
+            this.btnClose.FlatAppearance.BorderColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.FlatAppearance.BorderColor = System.Drawing.Color.DarkTurquoise;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
