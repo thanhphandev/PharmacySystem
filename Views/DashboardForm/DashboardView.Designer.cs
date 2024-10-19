@@ -138,6 +138,7 @@
             this.btnCategory.TabIndex = 2;
             this.btnCategory.Text = "Loại thuốc";
             this.btnCategory.UseVisualStyleBackColor = false;
+            this.btnCategory.Click += new System.EventHandler(this.btnCategory_Click);
             // 
             // btnDashboard
             // 

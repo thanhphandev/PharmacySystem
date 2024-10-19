@@ -1,5 +1,6 @@
 ﻿using PharmacySystem.Presenters;
 using PharmacySystem.Services;
+using PharmacySystem.Views.MedicineCategoryForm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,6 +48,12 @@ namespace PharmacySystem.Views.DashboardForm
         {
             HomeUI homeUI = new HomeUI();
             AddControls(homeUI);
+        }
+
+        private void btnCategory_Click(object sender, EventArgs e)
+        {
+            MedicineCategoryView view = new MedicineCategoryView();
+            AddControls(view);
         }
 
 

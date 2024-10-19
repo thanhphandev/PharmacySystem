@@ -118,6 +118,18 @@
     <Compile Include="Repositories\UserRepository\UserRepository.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\UserSession.cs" />
+    <Compile Include="Views\DashboardForm\BaseForm\BaseAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\DashboardForm\BaseForm\BaseAddForm.Designer.cs">
+      <DependentUpon>BaseAddForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DashboardForm\BaseForm\BaseManagementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\DashboardForm\BaseForm\BaseManagementForm.Designer.cs">
+      <DependentUpon>BaseManagementForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\DashboardForm\DashboardView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +157,18 @@
     <Compile Include="Views\MainForm\MainView.Designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\MedicineCategoryForm\MedicineCategoryAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MedicineCategoryForm\MedicineCategoryAddForm.Designer.cs">
+      <DependentUpon>MedicineCategoryAddForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MedicineCategoryForm\MedicineCategoryView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MedicineCategoryForm\MedicineCategoryView.Designer.cs">
+      <DependentUpon>MedicineCategoryView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\RegisterForm\ISignupView.cs" />
     <Compile Include="Views\RegisterForm\SignupView.cs">
       <SubType>Form</SubType>
@@ -162,6 +186,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\DashboardForm\BaseForm\BaseAddForm.resx">
+      <DependentUpon>BaseAddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DashboardForm\BaseForm\BaseManagementForm.resx">
+      <DependentUpon>BaseManagementForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\DashboardForm\DashboardView.resx">
       <DependentUpon>DashboardView.cs</DependentUpon>
     </EmbeddedResource>
@@ -173,6 +203,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainForm\MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MedicineCategoryForm\MedicineCategoryAddForm.resx">
+      <DependentUpon>MedicineCategoryAddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MedicineCategoryForm\MedicineCategoryView.resx">
+      <DependentUpon>MedicineCategoryView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\RegisterForm\SignupView.resx">
       <DependentUpon>SignupView.cs</DependentUpon>
@@ -210,7 +246,7 @@
     <None Include="Resources\pharmacy.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\DashboardForm\UIComponent\" />
+    <None Include="Resources\add-button.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\home-button.png" />
@@ -223,6 +259,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\power.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pencil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
