@@ -105,6 +105,7 @@
   <ItemGroup>
     <Compile Include="Models\MedicineGroupModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Presenters\DashboardPresenter.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Presenters\SignupPresenter.cs" />
@@ -117,12 +118,31 @@
     <Compile Include="Repositories\UserRepository\UserRepository.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\UserSession.cs" />
+    <Compile Include="Views\DashboardForm\BaseForm\BaseAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\DashboardForm\BaseForm\BaseAddForm.Designer.cs">
+      <DependentUpon>BaseAddForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DashboardForm\BaseForm\BaseManagementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\DashboardForm\BaseForm\BaseManagementForm.Designer.cs">
+      <DependentUpon>BaseManagementForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\DashboardForm\DashboardView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\DashboardForm\DashboardView.Designer.cs">
       <DependentUpon>DashboardView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\DashboardForm\HomeUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\DashboardForm\HomeUI.Designer.cs">
+      <DependentUpon>HomeUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DashboardForm\IDashboard.cs" />
     <Compile Include="Views\LoginForm\ILoginView.cs" />
     <Compile Include="Views\LoginForm\LoginView.cs">
       <SubType>Form</SubType>
@@ -136,6 +156,18 @@
     </Compile>
     <Compile Include="Views\MainForm\MainView.Designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MedicineCategoryForm\MedicineCategoryAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MedicineCategoryForm\MedicineCategoryAddForm.Designer.cs">
+      <DependentUpon>MedicineCategoryAddForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MedicineCategoryForm\MedicineCategoryView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MedicineCategoryForm\MedicineCategoryView.Designer.cs">
+      <DependentUpon>MedicineCategoryView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\RegisterForm\ISignupView.cs" />
     <Compile Include="Views\RegisterForm\SignupView.cs">
@@ -154,14 +186,29 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\DashboardForm\BaseForm\BaseAddForm.resx">
+      <DependentUpon>BaseAddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DashboardForm\BaseForm\BaseManagementForm.resx">
+      <DependentUpon>BaseManagementForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\DashboardForm\DashboardView.resx">
       <DependentUpon>DashboardView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DashboardForm\HomeUI.resx">
+      <DependentUpon>HomeUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\LoginForm\LoginView.resx">
       <DependentUpon>LoginView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainForm\MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MedicineCategoryForm\MedicineCategoryAddForm.resx">
+      <DependentUpon>MedicineCategoryAddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MedicineCategoryForm\MedicineCategoryView.resx">
+      <DependentUpon>MedicineCategoryView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\RegisterForm\SignupView.resx">
       <DependentUpon>SignupView.cs</DependentUpon>
@@ -199,7 +246,28 @@
     <None Include="Resources\pharmacy.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\DashboardForm\UIComponent\" />
+    <None Include="Resources\add-button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home-button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bg-login.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bg-signup.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\power.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pencil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

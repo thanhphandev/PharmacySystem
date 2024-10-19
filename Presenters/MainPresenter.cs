@@ -34,7 +34,7 @@ namespace PharmacySystem.Presenters
 
         private void OnShowDashboard(object sender, EventArgs e)
         {
-            DashboardView dashboardView = new DashboardView();
+            DashboardView dashboardView = new DashboardView(_connectionString);
             dashboardView.Show();
             _mainView.CloseForm();
         }

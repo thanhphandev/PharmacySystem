@@ -65,6 +65,11 @@ namespace PharmacySystem.Views
             signupView.Show();
             this.Hide();
         }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
         public void CloseForm()
         {
             this.Hide();
@@ -72,11 +77,6 @@ namespace PharmacySystem.Views
 
 
         public event EventHandler Login;
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
 
         
     }
