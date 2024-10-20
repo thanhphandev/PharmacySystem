@@ -73,6 +73,7 @@
             // 
             // txtContent
             // 
+            this.txtContent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtContent.Location = new System.Drawing.Point(49, 220);
             this.txtContent.Name = "txtContent";
             this.txtContent.Size = new System.Drawing.Size(403, 66);
@@ -115,7 +116,7 @@
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MedicineCategoryAddForm";
-            this.Text = "MedicineCategoryAddForm";
+            this.Text = "Hệ thống quản lý nhà thuốc";
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.label5, 0);
             this.Controls.SetChildIndex(this.label3, 0);

@@ -31,6 +31,7 @@ namespace PharmacySystem.Presenters
 
         private void OnRefreshData(object sender, EventArgs e)
         {
+            _medicineCategoryView.TextSearch = string.Empty;
             LoadData();
         }
 
@@ -39,6 +40,7 @@ namespace PharmacySystem.Presenters
             try
             {
                 List<MedicineGroupModel> medicineGroups = _repository.GetAllMedicineGroups();
+
                 _medicineCategoryView.DisplayMedicineGroups(medicineGroups);
             }
             catch (Exception ex)
@@ -46,6 +48,7 @@ namespace PharmacySystem.Presenters
                 MessageBox.Show($"Error loading data: {ex.Message}");
             }
         }
+
 
         private void OnAddData(object sender, EventArgs e)
         {
@@ -90,11 +93,11 @@ namespace PharmacySystem.Presenters
 
             try
             {
-                
+
                 MedicineCategoryAddForm view = new MedicineCategoryAddForm(_connectionString)
                 {
-                    GroupCode = currentMedicineGroup.GroupCode, 
-                    GroupName = currentMedicineGroup.GroupName, 
+                    GroupCode = currentMedicineGroup.GroupCode,
+                    GroupName = currentMedicineGroup.GroupName,
                     Content = currentMedicineGroup.Description,
                     IsEditMode = true
                 };
@@ -104,7 +107,7 @@ namespace PharmacySystem.Presenters
                 {
                     string oldGroupCode = currentMedicineGroup.GroupCode;
 
-                    
+
                     currentMedicineGroup.GroupCode = view.GroupCode.Trim();
                     currentMedicineGroup.GroupName = view.GroupName.Trim();
                     currentMedicineGroup.Description = view.Content.Trim();
@@ -113,7 +116,7 @@ namespace PharmacySystem.Presenters
 
                     MessageBox.Show("Nhóm thuốc đã được cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     view.CloseForm();
-                    LoadData(); 
+                    LoadData();
                 };
 
                 view.ShowDialog();
@@ -123,7 +126,6 @@ namespace PharmacySystem.Presenters
                 MessageBox.Show($"Error updating data: {ex.Message}");
             }
         }
-
 
 
         private void OnDeleteData(object sender, EventArgs e)
@@ -140,6 +142,32 @@ namespace PharmacySystem.Presenters
                 LoadData();
             }
         }
+
+        public void SearchMedicineGroups(string searchText)
+        {
+            try
+            {
+               
+                List<MedicineGroupModel> allMedicineGroups = _repository.GetAllMedicineGroups();
+
+                
+                var filteredMedicineGroups = allMedicineGroups
+                    .Where(mg => mg.GroupCode.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                 mg.GroupName.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                 mg.Description.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0)
+                    .ToList();
+
+                _medicineCategoryView.DisplayMedicineGroups(filteredMedicineGroups);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error searching data: {ex.Message}");
+            }
+        }
+
+        
+
+
     }
 
 }

@@ -91,7 +91,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
             MedicineGroupModel medicineGroup = new MedicineGroupModel();
             using (var connection = new MySqlConnection(connectionString))
             {
-                string query = "SELECT * FROM medicine_group WHERE group_code = @GroupCode";
+                string query = "SELECT group_code, group_name, group_content FROM medicine_group WHERE group_code = @GroupCode";
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("GroupCode", groupCode);
