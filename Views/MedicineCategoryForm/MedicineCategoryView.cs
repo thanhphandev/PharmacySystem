@@ -18,12 +18,17 @@ namespace PharmacySystem.Views.MedicineCategoryForm
     {
         private readonly string _connectionString;
 
+
         public event EventHandler LoadData;
 
         public event EventHandler UpdateData;
         public event EventHandler DeleteData;
         public event EventHandler AddData;
         public event EventHandler RefreshData;
+        public string TextSearch {
+            get => txtSearch.Text;
+            set => txtSearch.Text = value; 
+        }
 
         public MedicineCategoryView(string connectionString)
         {
@@ -41,7 +46,19 @@ namespace PharmacySystem.Views.MedicineCategoryForm
             {
                 RefreshData?.Invoke(this, EventArgs.Empty);
             };
-            
+
+            txtSearch.TextChanged += (s, e) =>
+            {
+                if (!string.IsNullOrWhiteSpace(TextSearch))
+                {
+                    presenter.SearchMedicineGroups(TextSearch);
+                }
+                else
+                {
+                    presenter.LoadData();
+                }
+            };
+
 
         }
 
