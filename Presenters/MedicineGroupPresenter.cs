@@ -8,7 +8,6 @@ using System;
 public class MedicineGroupPresenter
 {
     private readonly IMedicineGroupAddForm _medicineGroupAddForm;
-    private readonly IMedicineCategoryView _medicineCategoryView;
     private readonly string _connectionString;
     private readonly MedicineGroupRepository _medicineGroupRepository;
 
@@ -41,11 +40,6 @@ public class MedicineGroupPresenter
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(_medicineGroupAddForm.Content))
-        {
-            MessageBox.Show("Mô tả nhóm thuốc không được để trống", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            return;
-        }
 
         try
         {
@@ -57,6 +51,7 @@ public class MedicineGroupPresenter
 
             ClearData();
             MessageBox.Show("Nhóm thuốc đã được thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            _medicineGroupAddForm.CloseForm();
         }
         catch (Exception ex)
         {

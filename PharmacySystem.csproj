@@ -109,6 +109,7 @@
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Presenters\MedicineGroupPresenter.cs" />
+    <Compile Include="Presenters\MedicineGroupViewPresenter.cs" />
     <Compile Include="Presenters\SignupPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

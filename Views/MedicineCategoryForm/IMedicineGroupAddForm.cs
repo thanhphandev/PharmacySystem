@@ -11,6 +11,8 @@ namespace PharmacySystem.Views.MedicineCategoryForm
         string GroupCode { get; set; }
         string GroupName { get; set; }
         string Content { get; set; }
+        void CloseForm();
         event EventHandler AddMedicineGroup;
+       
     }
 }

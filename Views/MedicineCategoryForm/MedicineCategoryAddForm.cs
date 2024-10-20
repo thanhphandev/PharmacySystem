@@ -24,6 +24,7 @@ namespace PharmacySystem.Views.MedicineCategoryForm
             {
                 AddMedicineGroup?.Invoke(this, EventArgs.Empty);
             };
+
         }
 
         public string GroupCode { get => txtCode.Text; set => txtCode.Text = value; }
@@ -32,9 +33,14 @@ namespace PharmacySystem.Views.MedicineCategoryForm
 
         public event EventHandler AddMedicineGroup;
 
-        private void btnClose_Click(object sender, EventArgs e)
+        public void CloseForm()
         {
             this.Close();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            CloseForm();
         }
     }
 }

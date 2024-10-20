@@ -58,7 +58,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
             
         }
 
-        public IEnumerable<MedicineGroupModel> GetAllMedicineGroups()
+        public List<MedicineGroupModel> GetAllMedicineGroups()
         {
             List<MedicineGroupModel> medicineGroups = new List<MedicineGroupModel>();
             using (var connection = new MySqlConnection(connectionString))
