@@ -29,12 +29,15 @@
         private void InitializeComponent()
         {
             this.MedicineGroupDataGrid = new System.Windows.Forms.DataGridView();
-            this.dgvIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvEdit = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dgvDelete = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GroupCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GroupName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Edit = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearch)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MedicineGroupDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,76 +46,84 @@
             this.txtHeader.Size = new System.Drawing.Size(167, 20);
             this.txtHeader.Text = "Danh sách nhóm thuốc";
             // 
-            // btnAdd
-            // 
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
             // MedicineGroupDataGrid
             // 
             this.MedicineGroupDataGrid.AllowUserToAddRows = false;
             this.MedicineGroupDataGrid.AllowUserToDeleteRows = false;
+            this.MedicineGroupDataGrid.AllowUserToOrderColumns = true;
+            this.MedicineGroupDataGrid.AllowUserToResizeColumns = false;
             this.MedicineGroupDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.MedicineGroupDataGrid.BackgroundColor = System.Drawing.Color.White;
+            this.MedicineGroupDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.MedicineGroupDataGrid.BackgroundColor = System.Drawing.Color.MintCream;
+            this.MedicineGroupDataGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.MedicineGroupDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MedicineGroupDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dgvIndex,
-            this.dgvCode,
-            this.dgvName,
-            this.dgvEdit,
-            this.dgvDelete});
+            this.Index,
+            this.GroupCode,
+            this.GroupName,
+            this.Description,
+            this.Edit,
+            this.Delete});
             this.MedicineGroupDataGrid.Location = new System.Drawing.Point(46, 149);
             this.MedicineGroupDataGrid.Name = "MedicineGroupDataGrid";
             this.MedicineGroupDataGrid.ReadOnly = true;
-            this.MedicineGroupDataGrid.Size = new System.Drawing.Size(722, 326);
+            this.MedicineGroupDataGrid.RowTemplate.Height = 30;
+            this.MedicineGroupDataGrid.Size = new System.Drawing.Size(727, 295);
             this.MedicineGroupDataGrid.TabIndex = 5;
+            this.MedicineGroupDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MedicineGroupDataGrid_CellClick);
             // 
-            // dgvIndex
+            // Index
             // 
-            this.dgvIndex.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvIndex.FillWeight = 70F;
-            this.dgvIndex.HeaderText = "#";
-            this.dgvIndex.MinimumWidth = 70;
-            this.dgvIndex.Name = "dgvIndex";
-            this.dgvIndex.ReadOnly = true;
-            this.dgvIndex.Width = 70;
+            this.Index.FillWeight = 20.46119F;
+            this.Index.HeaderText = "#";
+            this.Index.Name = "Index";
+            this.Index.ReadOnly = true;
             // 
-            // dgvCode
+            // GroupCode
             // 
-            this.dgvCode.HeaderText = "Code";
-            this.dgvCode.Name = "dgvCode";
-            this.dgvCode.ReadOnly = true;
+            this.GroupCode.FillWeight = 31.19418F;
+            this.GroupCode.HeaderText = "Mã nhóm";
+            this.GroupCode.MinimumWidth = 10;
+            this.GroupCode.Name = "GroupCode";
+            this.GroupCode.ReadOnly = true;
             // 
-            // dgvName
+            // GroupName
             // 
-            this.dgvName.HeaderText = "Tên nhóm thuốc";
-            this.dgvName.Name = "dgvName";
-            this.dgvName.ReadOnly = true;
+            this.GroupName.FillWeight = 94.99576F;
+            this.GroupName.HeaderText = "Tên nhóm";
+            this.GroupName.MinimumWidth = 50;
+            this.GroupName.Name = "GroupName";
+            this.GroupName.ReadOnly = true;
             // 
-            // dgvEdit
+            // Description
             // 
-            this.dgvEdit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvEdit.FillWeight = 50F;
-            this.dgvEdit.HeaderText = "";
-            this.dgvEdit.Image = global::PharmacySystem.Properties.Resources.pencil;
-            this.dgvEdit.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
-            this.dgvEdit.MinimumWidth = 50;
-            this.dgvEdit.Name = "dgvEdit";
-            this.dgvEdit.ReadOnly = true;
-            this.dgvEdit.Width = 50;
+            this.Description.FillWeight = 104.9512F;
+            this.Description.HeaderText = "Mô tả";
+            this.Description.MinimumWidth = 60;
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
             // 
-            // dgvDelete
+            // Edit
             // 
-            this.dgvDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvDelete.FillWeight = 50F;
-            this.dgvDelete.HeaderText = "";
-            this.dgvDelete.Image = global::PharmacySystem.Properties.Resources.delete;
-            this.dgvDelete.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
-            this.dgvDelete.MinimumWidth = 50;
-            this.dgvDelete.Name = "dgvDelete";
-            this.dgvDelete.ReadOnly = true;
-            this.dgvDelete.Width = 50;
+            this.Edit.FillWeight = 19.63931F;
+            this.Edit.HeaderText = "";
+            this.Edit.Image = global::PharmacySystem.Properties.Resources.pencil;
+            this.Edit.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
+            this.Edit.MinimumWidth = 15;
+            this.Edit.Name = "Edit";
+            this.Edit.ReadOnly = true;
+            // 
+            // Delete
+            // 
+            this.Delete.FillWeight = 20F;
+            this.Delete.HeaderText = "";
+            this.Delete.Image = global::PharmacySystem.Properties.Resources.delete;
+            this.Delete.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
+            this.Delete.MinimumWidth = 15;
+            this.Delete.Name = "Delete";
+            this.Delete.ReadOnly = true;
             // 
             // MedicineCategoryView
             // 
@@ -121,10 +132,15 @@
             this.Controls.Add(this.MedicineGroupDataGrid);
             this.Name = "MedicineCategoryView";
             this.Text = "";
+            this.Controls.SetChildIndex(this.txtSearch, 0);
+            this.Controls.SetChildIndex(this.btnSearch, 0);
+            this.Controls.SetChildIndex(this.btnRefresh, 0);
             this.Controls.SetChildIndex(this.btnAdd, 0);
             this.Controls.SetChildIndex(this.MedicineGroupDataGrid, 0);
             this.Controls.SetChildIndex(this.txtHeader, 0);
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearch)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MedicineGroupDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -134,10 +150,11 @@
         #endregion
 
         private System.Windows.Forms.DataGridView MedicineGroupDataGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvIndex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCode;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvName;
-        private System.Windows.Forms.DataGridViewImageColumn dgvEdit;
-        private System.Windows.Forms.DataGridViewImageColumn dgvDelete;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Index;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GroupCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GroupName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewImageColumn Edit;
+        private System.Windows.Forms.DataGridViewImageColumn Delete;
     }
 }

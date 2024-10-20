@@ -44,7 +44,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
 
         public void DeleteMedicineGroup(string groupCode)
         {
-           using (var connection = new MySqlConnection())
+           using (var connection = new MySqlConnection(connectionString))
            {
                 string query = "DELETE FROM medicine_group WHERE group_code =@GroupCode";
                 using (var command = new MySqlCommand(query, connection))
@@ -58,7 +58,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
             
         }
 
-        public IEnumerable<MedicineGroupModel> GetAllMedicineGroups()
+        public List<MedicineGroupModel> GetAllMedicineGroups()
         {
             List<MedicineGroupModel> medicineGroups = new List<MedicineGroupModel>();
             using (var connection = new MySqlConnection(connectionString))
@@ -110,9 +110,38 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
             return medicineGroup;
         }
 
-        public void UpdateMedicineGroup(MedicineGroupModel medicineCategory)
+        public void UpdateMedicineGroup(string oldGroupCode, MedicineGroupModel updatedMedicineGroup)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    string query = @"UPDATE medicine_group 
+                             SET group_code = @NewGroupCode, group_name = @GroupName, group_content = @GroupContent 
+                             WHERE group_code = @OldGroupCode";
+
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        
+                        command.Parameters.AddWithValue("@NewGroupCode", updatedMedicineGroup.GroupCode);
+                        command.Parameters.AddWithValue("@GroupName", updatedMedicineGroup.GroupName);
+                        command.Parameters.AddWithValue("@GroupContent", updatedMedicineGroup.Description);
+
+                        
+                        command.Parameters.AddWithValue("@OldGroupCode", oldGroupCode);
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while updating the group: {ex.Message}");
+                throw;
+            }
         }
+
+
     }
 }

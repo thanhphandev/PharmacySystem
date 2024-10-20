@@ -41,7 +41,7 @@ namespace PharmacySystem.Presenters
 
         private void OnLogout(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("Bạn có muốn đăng xuất?!", "Thông báo", MessageBoxButtons.YesNo);
+            var result = MessageBox.Show("Bạn có muốn đăng xuất?!", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.No)
             {
                 return;

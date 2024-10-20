@@ -10,9 +10,9 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
     public interface IMedicineGroup
     {
         MedicineGroupModel GetMedicineGroupByCode(string code);
-        IEnumerable<MedicineGroupModel> GetAllMedicineGroups();
+        List<MedicineGroupModel> GetAllMedicineGroups();
         void AddMedicineGroup(MedicineGroupModel medicineGroup);
-        void UpdateMedicineGroup(MedicineGroupModel medicineGroup);
+        void UpdateMedicineGroup(string oldGroupCode, MedicineGroupModel updatedMedicineGroup);
         void DeleteMedicineGroup(string code);
     }
 }

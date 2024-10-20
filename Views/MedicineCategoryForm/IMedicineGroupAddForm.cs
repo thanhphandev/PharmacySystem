@@ -8,9 +8,15 @@ namespace PharmacySystem.Views.MedicineCategoryForm
 {
     public interface IMedicineGroupAddForm
     {
+        string LabelHeader { get; set; }
         string GroupCode { get; set; }
         string GroupName { get; set; }
+        bool IsEditMode { get; set; }
         string Content { get; set; }
+
+        void CloseForm();
         event EventHandler AddMedicineGroup;
+        event EventHandler UpdateMedicineGroup;
+       
     }
 }
