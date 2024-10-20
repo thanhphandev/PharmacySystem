@@ -29,23 +29,30 @@ namespace PharmacySystem.Views.MedicineCategoryForm
            
             InitializeComponent();
             _connectionString = connectionString;
-            var presenter = new MedicineGroupViewPresenter(this, connectionString);
+            var presenter = new MedicineGroupViewPresenter(this, _connectionString);
             presenter.LoadData();
             btnAdd.Click += delegate
             {
                 AddData?.Invoke(this, EventArgs.Empty);
             };
-           
-            //btnUpdate.Click += (s, e) => UpdateData?.Invoke(s, e);
-            //btnDelete.Click += (s, e) => DeleteData?.Invoke(s, e);
+            
 
         }
 
 
         public void DisplayMedicineGroups(List<MedicineGroupModel> medicineGroups)
         {
-            MedicineGroupDataGrid.DataSource = null;
-            MedicineGroupDataGrid.DataSource = medicineGroups;
+            MedicineGroupDataGrid.Rows.Clear();
+            
+            foreach (var medicineGroup in medicineGroups)
+            {
+                MedicineGroupDataGrid.Rows.Add(
+                    medicineGroups.IndexOf(medicineGroup) + 1,
+                    medicineGroup.GroupCode,
+                    medicineGroup.GroupName,
+                    medicineGroup.Description
+                    );
+            }
 
         }
 
@@ -73,7 +80,17 @@ namespace PharmacySystem.Views.MedicineCategoryForm
             }
         }
 
+        private void MedicineGroupDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(MedicineGroupDataGrid.CurrentCell.OwningColumn.Name == "Edit")
+            {
+                UpdateData?.Invoke(this, EventArgs.Empty);
+            }
 
-
+            if (MedicineGroupDataGrid.CurrentCell.OwningColumn.Name == "Delete")
+            {
+                DeleteData?.Invoke(this, EventArgs.Empty);
+            }
+        }
     }
 }

@@ -44,7 +44,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
 
         public void DeleteMedicineGroup(string groupCode)
         {
-           using (var connection = new MySqlConnection())
+           using (var connection = new MySqlConnection(connectionString))
            {
                 string query = "DELETE FROM medicine_group WHERE group_code =@GroupCode";
                 using (var command = new MySqlCommand(query, connection))

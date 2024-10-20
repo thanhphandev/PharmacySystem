@@ -19,12 +19,13 @@ namespace PharmacySystem.Presenters
         public MedicineGroupViewPresenter(IMedicineCategoryView view, string connectionString )
         {
             _view = view;
-            _repository = new MedicineGroupRepository(connectionString);
+            
             _connectionString = connectionString;
+            _repository = new MedicineGroupRepository(_connectionString);
             // Đăng ký sự kiện
             _view.AddData += OnAddData;
-            //this.view.UpdateData += OnUpdateData;
-            //this.view.DeleteData += OnDeleteData;
+            //_view.UpdateData += OnUpdateData;
+            _view.DeleteData += OnDeleteData;
         }
 
         private void OnAddData(object sender, EventArgs e)
@@ -57,23 +58,28 @@ namespace PharmacySystem.Presenters
 
         //private void OnUpdateData(object sender, EventArgs e)
         //{
-        //    var product = view.GetSelectedProduct();
-        //    if (product != null)
+        //    var medicineGroup = _view.GetSelectedMedicineGroup();
+        //    if (medicineGroup != null)
         //    {
-        //        repository.UpdateProduct(product);
+        //        _repository.UpdateMedicineGroup()
         //        OnLoadData(sender, e); // Tải lại dữ liệu sau khi cập nhật
         //    }
         //}
 
-        //private void OnDeleteData(object sender, EventArgs e)
-        //{
-        //    var product = view.GetSelectedProduct();
-        //    if (product != null)
-        //    {
-        //        repository.DeleteProduct(product.Id);
-        //        OnLoadData(sender, e); // Tải lại dữ liệu sau khi xóa
-        //    }
-        //}
+        private void OnDeleteData(object sender, EventArgs e)
+        {
+            var medicineGroup = _view.GetSelectedMedicineGroup();
+            if (medicineGroup != null)
+            {
+                var result = MessageBox.Show("Bạn có chắc muốn xóa không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if(result != DialogResult.Yes)
+                {
+                    return;
+                }
+                _repository.DeleteMedicineGroup(medicineGroup.GroupCode);
+                LoadData();
+            }
+        }
     }
 
 }

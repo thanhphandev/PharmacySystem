@@ -59,6 +59,8 @@ public class MedicineGroupPresenter
         }
     }
 
+    
+
     private void ClearData()
     {
         _medicineGroupAddForm.GroupCode = string.Empty;
