@@ -36,6 +36,8 @@
             this.Edit = new System.Windows.Forms.DataGridViewImageColumn();
             this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearch)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MedicineGroupDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -130,10 +132,15 @@
             this.Controls.Add(this.MedicineGroupDataGrid);
             this.Name = "MedicineCategoryView";
             this.Text = "";
+            this.Controls.SetChildIndex(this.txtSearch, 0);
+            this.Controls.SetChildIndex(this.btnSearch, 0);
+            this.Controls.SetChildIndex(this.btnRefresh, 0);
             this.Controls.SetChildIndex(this.btnAdd, 0);
             this.Controls.SetChildIndex(this.MedicineGroupDataGrid, 0);
             this.Controls.SetChildIndex(this.txtHeader, 0);
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearch)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MedicineGroupDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

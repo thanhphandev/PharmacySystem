@@ -30,19 +30,19 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbuser = new System.Windows.Forms.Label();
+            this.btnMain = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnEmployees = new System.Windows.Forms.Button();
             this.btnProvider = new System.Windows.Forms.Button();
             this.btnMedicine = new System.Windows.Forms.Button();
             this.btnCategory = new System.Windows.Forms.Button();
             this.btnDashboard = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ControlsPanel = new System.Windows.Forms.Panel();
-            this.btnMain = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMain)).BeginInit();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,6 +66,18 @@
             this.lbuser.Size = new System.Drawing.Size(254, 38);
             this.lbuser.TabIndex = 0;
             this.lbuser.Text = "Xin chào {username}\r\nBạn đang đăng nhập với vai trò là: {role}";
+            // 
+            // btnMain
+            // 
+            this.btnMain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMain.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMain.Image = global::PharmacySystem.Properties.Resources.home_button;
+            this.btnMain.Location = new System.Drawing.Point(816, 22);
+            this.btnMain.Name = "btnMain";
+            this.btnMain.Size = new System.Drawing.Size(28, 28);
+            this.btnMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnMain.TabIndex = 3;
+            this.btnMain.TabStop = false;
             // 
             // panel2
             // 
@@ -114,6 +126,7 @@
             // btnMedicine
             // 
             this.btnMedicine.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.btnMedicine.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMedicine.FlatAppearance.BorderColor = System.Drawing.Color.DarkTurquoise;
             this.btnMedicine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMedicine.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -128,6 +141,7 @@
             // btnCategory
             // 
             this.btnCategory.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.btnCategory.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCategory.FlatAppearance.BorderColor = System.Drawing.Color.DarkTurquoise;
             this.btnCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCategory.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -136,7 +150,7 @@
             this.btnCategory.Name = "btnCategory";
             this.btnCategory.Size = new System.Drawing.Size(159, 38);
             this.btnCategory.TabIndex = 2;
-            this.btnCategory.Text = "Loại thuốc";
+            this.btnCategory.Text = "Nhóm thuốc";
             this.btnCategory.UseVisualStyleBackColor = false;
             this.btnCategory.Click += new System.EventHandler(this.btnCategory_Click);
             // 
@@ -155,6 +169,16 @@
             this.btnDashboard.UseVisualStyleBackColor = false;
             this.btnDashboard.Click += new System.EventHandler(this.btnDashboard_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::PharmacySystem.Properties.Resources.pharmacy;
+            this.pictureBox1.Location = new System.Drawing.Point(59, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(60, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -169,34 +193,13 @@
             // 
             this.ControlsPanel.AutoSize = true;
             this.ControlsPanel.BackColor = System.Drawing.Color.Gainsboro;
+            this.ControlsPanel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ControlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ControlsPanel.Location = new System.Drawing.Point(188, 73);
             this.ControlsPanel.Name = "ControlsPanel";
             this.ControlsPanel.Size = new System.Drawing.Size(888, 515);
             this.ControlsPanel.TabIndex = 1;
-            // 
-            // btnMain
-            // 
-            this.btnMain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMain.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnMain.Image = global::PharmacySystem.Properties.Resources.home_button;
-            this.btnMain.Location = new System.Drawing.Point(816, 22);
-            this.btnMain.Name = "btnMain";
-            this.btnMain.Size = new System.Drawing.Size(28, 28);
-            this.btnMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnMain.TabIndex = 3;
-            this.btnMain.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::PharmacySystem.Properties.Resources.pharmacy;
-            this.pictureBox1.Location = new System.Drawing.Point(59, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(60, 50);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
+            
             // DashboardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -215,9 +218,9 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMain)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

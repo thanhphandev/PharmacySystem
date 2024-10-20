@@ -36,10 +36,10 @@
             this.txtCode = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // label1
+            // lbHeader
             // 
-            this.label1.Size = new System.Drawing.Size(119, 20);
-            this.label1.Text = "Thêm loại thuốc";
+            this.lbHeader.Size = new System.Drawing.Size(119, 20);
+            this.lbHeader.Text = "Thêm loại thuốc";
             // 
             // btnClose
             // 
@@ -49,6 +49,7 @@
             // btnSave
             // 
             this.btnSave.FlatAppearance.BorderColor = System.Drawing.Color.DarkTurquoise;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // label2
             // 

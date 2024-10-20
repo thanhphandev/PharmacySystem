@@ -30,10 +30,10 @@
         {
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.txtHeader = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnRefresh = new System.Windows.Forms.PictureBox();
             this.btnSearch = new System.Windows.Forms.PictureBox();
             this.btnAdd = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).BeginInit();
             this.SuspendLayout();
@@ -42,7 +42,7 @@
             // 
             this.txtSearch.Location = new System.Drawing.Point(440, 94);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(219, 25);
+            this.txtSearch.Size = new System.Drawing.Size(277, 25);
             this.txtSearch.TabIndex = 0;
             // 
             // txtHeader
@@ -55,15 +55,16 @@
             this.txtHeader.TabIndex = 4;
             this.txtHeader.Text = "Header text";
             // 
-            // pictureBox1
+            // btnRefresh
             // 
-            this.pictureBox1.Image = global::PharmacySystem.Properties.Resources.refresh;
-            this.pictureBox1.Location = new System.Drawing.Point(365, 94);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(25, 25);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
+            this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRefresh.Image = global::PharmacySystem.Properties.Resources.refresh;
+            this.btnRefresh.Location = new System.Drawing.Point(365, 94);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(25, 25);
+            this.btnRefresh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnRefresh.TabIndex = 5;
+            this.btnRefresh.TabStop = false;
             // 
             // btnSearch
             // 
@@ -92,7 +93,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.MintCream;
             this.ClientSize = new System.Drawing.Size(820, 500);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.txtHeader);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnAdd);
@@ -103,7 +104,8 @@
             this.Name = "BaseManagementForm";
             this.ShowIcon = false;
             this.Text = "BaseManagementForm";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).EndInit();
             this.ResumeLayout(false);
@@ -112,11 +114,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.PictureBox btnSearch;
         public System.Windows.Forms.Label txtHeader;
         public System.Windows.Forms.PictureBox btnAdd;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        public System.Windows.Forms.TextBox txtSearch;
+        public System.Windows.Forms.PictureBox btnSearch;
+        public System.Windows.Forms.PictureBox btnRefresh;
     }
 }

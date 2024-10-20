@@ -23,6 +23,7 @@ namespace PharmacySystem.Views.MedicineCategoryForm
         public event EventHandler UpdateData;
         public event EventHandler DeleteData;
         public event EventHandler AddData;
+        public event EventHandler RefreshData;
 
         public MedicineCategoryView(string connectionString)
         {
@@ -35,10 +36,14 @@ namespace PharmacySystem.Views.MedicineCategoryForm
             {
                 AddData?.Invoke(this, EventArgs.Empty);
             };
+
+            btnRefresh.Click += delegate
+            {
+                RefreshData?.Invoke(this, EventArgs.Empty);
+            };
             
 
         }
-
 
         public void DisplayMedicineGroups(List<MedicineGroupModel> medicineGroups)
         {
@@ -70,14 +75,6 @@ namespace PharmacySystem.Views.MedicineCategoryForm
                
             }
             return null;
-        }
-
-        public void UpdateIndexColumn()
-        {
-            for (int i = 0; i < MedicineGroupDataGrid.Rows.Count; i++)
-            {
-                MedicineGroupDataGrid.Rows[i].Cells["Index"].Value = i + 1;
-            }
         }
 
         private void MedicineGroupDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)

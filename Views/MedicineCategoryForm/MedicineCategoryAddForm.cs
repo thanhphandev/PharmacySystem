@@ -1,4 +1,5 @@
-﻿using PharmacySystem.Presenters;
+﻿using Mysqlx.Crud;
+using PharmacySystem.Presenters;
 using PharmacySystem.Views.DashboardForm.BaseForm;
 using System;
 using System.Collections.Generic;
@@ -14,24 +15,23 @@ namespace PharmacySystem.Views.MedicineCategoryForm
 {
     public partial class MedicineCategoryAddForm : BaseAddForm, IMedicineGroupAddForm
     {
-       
+
+        private bool isEditMode;
         public MedicineCategoryAddForm(string connectionString)
         {
             InitializeComponent();
 
-            new MedicineGroupPresenter(this, connectionString);
-            btnSave.Click += delegate
-            {
-                AddMedicineGroup?.Invoke(this, EventArgs.Empty);
-            };
-
         }
+
 
         public string GroupCode { get => txtCode.Text; set => txtCode.Text = value; }
         public string GroupName { get => txtNameGroup.Text; set => txtNameGroup.Text = value; }
         public string Content { get => txtContent.Text; set => txtContent.Text = value; }
+        public string LabelHeader { get => lbHeader.Text; set => lbHeader.Text = value; }
+        public bool IsEditMode { get => isEditMode; set => isEditMode = value; }
 
         public event EventHandler AddMedicineGroup;
+        public event EventHandler UpdateMedicineGroup;
 
         public void CloseForm()
         {
@@ -41,6 +41,17 @@ namespace PharmacySystem.Views.MedicineCategoryForm
         private void btnClose_Click(object sender, EventArgs e)
         {
             CloseForm();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (IsEditMode)
+            {
+                UpdateMedicineGroup?.Invoke(this, EventArgs.Empty);
+            } else
+            {
+                AddMedicineGroup?.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 }

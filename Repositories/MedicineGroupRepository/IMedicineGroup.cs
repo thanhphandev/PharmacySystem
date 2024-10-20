@@ -12,7 +12,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
         MedicineGroupModel GetMedicineGroupByCode(string code);
         List<MedicineGroupModel> GetAllMedicineGroups();
         void AddMedicineGroup(MedicineGroupModel medicineGroup);
-        void UpdateMedicineGroup(MedicineGroupModel medicineGroup);
+        void UpdateMedicineGroup(string oldGroupCode, MedicineGroupModel updatedMedicineGroup);
         void DeleteMedicineGroup(string code);
     }
 }

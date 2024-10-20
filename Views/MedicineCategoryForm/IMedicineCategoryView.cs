@@ -11,10 +11,10 @@ namespace PharmacySystem.Views.MedicineCategoryForm
     public interface IMedicineCategoryView
     {
         void DisplayMedicineGroups(List<MedicineGroupModel> medicineGroups);
-        void UpdateIndexColumn();
         MedicineGroupModel GetSelectedMedicineGroup();
 
         event EventHandler AddData;
+        event EventHandler RefreshData;
         
         event EventHandler UpdateData;
         event EventHandler DeleteData;
