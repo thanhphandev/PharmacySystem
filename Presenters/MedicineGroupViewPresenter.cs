@@ -1,5 +1,6 @@
 ﻿using PharmacySystem.Models;
 using PharmacySystem.Repositories.MedicineGroupRepository;
+using PharmacySystem.Services;
 using PharmacySystem.Views.MedicineCategoryForm;
 using System;
 using System.Collections.Generic;
@@ -13,16 +14,16 @@ namespace PharmacySystem.Presenters
     public class MedicineGroupViewPresenter
     {
         private readonly IMedicineCategoryView _medicineCategoryView;
-        private readonly IMedicineGroup _repository;
         private readonly string _connectionString;
+        private readonly MedicineGroupService _medicineGroupService;
+
 
         public MedicineGroupViewPresenter(IMedicineCategoryView medicineCategoryView, string connectionString )
         {
             _medicineCategoryView = medicineCategoryView;
-            
             _connectionString = connectionString;
-            _repository = new MedicineGroupRepository(_connectionString);
-  
+            _medicineGroupService = new MedicineGroupService(_connectionString);
+
             _medicineCategoryView.AddData += OnAddData;
             _medicineCategoryView.UpdateData += OnUpdateData;
             _medicineCategoryView.DeleteData += OnDeleteData;
@@ -39,7 +40,7 @@ namespace PharmacySystem.Presenters
         {
             try
             {
-                List<MedicineGroupModel> medicineGroups = _repository.GetAllMedicineGroups();
+                List<MedicineGroupModel> medicineGroups = _medicineGroupService.GetAllMedicineGroups();
 
                 _medicineCategoryView.DisplayMedicineGroups(medicineGroups);
             }
@@ -68,10 +69,25 @@ namespace PharmacySystem.Presenters
                         Description = view.Content.Trim()
                     };
 
-                    _repository.AddMedicineGroup(newMedicineGroup);
-                    MessageBox.Show("Nhóm thuốc đã được thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    view.CloseForm();
-                    LoadData();
+                    // Kiểm tra không để trống
+                    if (string.IsNullOrWhiteSpace(newMedicineGroup.GroupCode) || string.IsNullOrWhiteSpace(newMedicineGroup.GroupName))
+                    {
+                        MessageBox.Show("Mã nhóm và tên nhóm không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Kiểm tra tính duy nhất của GroupCode khi thêm mới
+                    bool isAddSuccessfull = _medicineGroupService.AddMedicineGroup(newMedicineGroup);
+                    if (isAddSuccessfull)
+                    {
+                        MessageBox.Show("Nhóm thuốc đã được thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        view.CloseForm();
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Mã nhóm đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 };
 
                 view.ShowDialog();
@@ -93,7 +109,6 @@ namespace PharmacySystem.Presenters
 
             try
             {
-
                 MedicineCategoryAddForm view = new MedicineCategoryAddForm(_connectionString)
                 {
                     GroupCode = currentMedicineGroup.GroupCode,
@@ -106,17 +121,38 @@ namespace PharmacySystem.Presenters
                 view.UpdateMedicineGroup += (s, args) =>
                 {
                     string oldGroupCode = currentMedicineGroup.GroupCode;
+                    string newGroupCode = view.GroupCode.Trim();
+                    string newGroupName = view.GroupName.Trim();
 
+                    if (string.IsNullOrWhiteSpace(newGroupCode) || string.IsNullOrWhiteSpace(newGroupName))
+                    {
+                        MessageBox.Show("Mã nhóm và tên nhóm không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
 
-                    currentMedicineGroup.GroupCode = view.GroupCode.Trim();
-                    currentMedicineGroup.GroupName = view.GroupName.Trim();
+                    if (!newGroupCode.Equals(oldGroupCode))
+                    {
+                        var existGroup = _medicineGroupService.CheckGroupExist(newGroupCode);
+                        if (existGroup != null)
+                        {
+                            MessageBox.Show("Mã nhóm đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
+                   
+                    currentMedicineGroup.GroupCode = newGroupCode;
+                    currentMedicineGroup.GroupName = newGroupName;
                     currentMedicineGroup.Description = view.Content.Trim();
 
-                    _repository.UpdateMedicineGroup(oldGroupCode, currentMedicineGroup);
-
-                    MessageBox.Show("Nhóm thuốc đã được cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    view.CloseForm();
-                    LoadData();
+                    bool isUpdateSuccessfull = _medicineGroupService.UpdateMedicineGroup(oldGroupCode, currentMedicineGroup);
+                    if (isUpdateSuccessfull)
+                    {
+                        MessageBox.Show("Nhóm thuốc đã được cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        view.CloseForm();
+                        LoadData();
+                    }
+                    
                 };
 
                 view.ShowDialog();
@@ -126,6 +162,7 @@ namespace PharmacySystem.Presenters
                 MessageBox.Show($"Error updating data: {ex.Message}");
             }
         }
+
 
 
         private void OnDeleteData(object sender, EventArgs e)
@@ -138,7 +175,7 @@ namespace PharmacySystem.Presenters
                 {
                     return;
                 }
-                _repository.DeleteMedicineGroup(medicineGroup.GroupCode);
+                _medicineGroupService.DeleteMedicineGroup(medicineGroup.GroupCode);
                 LoadData();
             }
         }
@@ -148,7 +185,7 @@ namespace PharmacySystem.Presenters
             try
             {
                
-                List<MedicineGroupModel> allMedicineGroups = _repository.GetAllMedicineGroups();
+                List<MedicineGroupModel> allMedicineGroups = _medicineGroupService.GetAllMedicineGroups();
 
                 
                 var filteredMedicineGroups = allMedicineGroups

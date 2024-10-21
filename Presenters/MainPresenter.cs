@@ -17,19 +17,16 @@ namespace PharmacySystem.Presenters
     {
         private readonly IMainView _mainView;
         private readonly AuthService _authService;
-        private readonly UserRepository _userRepository;
         private readonly string _connectionString;
 
         public MainPresenter(IMainView mainView, string connectionString)
         {
             _mainView = mainView;
             _connectionString = connectionString;
+            _authService = new AuthService(_connectionString);
 
             _mainView.Logout += OnLogout;
             _mainView.ShowDashboard += OnShowDashboard;
-
-            _userRepository = new UserRepository(connectionString);
-            _authService = new AuthService(_userRepository);
         }
 
         private void OnShowDashboard(object sender, EventArgs e)
@@ -41,7 +38,7 @@ namespace PharmacySystem.Presenters
 
         private void OnLogout(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("Bạn có muốn đăng xuất?!", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            var result = MessageBox.Show("Bạn có muốn đăng xuất không?!", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.No)
             {
                 return;

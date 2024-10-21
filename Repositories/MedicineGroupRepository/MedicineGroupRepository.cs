@@ -10,16 +10,17 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
 {
     public class MedicineGroupRepository : BaseRepository, IMedicineGroup
     {
+        private readonly string _connectionString;
         public MedicineGroupRepository(string connectionString)
         {
-            this.connectionString = connectionString;
+            _connectionString = connectionString;
         }
 
         public void AddMedicineGroup(MedicineGroupModel medicineCategory)
         {
             try
             {
-                using (var connection = new MySqlConnection(connectionString))
+                using (var connection = new MySqlConnection(_connectionString))
                 {
                     string query = "INSERT INTO medicine_group(group_code, group_name, group_content) VALUES (@GroupCode, @GroupName, @GroupDescription)";
                     using (var command = new MySqlCommand(query, connection))
@@ -44,7 +45,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
 
         public void DeleteMedicineGroup(string groupCode)
         {
-           using (var connection = new MySqlConnection(connectionString))
+           using (var connection = new MySqlConnection(_connectionString))
            {
                 string query = "DELETE FROM medicine_group WHERE group_code =@GroupCode";
                 using (var command = new MySqlCommand(query, connection))
@@ -61,7 +62,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
         public List<MedicineGroupModel> GetAllMedicineGroups()
         {
             List<MedicineGroupModel> medicineGroups = new List<MedicineGroupModel>();
-            using (var connection = new MySqlConnection(connectionString))
+            using (var connection = new MySqlConnection(_connectionString))
             {
                 string query = "SELECT * FROM medicine_group";
                 using (var command = new MySqlCommand(query, connection))
@@ -88,8 +89,8 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
 
         public MedicineGroupModel GetMedicineGroupByCode(string groupCode)
         {
-            MedicineGroupModel medicineGroup = new MedicineGroupModel();
-            using (var connection = new MySqlConnection(connectionString))
+            MedicineGroupModel medicineGroup = null;
+            using (var connection = new MySqlConnection(_connectionString))
             {
                 string query = "SELECT group_code, group_name, group_content FROM medicine_group WHERE group_code = @GroupCode";
                 using (var command = new MySqlCommand(query, connection))
@@ -100,9 +101,12 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
                     {
                         if (reader.Read())
                         {
-                            medicineGroup.GroupCode = reader["group_code"].ToString();
-                            medicineGroup.GroupName = reader["group_name"].ToString();
-                            medicineGroup.Description = reader["group_content"].ToString();
+                            medicineGroup = new MedicineGroupModel
+                            {
+                                GroupCode = reader["group_code"].ToString(),
+                                GroupName = reader["group_name"].ToString(),
+                                Description = reader["group_content"].ToString()
+                            };
                         }
                     }
                 }
@@ -114,7 +118,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
         {
             try
             {
-                using (var connection = new MySqlConnection(connectionString))
+                using (var connection = new MySqlConnection(_connectionString))
                 {
                     string query = @"UPDATE medicine_group 
                              SET group_code = @NewGroupCode, group_name = @GroupName, group_content = @GroupContent 

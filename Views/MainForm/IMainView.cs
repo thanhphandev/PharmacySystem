@@ -10,6 +10,7 @@ namespace PharmacySystem.Views.MainForm
     {
         event EventHandler Logout;
         event EventHandler ShowDashboard;
+        void LoadUserData();
         void CloseForm();
     }
 }
