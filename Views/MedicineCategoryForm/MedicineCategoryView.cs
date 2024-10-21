@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace PharmacySystem.Views.MedicineCategoryForm
@@ -17,7 +18,6 @@ namespace PharmacySystem.Views.MedicineCategoryForm
     public partial class MedicineCategoryView : BaseManagementForm, IMedicineCategoryView
     {
         private readonly string _connectionString;
-        public event EventHandler LoadData;
         public event EventHandler UpdateData;
         public event EventHandler DeleteData;
         public event EventHandler AddData;
@@ -45,19 +45,37 @@ namespace PharmacySystem.Views.MedicineCategoryForm
                 RefreshData?.Invoke(this, EventArgs.Empty);
             };
 
-            txtSearch.TextChanged += (s, e) =>
+
+            txtSearch.TextChanged += (s, e) => SearchMedicineGroupsBasedOnFilter(presenter);
+
+            cbFilter.SelectedIndexChanged += (s, e) => SearchMedicineGroupsBasedOnFilter(presenter);
+
+        }
+
+        private void SearchMedicineGroupsBasedOnFilter(MedicineGroupViewPresenter presenter)
+        {
+            var filter = cbFilter.SelectedItem?.ToString();
+
+            if (!string.IsNullOrWhiteSpace(TextSearch))
             {
-                if (!string.IsNullOrWhiteSpace(TextSearch))
+                if (filter == "Mã nhóm")
                 {
-                    presenter.SearchMedicineGroups(TextSearch);
+                    presenter.SearchMedicineGroups(TextSearch, searchByCode: true, searchByName: false);
+                }
+                else if (filter == "Tên nhóm")
+                {
+                    presenter.SearchMedicineGroups(TextSearch, searchByCode: false, searchByName: true);
                 }
                 else
                 {
-                    presenter.LoadData();
+                    presenter.SearchMedicineGroups(TextSearch);
                 }
-            };
+            }
+            else
+            {
+                presenter.LoadData();  // Load all data if search text is empty
+            }
         }
-
         public string TextSearch { get => txtSearch.Text; set => txtSearch.Text = value; }
 
         public void DisplayMedicineGroups(List<MedicineGroupModel> medicineGroups)

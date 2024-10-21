@@ -17,7 +17,6 @@ namespace PharmacySystem.Presenters
         private readonly string _connectionString;
 
         private readonly ISignupView _signupView;
-        private readonly UserRepository _userRepository;
         private readonly AuthService _authService;
 
         public SignupPresenter(ISignupView signupView, string connectionString)

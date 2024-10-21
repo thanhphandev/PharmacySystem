@@ -33,6 +33,7 @@
             this.btnRefresh = new System.Windows.Forms.PictureBox();
             this.btnSearch = new System.Windows.Forms.PictureBox();
             this.btnAdd = new System.Windows.Forms.PictureBox();
+            this.cbFilter = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).BeginInit();
@@ -40,7 +41,7 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(440, 94);
+            this.txtSearch.Location = new System.Drawing.Point(409, 94);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(277, 25);
             this.txtSearch.TabIndex = 0;
@@ -59,7 +60,7 @@
             // 
             this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRefresh.Image = global::PharmacySystem.Properties.Resources.refresh;
-            this.btnRefresh.Location = new System.Drawing.Point(365, 94);
+            this.btnRefresh.Location = new System.Drawing.Point(284, 94);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(25, 25);
             this.btnRefresh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -70,7 +71,7 @@
             // 
             this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSearch.Image = global::PharmacySystem.Properties.Resources.search__1_;
-            this.btnSearch.Location = new System.Drawing.Point(409, 94);
+            this.btnSearch.Location = new System.Drawing.Point(692, 94);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(25, 25);
             this.btnSearch.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -88,11 +89,20 @@
             this.btnAdd.TabIndex = 2;
             this.btnAdd.TabStop = false;
             // 
+            // cbFilter
+            // 
+            this.cbFilter.FormattingEnabled = true;
+            this.cbFilter.Location = new System.Drawing.Point(315, 94);
+            this.cbFilter.Name = "cbFilter";
+            this.cbFilter.Size = new System.Drawing.Size(88, 25);
+            this.cbFilter.TabIndex = 7;
+            // 
             // BaseManagementForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.MintCream;
             this.ClientSize = new System.Drawing.Size(820, 500);
+            this.Controls.Add(this.cbFilter);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.txtHeader);
             this.Controls.Add(this.btnSearch);
@@ -119,5 +129,6 @@
         public System.Windows.Forms.TextBox txtSearch;
         public System.Windows.Forms.PictureBox btnSearch;
         public System.Windows.Forms.PictureBox btnRefresh;
+        public System.Windows.Forms.ComboBox cbFilter;
     }
 }

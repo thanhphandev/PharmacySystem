@@ -4,10 +4,12 @@ using PharmacySystem.Services;
 using PharmacySystem.Views.MedicineCategoryForm;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace PharmacySystem.Presenters
 {
@@ -38,6 +40,7 @@ namespace PharmacySystem.Presenters
 
         public void LoadData()
         {
+            
             try
             {
                 List<MedicineGroupModel> medicineGroups = _medicineGroupService.GetAllMedicineGroups();
@@ -152,7 +155,8 @@ namespace PharmacySystem.Presenters
                         view.CloseForm();
                         LoadData();
                     }
-                    
+                    _medicineCategoryView.TextSearch = string.Empty;
+
                 };
 
                 view.ShowDialog();
@@ -180,19 +184,20 @@ namespace PharmacySystem.Presenters
             }
         }
 
-        public void SearchMedicineGroups(string searchText)
+
+
+        public void SearchMedicineGroups(string searchText, bool searchByCode = true, bool searchByName = true)
         {
             try
             {
-               
                 List<MedicineGroupModel> allMedicineGroups = _medicineGroupService.GetAllMedicineGroups();
 
-                
-                var filteredMedicineGroups = allMedicineGroups
-                    .Where(mg => mg.GroupCode.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                 mg.GroupName.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                 mg.Description.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0)
-                    .ToList();
+                string normalizedSearchText = RemoveDiacritics(searchText).ToLowerInvariant();
+
+                var filteredMedicineGroups = allMedicineGroups.Where(mg =>
+                    (searchByCode && RemoveDiacritics(mg.GroupCode).ToLowerInvariant().Contains(normalizedSearchText)) ||
+                    (searchByName && RemoveDiacritics(mg.GroupName).ToLowerInvariant().Contains(normalizedSearchText))
+                ).ToList();
 
                 _medicineCategoryView.DisplayMedicineGroups(filteredMedicineGroups);
             }
@@ -202,8 +207,28 @@ namespace PharmacySystem.Presenters
             }
         }
 
-        
+        public string RemoveDiacritics(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return text;
 
+            // Chuyển đổi chuỗi thành dạng chuẩn FormD để tách ký tự và dấu
+            var normalizedString = text.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder();
+
+            foreach (var c in normalizedString)
+            {
+                
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(c);
+                }
+            }
+
+            // Chuyển chuỗi về dạng chuẩn bình thường (FormC)
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+        }
 
     }
 

@@ -46,12 +46,21 @@
             this.txtHeader.Size = new System.Drawing.Size(167, 20);
             this.txtHeader.Text = "Danh sách nhóm thuốc";
             // 
+            // cbFilter
+            // 
+            this.cbFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFilter.Items.AddRange(new object[] {
+            "Mã nhóm",
+            "Tên Nhóm"});
+            this.cbFilter.Size = new System.Drawing.Size(88, 25);
+            // 
             // MedicineGroupDataGrid
             // 
             this.MedicineGroupDataGrid.AllowUserToAddRows = false;
             this.MedicineGroupDataGrid.AllowUserToDeleteRows = false;
             this.MedicineGroupDataGrid.AllowUserToOrderColumns = true;
             this.MedicineGroupDataGrid.AllowUserToResizeColumns = false;
+            this.MedicineGroupDataGrid.AllowUserToResizeRows = false;
             this.MedicineGroupDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -76,30 +85,30 @@
             // 
             // Index
             // 
-            this.Index.FillWeight = 20.46119F;
+            this.Index.FillWeight = 18.61392F;
             this.Index.HeaderText = "#";
             this.Index.Name = "Index";
             this.Index.ReadOnly = true;
             // 
             // GroupCode
             // 
-            this.GroupCode.FillWeight = 31.19418F;
+            this.GroupCode.FillWeight = 30.13676F;
             this.GroupCode.HeaderText = "Mã nhóm";
-            this.GroupCode.MinimumWidth = 10;
+            this.GroupCode.MinimumWidth = 20;
             this.GroupCode.Name = "GroupCode";
             this.GroupCode.ReadOnly = true;
             // 
             // GroupName
             // 
-            this.GroupName.FillWeight = 94.99576F;
+            this.GroupName.FillWeight = 79.20662F;
             this.GroupName.HeaderText = "Tên nhóm";
-            this.GroupName.MinimumWidth = 50;
+            this.GroupName.MinimumWidth = 30;
             this.GroupName.Name = "GroupName";
             this.GroupName.ReadOnly = true;
             // 
             // Description
             // 
-            this.Description.FillWeight = 104.9512F;
+            this.Description.FillWeight = 133.5575F;
             this.Description.HeaderText = "Mô tả";
             this.Description.MinimumWidth = 60;
             this.Description.Name = "Description";
@@ -107,21 +116,21 @@
             // 
             // Edit
             // 
-            this.Edit.FillWeight = 19.63931F;
+            this.Edit.FillWeight = 14.94309F;
             this.Edit.HeaderText = "";
             this.Edit.Image = global::PharmacySystem.Properties.Resources.pencil;
-            this.Edit.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
-            this.Edit.MinimumWidth = 15;
+            this.Edit.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.Edit.MinimumWidth = 10;
             this.Edit.Name = "Edit";
             this.Edit.ReadOnly = true;
             // 
             // Delete
             // 
-            this.Delete.FillWeight = 20F;
+            this.Delete.FillWeight = 14.78384F;
             this.Delete.HeaderText = "";
-            this.Delete.Image = global::PharmacySystem.Properties.Resources.delete;
-            this.Delete.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
-            this.Delete.MinimumWidth = 15;
+            this.Delete.Image = global::PharmacySystem.Properties.Resources.remove;
+            this.Delete.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.Delete.MinimumWidth = 10;
             this.Delete.Name = "Delete";
             this.Delete.ReadOnly = true;
             // 
@@ -132,6 +141,7 @@
             this.Controls.Add(this.MedicineGroupDataGrid);
             this.Name = "MedicineCategoryView";
             this.Text = "";
+            this.Controls.SetChildIndex(this.cbFilter, 0);
             this.Controls.SetChildIndex(this.txtSearch, 0);
             this.Controls.SetChildIndex(this.btnSearch, 0);
             this.Controls.SetChildIndex(this.btnRefresh, 0);
