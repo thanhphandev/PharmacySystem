@@ -25,11 +25,10 @@ namespace PharmacySystem.Presenters
             
             _signupView = signupView;
             _connectionString = connectionString;
-            _signupView.Signup += OnSignup;
+            _authService = new AuthService(_connectionString);
 
-            _userRepository = new UserRepository(_connectionString);
-            _authService = new AuthService(_userRepository);
-            
+            _signupView.Signup += OnSignup;
+    
         }
 
         private void OnSignup(object sender, EventArgs e)

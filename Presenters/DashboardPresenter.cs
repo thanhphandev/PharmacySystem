@@ -17,16 +17,7 @@ namespace PharmacySystem.Presenters
         {
             _dashboardView = dashboardView;
             _connectionString = connectionString;
-            _dashboardView.ShowMainView += OnShowMainView;
         }
-
-        private void OnShowMainView(object sender, EventArgs e)
-        {
-            MainView mainView = new MainView(_connectionString);
-            mainView.Show();
-            _dashboardView.CloseForm();
-        }
-
         
     }
 }

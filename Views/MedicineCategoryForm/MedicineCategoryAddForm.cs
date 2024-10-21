@@ -23,7 +23,6 @@ namespace PharmacySystem.Views.MedicineCategoryForm
 
         }
 
-
         public string GroupCode { get => txtCode.Text; set => txtCode.Text = value; }
         public string GroupName { get => txtNameGroup.Text; set => txtNameGroup.Text = value; }
         public string Content { get => txtContent.Text; set => txtContent.Text = value; }

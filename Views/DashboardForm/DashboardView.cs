@@ -1,5 +1,6 @@
 ﻿using PharmacySystem.Presenters;
 using PharmacySystem.Services;
+using PharmacySystem.Views.MainForm;
 using PharmacySystem.Views.MedicineCategoryForm;
 using System;
 using System.Collections.Generic;
@@ -16,16 +17,20 @@ namespace PharmacySystem.Views.DashboardForm
     public partial class DashboardView : Form, IDashboard
     {
         private readonly string _connectionString;
+        public event EventHandler ShowMainView;
+
         public DashboardView(string connectionString)
         {
             InitializeComponent();
             new DashboardPresenter(this, connectionString);
             _connectionString = connectionString;
-            btnMain.Click += delegate { ShowMainView?.Invoke(this, EventArgs.Empty); };
-            this.Load += new EventHandler(LoadUserData);
+            LoadUserData();
+           
         }
 
-        private void LoadUserData(object sender, EventArgs e)
+        
+
+        private void LoadUserData()
         {
             lbuser.Text = $"Xin chào, {UserSession.FullName}\nBạn đang đăng nhập với vai trò là {UserSession.Role}";
             HomeUI homeUI = new HomeUI();
@@ -46,6 +51,13 @@ namespace PharmacySystem.Views.DashboardForm
             form.Show();
         }
 
+        private void btnMain_Click(object sender, EventArgs e)
+        {
+            MainView mainView = new MainView(_connectionString);
+            mainView.Show();
+            CloseForm();
+        }
+
         private void btnDashboard_Click(object sender, EventArgs e)
         {
             HomeUI homeUI = new HomeUI();
@@ -58,9 +70,5 @@ namespace PharmacySystem.Views.DashboardForm
             AddControls(view);
         }
 
-
-        public event EventHandler ShowMainView;
-
-        
     }
 }

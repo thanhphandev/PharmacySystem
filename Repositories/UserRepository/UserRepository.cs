@@ -5,21 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace PharmacySystem.Repositories.UserRepository
 {
-    public class UserRepository : BaseRepository, IUserRepository
-    {
+    public class UserRepository : BaseRepository, IUserRepository { 
+    
+        private readonly string _connectionString;
 
         public UserRepository(string connectionString)
         {
-            this.connectionString = connectionString;
+            _connectionString = connectionString;
         }
 
-        // Thực thi các truy vấn
+        
         public void AddUser(UserModel user)
         {
-            using (var connection = new MySqlConnection(connectionString))
+            using (var connection = new MySqlConnection(_connectionString))
             {
 
                 string query = "INSERT INTO employee(username, password, full_name, birth_year) VALUES (@Username, @Password, @FullName, @BirthYear)";
@@ -38,22 +40,23 @@ namespace PharmacySystem.Repositories.UserRepository
 
         public void DeleteUser(string username)
         {
-            using (var connection = new MySqlConnection(connectionString))
+            var user =  GetUserByUsername(username);
+            using (var connection = new MySqlConnection(_connectionString))
             {
-                string query = "DELETE FROM employee WHERE username = @Username";
+                string query = "DELETE FROM employee WHERE id = @Id";
                 using (var command = new MySqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Username", username);
+                    command.Parameters.AddWithValue("@Id", user.UserId);
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
             }
         }
 
-        public IEnumerable<UserModel> GetAllUsers()
+        public List<UserModel> GetAllUsers()
         {
             List<UserModel> users = new List<UserModel>();
-            using(var connection = new MySqlConnection(connectionString))
+            using(var connection = new MySqlConnection(_connectionString))
             {
                 string query = "SELECT * FROM employee";
                 using(var command = new MySqlCommand(query, connection))
@@ -84,7 +87,7 @@ namespace PharmacySystem.Repositories.UserRepository
         {
             UserModel user = null;
 
-            using (var connection = new MySqlConnection(connectionString))
+            using (var connection = new MySqlConnection(_connectionString))
             {
                 string query = "SELECT id, username, password, full_Name, birth_year, role  FROM employee WHERE username = @Username";
 
@@ -120,11 +123,12 @@ namespace PharmacySystem.Repositories.UserRepository
         {
             try
             {
-                using (var connection = new MySqlConnection(connectionString))
+                using (var connection = new MySqlConnection(_connectionString))
                 {
-                    string query = "UPDATE employee SET full_name = @FullName, birth_year = @BirthYear, role = @Role WHERE username = @Username";
+                    string query = "UPDATE employee SET username = @UserName, full_name = @FullName, birth_year = @BirthYear, role = @Role WHERE id = @ID";
                     using (var command = new MySqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@Id", user.UserId);
                         command.Parameters.AddWithValue("@Username", user.Username);
                         command.Parameters.AddWithValue("@FullName", user.FullName);
                         command.Parameters.AddWithValue("@BirthYear", user.Birth_year);

@@ -19,7 +19,6 @@ namespace PharmacySystem.Presenters
        
         private readonly ILoginView _loginView;
         private readonly AuthService _authService;
-        private readonly UserRepository _userRepository;
         private readonly string _connectionString;
        
        
@@ -28,12 +27,10 @@ namespace PharmacySystem.Presenters
            
             _loginView = loginView;
             _connectionString = connectionString;
+            _authService = new AuthService(_connectionString);
 
             _loginView.Login += OnLogin;
-
-            _userRepository = new UserRepository(connectionString);
-            _authService = new AuthService(_userRepository);
-            
+  
         }
 
         private void OnLogin(object sender, EventArgs e)

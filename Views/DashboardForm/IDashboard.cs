@@ -8,7 +8,6 @@ namespace PharmacySystem.Views.DashboardForm
 {
     public interface IDashboard
     {
-        event EventHandler ShowMainView;
         void CloseForm();
     }
 }

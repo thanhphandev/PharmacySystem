@@ -78,6 +78,7 @@
             this.btnMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnMain.TabIndex = 3;
             this.btnMain.TabStop = false;
+            this.btnMain.Click += new System.EventHandler(this.btnMain_Click);
             // 
             // panel2
             // 
@@ -199,7 +200,7 @@
             this.ControlsPanel.Name = "ControlsPanel";
             this.ControlsPanel.Size = new System.Drawing.Size(888, 515);
             this.ControlsPanel.TabIndex = 1;
-            
+            // 
             // DashboardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);

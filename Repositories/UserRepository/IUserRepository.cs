@@ -12,7 +12,7 @@ namespace PharmacySystem.Repositories.UserRepository
         void AddUser(UserModel user);
         void UpdateUser(UserModel user);
         void DeleteUser(string username);
-        IEnumerable<UserModel> GetAllUsers();
+        List<UserModel> GetAllUsers();
         UserModel GetUserByUsername(string username);
     }
 }

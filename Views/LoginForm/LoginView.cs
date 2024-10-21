@@ -18,6 +18,7 @@ namespace PharmacySystem.Views
     {
         
         private readonly string _connectionString;
+        public event EventHandler Login;
 
         public LoginView(string connectionString)
         {
@@ -70,13 +71,11 @@ namespace PharmacySystem.Views
         {
             Application.Exit();
         }
+
         public void CloseForm()
         {
             this.Hide();
         }
-
-
-        public event EventHandler Login;
 
         
     }

@@ -16,8 +16,6 @@ namespace PharmacySystem.Views.MedicineCategoryForm
 
         event EventHandler AddData;
         event EventHandler RefreshData;
-        
-        
         event EventHandler UpdateData;
         event EventHandler DeleteData;
     }

@@ -17,18 +17,11 @@ namespace PharmacySystem.Views.MedicineCategoryForm
     public partial class MedicineCategoryView : BaseManagementForm, IMedicineCategoryView
     {
         private readonly string _connectionString;
-
-
         public event EventHandler LoadData;
-
         public event EventHandler UpdateData;
         public event EventHandler DeleteData;
         public event EventHandler AddData;
         public event EventHandler RefreshData;
-        public string TextSearch {
-            get => txtSearch.Text;
-            set => txtSearch.Text = value; 
-        }
 
         public MedicineCategoryView(string connectionString)
         {
@@ -37,6 +30,11 @@ namespace PharmacySystem.Views.MedicineCategoryForm
             _connectionString = connectionString;
             var presenter = new MedicineGroupViewPresenter(this, _connectionString);
             presenter.LoadData();
+            AsscociateAndRaiseViewEvents(presenter);
+        }
+
+        private void AsscociateAndRaiseViewEvents(MedicineGroupViewPresenter presenter)
+        {
             btnAdd.Click += delegate
             {
                 AddData?.Invoke(this, EventArgs.Empty);
@@ -58,9 +56,9 @@ namespace PharmacySystem.Views.MedicineCategoryForm
                     presenter.LoadData();
                 }
             };
-
-
         }
+
+        public string TextSearch { get => txtSearch.Text; set => txtSearch.Text = value; }
 
         public void DisplayMedicineGroups(List<MedicineGroupModel> medicineGroups)
         {

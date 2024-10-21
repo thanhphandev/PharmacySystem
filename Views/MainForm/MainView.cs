@@ -14,12 +14,20 @@ namespace PharmacySystem.Views.MainForm
 {
     public partial class MainView : Form, IMainView
     {
+        public event EventHandler Logout;
+        public event EventHandler ShowDashboard;
+
         public MainView(string connectionString)
         {
             InitializeComponent();
             new MainPresenter(this, connectionString);
-            this.Load += new EventHandler(LoadUserData);
+            AsscociateAndRaiseViewEvents();
+            
+        }
 
+        private void AsscociateAndRaiseViewEvents()
+        {
+            LoadUserData();
             btnLogout.Click += delegate
             {
                 Logout?.Invoke(this, EventArgs.Empty);
@@ -28,15 +36,12 @@ namespace PharmacySystem.Views.MainForm
             {
                 ShowDashboard?.Invoke(this, EventArgs.Empty);
             };
+            
         }
 
-        public event EventHandler Logout;
-        public event EventHandler ShowDashboard;
-
-        private void LoadUserData(object sender, EventArgs e)
+        public void LoadUserData()
         {
             lbFullName.Text = "Xin chào, " + UserSession.FullName;
-
         }
 
 
@@ -44,5 +49,7 @@ namespace PharmacySystem.Views.MainForm
         {
             this.Close();
         }
+
+        
     }
 }

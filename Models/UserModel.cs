@@ -10,6 +10,7 @@ namespace PharmacySystem.Models
 {
     public class UserModel
     {
+        private int userId;
         private string fullname;
         private string username;
         private string password;
@@ -17,7 +18,7 @@ namespace PharmacySystem.Models
         private string role;
 
         [DisplayName("ID")]
-        public int UserId { get; set; }
+        public int UserId { get => userId; set => userId = value; }
 
         [DisplayName("Họ và tên")]
         public string FullName { get => fullname; set => fullname = value; }

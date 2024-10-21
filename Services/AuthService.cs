@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PharmacySystem.Services
 {
@@ -14,9 +15,10 @@ namespace PharmacySystem.Services
     {
         private readonly IUserRepository _userRepository;
 
-        public AuthService(IUserRepository userRepository)
+        public AuthService(string connectionString)
         {
-            _userRepository = userRepository;
+            _userRepository = new UserRepository(connectionString);
+
         }
 
         public UserModel CheckAccountExist(string username)
@@ -56,20 +58,20 @@ namespace PharmacySystem.Services
             {
                 return false;
             }
-
+     
             bool isCorrectPassword = VerifyPassword(password, user.Password);
-            if (isCorrectPassword) {
-                UserSession.UserId = user.UserId;
-                UserSession.Username = user.Username;
-                UserSession.FullName = user.FullName;
-                UserSession.BirthYear = user.Birth_year;
-                UserSession.Role = user.Role;
-                UserSession.LoginTime = DateTime.Now;
-
+            if(!isCorrectPassword)
+            {
+                return false;
             }
-            
+            UserSession.UserId = user.UserId;
+            UserSession.Username = user.Username;
+            UserSession.FullName = user.FullName;
+            UserSession.BirthYear = user.Birth_year;
+            UserSession.Role = user.Role;
+            UserSession.LoginTime = DateTime.Now;
 
-            return isCorrectPassword;
+            return true;
         }
 
         public void Logout()

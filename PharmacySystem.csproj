@@ -118,6 +118,7 @@
     <Compile Include="Repositories\UserRepository\IUserRepository.cs" />
     <Compile Include="Repositories\UserRepository\UserRepository.cs" />
     <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\MedicineGroupService.cs" />
     <Compile Include="Services\UserSession.cs" />
     <Compile Include="Views\DashboardForm\BaseForm\BaseAddForm.cs">
       <SubType>Form</SubType>

@@ -14,7 +14,9 @@ namespace PharmacySystem.Views
 {
     public partial class SignupView : Form, ISignupView
     {
-        private string _connectionString;
+        private readonly string _connectionString;
+        public event EventHandler Signup;
+
         public SignupView(string connectionString)
         {
             InitializeComponent();
@@ -27,16 +29,12 @@ namespace PharmacySystem.Views
         private void AsscociateAndRaiseViewEvents()
         {
             btnSignup.Click += delegate { Signup?.Invoke(this, EventArgs.Empty); };
-            
         }
 
         public string FullName { get => txtFullName.Text; set => txtFullName.Text = value; }
         public string Username { get => txtUsername.Text; set => txtUsername.Text = value; }
         public string Password { get => txtPassword.Text; set => txtPassword.Text = value; }
         public string BirthYear { get => txtBirthYear.Text; set => txtBirthYear.Text = value; }
-
-        public event EventHandler Signup;
-
 
         public void CloseForm()
         {
