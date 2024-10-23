@@ -19,7 +19,14 @@ namespace PharmacySystem
         [STAThread]
         static void Main()
         {
-            string connectionString = "Server=127.0.0.1;Database=pharmacy_db;Uid=root;Pwd=;";
+
+
+            string connectionString = ConfigurationManager.ConnectionStrings["PharmacyDb"]?.ConnectionString;
+
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                System.Console.WriteLine("Connection string null!");
+            }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

@@ -25,7 +25,7 @@ namespace PharmacySystem.Views.MedicineCategoryForm
 
         public MedicineCategoryView(string connectionString)
         {
-           
+
             InitializeComponent();
             _connectionString = connectionString;
             var presenter = new MedicineGroupViewPresenter(this, _connectionString);
@@ -35,6 +35,8 @@ namespace PharmacySystem.Views.MedicineCategoryForm
 
         private void AsscociateAndRaiseViewEvents(MedicineGroupViewPresenter presenter)
         {
+            cbFilter.SelectedItem = "Tên Nhóm";
+
             btnAdd.Click += delegate
             {
                 AddData?.Invoke(this, EventArgs.Empty);
@@ -54,6 +56,7 @@ namespace PharmacySystem.Views.MedicineCategoryForm
 
         private void SearchMedicineGroupsBasedOnFilter(MedicineGroupViewPresenter presenter)
         {
+
             var filter = cbFilter.SelectedItem?.ToString();
 
             if (!string.IsNullOrWhiteSpace(TextSearch))
@@ -62,18 +65,14 @@ namespace PharmacySystem.Views.MedicineCategoryForm
                 {
                     presenter.SearchMedicineGroups(TextSearch, searchByCode: true, searchByName: false);
                 }
-                else if (filter == "Tên nhóm")
-                {
-                    presenter.SearchMedicineGroups(TextSearch, searchByCode: false, searchByName: true);
-                }
                 else
                 {
-                    presenter.SearchMedicineGroups(TextSearch);
+                    presenter.SearchMedicineGroups(TextSearch, searchByCode: false, searchByName: true);
                 }
             }
             else
             {
-                presenter.LoadData();  // Load all data if search text is empty
+                presenter.LoadData();
             }
         }
         public string TextSearch { get => txtSearch.Text; set => txtSearch.Text = value; }
@@ -81,7 +80,7 @@ namespace PharmacySystem.Views.MedicineCategoryForm
         public void DisplayMedicineGroups(List<MedicineGroupModel> medicineGroups)
         {
             MedicineGroupDataGrid.Rows.Clear();
-            
+
             foreach (var medicineGroup in medicineGroups)
             {
                 MedicineGroupDataGrid.Rows.Add(
@@ -105,14 +104,14 @@ namespace PharmacySystem.Views.MedicineCategoryForm
                     GroupName = MedicineGroupDataGrid.CurrentRow.Cells["GroupName"].Value.ToString(),
                     Description = MedicineGroupDataGrid.CurrentRow.Cells["Description"].Value.ToString()
                 };
-               
+
             }
             return null;
         }
 
         private void MedicineGroupDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(MedicineGroupDataGrid.CurrentCell.OwningColumn.Name == "Edit")
+            if (MedicineGroupDataGrid.CurrentCell.OwningColumn.Name == "Edit")
             {
                 UpdateData?.Invoke(this, EventArgs.Empty);
             }

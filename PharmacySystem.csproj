@@ -103,6 +103,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DiacriticsRemover.cs" />
     <Compile Include="Models\MedicineGroupModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Presenters\DashboardPresenter.cs" />

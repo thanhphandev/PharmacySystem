@@ -1,4 +1,5 @@
-﻿using PharmacySystem.Models;
+﻿using PharmacySystem.Common;
+using PharmacySystem.Models;
 using PharmacySystem.Repositories.MedicineGroupRepository;
 using PharmacySystem.Services;
 using PharmacySystem.Views.MedicineCategoryForm;
@@ -20,7 +21,7 @@ namespace PharmacySystem.Presenters
         private readonly MedicineGroupService _medicineGroupService;
 
 
-        public MedicineGroupViewPresenter(IMedicineCategoryView medicineCategoryView, string connectionString )
+        public MedicineGroupViewPresenter(IMedicineCategoryView medicineCategoryView, string connectionString)
         {
             _medicineCategoryView = medicineCategoryView;
             _connectionString = connectionString;
@@ -40,7 +41,7 @@ namespace PharmacySystem.Presenters
 
         public void LoadData()
         {
-            
+
             try
             {
                 List<MedicineGroupModel> medicineGroups = _medicineGroupService.GetAllMedicineGroups();
@@ -143,7 +144,7 @@ namespace PharmacySystem.Presenters
                         }
                     }
 
-                   
+
                     currentMedicineGroup.GroupCode = newGroupCode;
                     currentMedicineGroup.GroupName = newGroupName;
                     currentMedicineGroup.Description = view.Content.Trim();
@@ -175,7 +176,7 @@ namespace PharmacySystem.Presenters
             if (medicineGroup != null)
             {
                 var result = MessageBox.Show("Bạn có chắc muốn xóa không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if(result != DialogResult.Yes)
+                if (result != DialogResult.Yes)
                 {
                     return;
                 }
@@ -192,11 +193,11 @@ namespace PharmacySystem.Presenters
             {
                 List<MedicineGroupModel> allMedicineGroups = _medicineGroupService.GetAllMedicineGroups();
 
-                string normalizedSearchText = RemoveDiacritics(searchText).ToLowerInvariant();
+                string normalizedSearchText = DiacriticsRemover.RemoveDiacritics(searchText).ToLowerInvariant();
 
                 var filteredMedicineGroups = allMedicineGroups.Where(mg =>
-                    (searchByCode && RemoveDiacritics(mg.GroupCode).ToLowerInvariant().Contains(normalizedSearchText)) ||
-                    (searchByName && RemoveDiacritics(mg.GroupName).ToLowerInvariant().Contains(normalizedSearchText))
+                    (searchByCode && DiacriticsRemover.RemoveDiacritics(mg.GroupCode).ToLowerInvariant().Contains(normalizedSearchText)) ||
+                    (searchByName && DiacriticsRemover.RemoveDiacritics(mg.GroupName).ToLowerInvariant().Contains(normalizedSearchText))
                 ).ToList();
 
                 _medicineCategoryView.DisplayMedicineGroups(filteredMedicineGroups);
@@ -205,29 +206,6 @@ namespace PharmacySystem.Presenters
             {
                 MessageBox.Show($"Error searching data: {ex.Message}");
             }
-        }
-
-        public string RemoveDiacritics(string text)
-        {
-            if (string.IsNullOrEmpty(text))
-                return text;
-
-            // Chuyển đổi chuỗi thành dạng chuẩn FormD để tách ký tự và dấu
-            var normalizedString = text.Normalize(NormalizationForm.FormD);
-            var stringBuilder = new StringBuilder();
-
-            foreach (var c in normalizedString)
-            {
-                
-                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
-                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
-                {
-                    stringBuilder.Append(c);
-                }
-            }
-
-            // Chuyển chuỗi về dạng chuẩn bình thường (FormC)
-            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
 
     }
