@@ -50,43 +50,48 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.label1.Location = new System.Drawing.Point(442, 150);
+            this.label1.Location = new System.Drawing.Point(589, 185);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(319, 25);
+            this.label1.Size = new System.Drawing.Size(348, 30);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Chào mừng bạn! Xin mời đăng nhập";
+            this.label1.Text = "Chào mừng ! Xin mời đăng nhập";
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(447, 269);
+            this.txtPassword.Location = new System.Drawing.Point(596, 331);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(219, 20);
+            this.txtPassword.Size = new System.Drawing.Size(291, 22);
             this.txtPassword.TabIndex = 3;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(473, 249);
+            this.label4.Location = new System.Drawing.Point(631, 306);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 17);
+            this.label4.Size = new System.Drawing.Size(82, 23);
             this.label4.TabIndex = 2;
             this.label4.Text = "Mật khẩu";
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(447, 222);
+            this.txtUsername.Location = new System.Drawing.Point(596, 273);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(4);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(219, 20);
+            this.txtUsername.Size = new System.Drawing.Size(291, 22);
             this.txtUsername.TabIndex = 3;
             // 
             // chkDisplayPassword
             // 
             this.chkDisplayPassword.AutoSize = true;
-            this.chkDisplayPassword.Location = new System.Drawing.Point(447, 295);
+            this.chkDisplayPassword.Location = new System.Drawing.Point(596, 363);
+            this.chkDisplayPassword.Margin = new System.Windows.Forms.Padding(4);
             this.chkDisplayPassword.Name = "chkDisplayPassword";
-            this.chkDisplayPassword.Size = new System.Drawing.Size(109, 17);
+            this.chkDisplayPassword.Size = new System.Drawing.Size(130, 20);
             this.chkDisplayPassword.TabIndex = 5;
             this.chkDisplayPassword.Text = "Hiển thị mật khẩu";
             this.chkDisplayPassword.UseVisualStyleBackColor = true;
@@ -95,18 +100,20 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(444, 348);
+            this.label5.Location = new System.Drawing.Point(592, 428);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(121, 13);
+            this.label5.Size = new System.Drawing.Size(145, 16);
             this.label5.TabIndex = 6;
             this.label5.Text = "Bạn chưa có tài khoản?";
             // 
             // lkRegister
             // 
             this.lkRegister.AutoSize = true;
-            this.lkRegister.Location = new System.Drawing.Point(562, 348);
+            this.lkRegister.Location = new System.Drawing.Point(749, 428);
+            this.lkRegister.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lkRegister.Name = "lkRegister";
-            this.lkRegister.Size = new System.Drawing.Size(73, 13);
+            this.lkRegister.Size = new System.Drawing.Size(89, 16);
             this.lkRegister.TabIndex = 7;
             this.lkRegister.TabStop = true;
             this.lkRegister.Text = "Đăng ký ngay";
@@ -116,26 +123,29 @@
             // 
             this.lbUsername.AutoSize = true;
             this.lbUsername.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbUsername.Location = new System.Drawing.Point(473, 202);
+            this.lbUsername.Location = new System.Drawing.Point(631, 249);
+            this.lbUsername.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbUsername.Name = "lbUsername";
-            this.lbUsername.Size = new System.Drawing.Size(67, 17);
+            this.lbUsername.Size = new System.Drawing.Size(87, 23);
             this.lbUsername.TabIndex = 8;
             this.lbUsername.Text = "Username";
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(447, 319);
+            this.btnLogin.Location = new System.Drawing.Point(596, 393);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(4);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(75, 23);
+            this.btnLogin.Size = new System.Drawing.Size(100, 28);
             this.btnLogin.TabIndex = 9;
             this.btnLogin.Text = "Đăng nhập";
             this.btnLogin.UseVisualStyleBackColor = true;
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(560, 319);
+            this.btnExit.Location = new System.Drawing.Point(747, 393);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(4);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(75, 23);
+            this.btnExit.Size = new System.Drawing.Size(100, 28);
             this.btnExit.TabIndex = 10;
             this.btnExit.Text = "Thoát";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -144,9 +154,10 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::PharmacySystem.Properties.Resources.locked;
-            this.pictureBox2.Location = new System.Drawing.Point(447, 246);
+            this.pictureBox2.Location = new System.Drawing.Point(596, 303);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox2.Size = new System.Drawing.Size(27, 25);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 11;
             this.pictureBox2.TabStop = false;
@@ -154,9 +165,10 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::PharmacySystem.Properties.Resources.user;
-            this.pictureBox1.Location = new System.Drawing.Point(447, 196);
+            this.pictureBox1.Location = new System.Drawing.Point(596, 241);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(23, 23);
+            this.pictureBox1.Size = new System.Drawing.Size(31, 28);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 11;
             this.pictureBox1.TabStop = false;
@@ -169,16 +181,17 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(407, 461);
+            this.panel1.Size = new System.Drawing.Size(543, 558);
             this.panel1.TabIndex = 0;
             // 
             // LoginView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.ClientSize = new System.Drawing.Size(784, 461);
+            this.ClientSize = new System.Drawing.Size(1043, 558);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnExit);
@@ -192,7 +205,8 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
-            this.MaximumSize = new System.Drawing.Size(800, 500);
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximumSize = new System.Drawing.Size(1061, 605);
             this.Name = "LoginView";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
