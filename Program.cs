@@ -21,12 +21,7 @@ namespace PharmacySystem
         {
 
 
-            string connectionString = ConfigurationManager.ConnectionStrings["PharmacyDb"]?.ConnectionString;
-
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                System.Console.WriteLine("Connection string null!");
-            }
+            string connectionString = "Server=127.0.0.1;Database=pharmacy_db2;Uid=root;Pwd=;";
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

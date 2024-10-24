@@ -34,7 +34,23 @@ namespace PharmacySystem.Views
         public string FullName { get => txtFullName.Text; set => txtFullName.Text = value; }
         public string Username { get => txtUsername.Text; set => txtUsername.Text = value; }
         public string Password { get => txtPassword.Text; set => txtPassword.Text = value; }
-        public string BirthYear { get => txtBirthYear.Text; set => txtBirthYear.Text = value; }
+        public string Gender
+        {
+            get => rbtnMale.Checked ? "male" : rbtnFemale.Checked ? "female" : null;
+            set
+            {
+                if (value == "male") rbtnMale.Checked = true;
+                else if (value == "female") rbtnFemale.Checked = true;
+            }
+        }
+        public string Email { get => txtEmail.Text; set => txtEmail.Text = value; }
+        public string Address { get => txtAddress.Text; set => txtAddress.Text = value; }
+        public string Phone { get => txtPhone.Text; set => txtPhone.Text = value; }
+        public DateTime BOD
+        {
+            get => dateTimePickerBOD.Value;
+            set => dateTimePickerBOD.Value = value;
+        }
 
         public void CloseForm()
         {

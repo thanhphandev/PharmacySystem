@@ -31,25 +31,31 @@ namespace PharmacySystem.Services
             return user;
         }
 
-        public bool Signup(string username, string password, string fullname, string birthYear)
+        public bool Signup(string username, string password, string fullname, string gender, string email, string phone, DateTime BoD, string address)
         {
+            
             var existingUser = CheckAccountExist(username);
             if (existingUser != null)
             {
                 return false;
             }
-
+            
             var user = new UserModel
             {
                 Username = username,
                 Password = HashPassword(password),
                 FullName = fullname,
-                Birth_year = Convert.ToInt32(birthYear)
+                Gender = gender,
+                Email = email,
+                Address = address,
+                Phone = phone,
+                BoD = BoD,
             };
-
+            
             _userRepository.AddUser(user);
-            return true;
+            return true; 
         }
+
 
         public bool Login(string username, string password)
         {
@@ -67,7 +73,11 @@ namespace PharmacySystem.Services
             UserSession.UserId = user.UserId;
             UserSession.Username = user.Username;
             UserSession.FullName = user.FullName;
-            UserSession.BirthYear = user.Birth_year;
+            UserSession.Gender = user.Gender;
+            UserSession.Email = user.Email;
+            UserSession.Phone = user.Phone;
+            UserSession.Address = user.Address;
+            UserSession.BOD = user.BoD;
             UserSession.Role = user.Role;
             UserSession.LoginTime = DateTime.Now;
 
@@ -79,7 +89,11 @@ namespace PharmacySystem.Services
             UserSession.UserId = 0;
             UserSession.Username = string.Empty;
             UserSession.FullName = string.Empty;
-            UserSession.BirthYear = 0;
+            UserSession.Gender = string.Empty;
+            UserSession.Email = string.Empty;
+            UserSession.Phone = string.Empty;
+            UserSession.Address = string.Empty;
+            UserSession.BOD = DateTime.MinValue;
             UserSession.Role = string.Empty;
             UserSession.LoginTime = DateTime.MinValue;
         }

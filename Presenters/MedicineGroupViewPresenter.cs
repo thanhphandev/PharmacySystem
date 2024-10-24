@@ -73,7 +73,7 @@ namespace PharmacySystem.Presenters
                         Description = view.Content.Trim()
                     };
 
-                    // Kiểm tra không để trống
+                   
                     if (string.IsNullOrWhiteSpace(newMedicineGroup.GroupCode) || string.IsNullOrWhiteSpace(newMedicineGroup.GroupName))
                     {
                         MessageBox.Show("Mã nhóm và tên nhóm không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);

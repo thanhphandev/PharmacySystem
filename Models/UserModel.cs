@@ -14,24 +14,24 @@ namespace PharmacySystem.Models
         private string fullname;
         private string username;
         private string password;
-        private int birth_year;
+        private string email;
+        private string phone;
+        private string address;
+        private string gender;
+        private DateTime bod;
         private string role;
-
-        [DisplayName("ID")]
+        
         public int UserId { get => userId; set => userId = value; }
-
-        [DisplayName("Họ và tên")]
         public string FullName { get => fullname; set => fullname = value; }
-
-        [DisplayName("Tên đăng nhập")]
         public string Username { get => username; set => username = value; }
-        [DisplayName("Mật khẩu")]
         public string Password { get => password; set => password = value; }
-
-        [DisplayName("Năm sinh")]
-        public int Birth_year { get => birth_year; set => birth_year = value; }
-        [DisplayName("Vai trò")]
+        public string Email { get => email; set => email = value; }
+        public DateTime BoD { get => bod; set => bod = value; }
+        public string Phone { get => phone; set => phone = value; }
+        public string Address { get => address; set => address = value; }
+        public string Gender { get => gender; set => gender = value; }
         public string Role { get => role; set => role = value; }
+       
     }
 
 }

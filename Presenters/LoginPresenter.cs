@@ -1,5 +1,4 @@
 ﻿using PharmacySystem.Models;
-using PharmacySystem.Repositories.UserRepository;
 using PharmacySystem.Services;
 using PharmacySystem.Views;
 using PharmacySystem.Views.LoginForm;
@@ -56,7 +55,7 @@ namespace PharmacySystem.Presenters
                     MessageBox.Show("Tài khoản không tồn tại! vui lòng đăng ký", "Thông báo");
                     return;
                 }
-
+                
                 bool loginSucessfull = _authService.Login(_loginView.Username, _loginView.Password);
                 
                 if (loginSucessfull)
