@@ -17,7 +17,6 @@ namespace PharmacySystem.Presenters
         private readonly string _connectionString;
 
         private readonly ISignupView _signupView;
-        private readonly UserRepository _userRepository;
         private readonly AuthService _authService;
 
         public SignupPresenter(ISignupView signupView, string connectionString)
@@ -65,20 +64,36 @@ namespace PharmacySystem.Presenters
                 return;
             }
 
-            if (!int.TryParse(_signupView.BirthYear, out int birthYear) || birthYear < 1900 || birthYear > DateTime.Now.Year)
+            if (string.IsNullOrWhiteSpace(_signupView.Email) || !IsValidEmail(_signupView.Email))
             {
-                MessageBox.Show("Năm sinh không hợp lệ! Vui lòng nhập số hợp lệ.", "Thông báo");
+                MessageBox.Show("Vui lòng nhập địa chỉ email hợp lệ!", "Thông báo");
                 return;
             }
 
+            if (_signupView.BOD > DateTime.Now)
+            {
+                MessageBox.Show("Ngày sinh không được vượt quá thời điểm hiện tại!", "Thông báo");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(_signupView.Phone) || !IsValidPhoneNumber(_signupView.Phone))
+            {
+                MessageBox.Show("Vui lòng nhập số điện thoại hợp lệ!", "Thông báo");
+                return;
+            }
 
             try
             {
                
                 bool signupSuccessfull = _authService.Signup(_signupView.Username,
                                                              _signupView.Password,
-                                                             _signupView.FullName, 
-                                                             _signupView.BirthYear);
+                                                             _signupView.FullName,
+                                                             _signupView.Gender,
+                                                             _signupView.Email,
+                                                             _signupView.Phone,
+                                                             _signupView.BOD,
+                                                             _signupView.Address
+                                                             );
                 if (signupSuccessfull)
                 {
                     var result = MessageBox.Show("Đăng ký thành công! Vui lòng đăng nhập", "Thông báo", MessageBoxButtons.OK);
@@ -115,6 +130,27 @@ namespace PharmacySystem.Presenters
             bool hasSpecialChar = password.Any(ch => !char.IsLetterOrDigit(ch));
 
             return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar;
+        }
+
+        
+    private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var mail = new System.Net.Mail.MailAddress(email);
+                return mail.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {
+           
+            var cleaned = new string(phoneNumber.Where(char.IsDigit).ToArray());
+            return cleaned.Length >= 10 && cleaned.Length <= 15;
         }
 
     }

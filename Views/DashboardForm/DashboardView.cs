@@ -28,8 +28,6 @@ namespace PharmacySystem.Views.DashboardForm
            
         }
 
-        
-
         private void LoadUserData()
         {
             lbuser.Text = $"Xin chào, {UserSession.FullName}\nBạn đang đăng nhập với vai trò là {UserSession.Role}";

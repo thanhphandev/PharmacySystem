@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace PharmacySystem.Views.MedicineCategoryForm
@@ -17,7 +18,6 @@ namespace PharmacySystem.Views.MedicineCategoryForm
     public partial class MedicineCategoryView : BaseManagementForm, IMedicineCategoryView
     {
         private readonly string _connectionString;
-        public event EventHandler LoadData;
         public event EventHandler UpdateData;
         public event EventHandler DeleteData;
         public event EventHandler AddData;
@@ -25,7 +25,7 @@ namespace PharmacySystem.Views.MedicineCategoryForm
 
         public MedicineCategoryView(string connectionString)
         {
-           
+
             InitializeComponent();
             _connectionString = connectionString;
             var presenter = new MedicineGroupViewPresenter(this, _connectionString);
@@ -35,6 +35,8 @@ namespace PharmacySystem.Views.MedicineCategoryForm
 
         private void AsscociateAndRaiseViewEvents(MedicineGroupViewPresenter presenter)
         {
+            cbFilter.SelectedItem = "Tên Nhóm";
+
             btnAdd.Click += delegate
             {
                 AddData?.Invoke(this, EventArgs.Empty);
@@ -45,25 +47,40 @@ namespace PharmacySystem.Views.MedicineCategoryForm
                 RefreshData?.Invoke(this, EventArgs.Empty);
             };
 
-            txtSearch.TextChanged += (s, e) =>
+
+            txtSearch.TextChanged += (s, e) => SearchMedicineGroupsBasedOnFilter(presenter);
+
+            cbFilter.SelectedIndexChanged += (s, e) => SearchMedicineGroupsBasedOnFilter(presenter);
+
+        }
+
+        private void SearchMedicineGroupsBasedOnFilter(MedicineGroupViewPresenter presenter)
+        {
+
+            var filter = cbFilter.SelectedItem?.ToString();
+
+            if (!string.IsNullOrWhiteSpace(TextSearch))
             {
-                if (!string.IsNullOrWhiteSpace(TextSearch))
+                if (filter == "Mã nhóm")
                 {
-                    presenter.SearchMedicineGroups(TextSearch);
+                    presenter.SearchMedicineGroups(TextSearch, searchByCode: true, searchByName: false);
                 }
                 else
                 {
-                    presenter.LoadData();
+                    presenter.SearchMedicineGroups(TextSearch, searchByCode: false, searchByName: true);
                 }
-            };
+            }
+            else
+            {
+                presenter.LoadData();
+            }
         }
-
         public string TextSearch { get => txtSearch.Text; set => txtSearch.Text = value; }
 
         public void DisplayMedicineGroups(List<MedicineGroupModel> medicineGroups)
         {
             MedicineGroupDataGrid.Rows.Clear();
-            
+
             foreach (var medicineGroup in medicineGroups)
             {
                 MedicineGroupDataGrid.Rows.Add(
@@ -87,14 +104,14 @@ namespace PharmacySystem.Views.MedicineCategoryForm
                     GroupName = MedicineGroupDataGrid.CurrentRow.Cells["GroupName"].Value.ToString(),
                     Description = MedicineGroupDataGrid.CurrentRow.Cells["Description"].Value.ToString()
                 };
-               
+
             }
             return null;
         }
 
         private void MedicineGroupDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(MedicineGroupDataGrid.CurrentCell.OwningColumn.Name == "Edit")
+            if (MedicineGroupDataGrid.CurrentCell.OwningColumn.Name == "Edit")
             {
                 UpdateData?.Invoke(this, EventArgs.Empty);
             }

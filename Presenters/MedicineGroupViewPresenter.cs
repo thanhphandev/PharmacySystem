@@ -1,13 +1,16 @@
-﻿using PharmacySystem.Models;
+﻿using PharmacySystem.Common;
+using PharmacySystem.Models;
 using PharmacySystem.Repositories.MedicineGroupRepository;
 using PharmacySystem.Services;
 using PharmacySystem.Views.MedicineCategoryForm;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace PharmacySystem.Presenters
 {
@@ -18,7 +21,7 @@ namespace PharmacySystem.Presenters
         private readonly MedicineGroupService _medicineGroupService;
 
 
-        public MedicineGroupViewPresenter(IMedicineCategoryView medicineCategoryView, string connectionString )
+        public MedicineGroupViewPresenter(IMedicineCategoryView medicineCategoryView, string connectionString)
         {
             _medicineCategoryView = medicineCategoryView;
             _connectionString = connectionString;
@@ -38,6 +41,7 @@ namespace PharmacySystem.Presenters
 
         public void LoadData()
         {
+
             try
             {
                 List<MedicineGroupModel> medicineGroups = _medicineGroupService.GetAllMedicineGroups();
@@ -69,7 +73,7 @@ namespace PharmacySystem.Presenters
                         Description = view.Content.Trim()
                     };
 
-                    // Kiểm tra không để trống
+                   
                     if (string.IsNullOrWhiteSpace(newMedicineGroup.GroupCode) || string.IsNullOrWhiteSpace(newMedicineGroup.GroupName))
                     {
                         MessageBox.Show("Mã nhóm và tên nhóm không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -140,7 +144,7 @@ namespace PharmacySystem.Presenters
                         }
                     }
 
-                   
+
                     currentMedicineGroup.GroupCode = newGroupCode;
                     currentMedicineGroup.GroupName = newGroupName;
                     currentMedicineGroup.Description = view.Content.Trim();
@@ -152,7 +156,8 @@ namespace PharmacySystem.Presenters
                         view.CloseForm();
                         LoadData();
                     }
-                    
+                    _medicineCategoryView.TextSearch = string.Empty;
+
                 };
 
                 view.ShowDialog();
@@ -171,7 +176,7 @@ namespace PharmacySystem.Presenters
             if (medicineGroup != null)
             {
                 var result = MessageBox.Show("Bạn có chắc muốn xóa không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if(result != DialogResult.Yes)
+                if (result != DialogResult.Yes)
                 {
                     return;
                 }
@@ -180,19 +185,20 @@ namespace PharmacySystem.Presenters
             }
         }
 
-        public void SearchMedicineGroups(string searchText)
+
+
+        public void SearchMedicineGroups(string searchText, bool searchByCode = true, bool searchByName = true)
         {
             try
             {
-               
                 List<MedicineGroupModel> allMedicineGroups = _medicineGroupService.GetAllMedicineGroups();
 
-                
-                var filteredMedicineGroups = allMedicineGroups
-                    .Where(mg => mg.GroupCode.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                 mg.GroupName.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                                 mg.Description.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0)
-                    .ToList();
+                string normalizedSearchText = DiacriticsRemover.RemoveDiacritics(searchText).ToLowerInvariant();
+
+                var filteredMedicineGroups = allMedicineGroups.Where(mg =>
+                    (searchByCode && DiacriticsRemover.RemoveDiacritics(mg.GroupCode).ToLowerInvariant().Contains(normalizedSearchText)) ||
+                    (searchByName && DiacriticsRemover.RemoveDiacritics(mg.GroupName).ToLowerInvariant().Contains(normalizedSearchText))
+                ).ToList();
 
                 _medicineCategoryView.DisplayMedicineGroups(filteredMedicineGroups);
             }
@@ -201,9 +207,6 @@ namespace PharmacySystem.Presenters
                 MessageBox.Show($"Error searching data: {ex.Message}");
             }
         }
-
-        
-
 
     }
 

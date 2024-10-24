@@ -19,7 +19,9 @@ namespace PharmacySystem
         [STAThread]
         static void Main()
         {
-            string connectionString = "Server=127.0.0.1;Database=pharmacy_db;Uid=root;Pwd=;";
+
+
+            string connectionString = "Server=127.0.0.1;Database=pharmacy_db2;Uid=root;Pwd=;";
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

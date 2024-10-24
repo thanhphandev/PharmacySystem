@@ -57,9 +57,9 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(46, 148);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 19);
+            this.label2.Size = new System.Drawing.Size(109, 19);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Tên loại thuốc";
+            this.label2.Text = "Tên nhóm thuốc";
             // 
             // label3
             // 
@@ -93,9 +93,9 @@
             this.label5.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(46, 93);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(54, 19);
+            this.label5.Size = new System.Drawing.Size(69, 19);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Mã loại";
+            this.label5.Text = "Mã nhóm";
             // 
             // txtCode
             // 
@@ -116,7 +116,7 @@
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MedicineCategoryAddForm";
-            this.Text = "Hệ thống quản lý nhà thuốc";
+            this.Text = "";
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.label5, 0);
             this.Controls.SetChildIndex(this.label3, 0);

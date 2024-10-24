@@ -103,6 +103,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DiacriticsRemover.cs" />
     <Compile Include="Models\MedicineGroupModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Presenters\DashboardPresenter.cs" />
@@ -275,6 +276,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minus-button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add-user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\locked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
