@@ -38,7 +38,7 @@ namespace PharmacySystem.Views
                 if (e.KeyCode == Keys.Enter)
                 {
                     Login?.Invoke(this, EventArgs.Empty);
-                    e.SuppressKeyPress = true;;
+                    e.SuppressKeyPress = true;
                 }
             };
         }
@@ -77,6 +77,5 @@ namespace PharmacySystem.Views
             this.Hide();
         }
 
-        
     }
 }

@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PharmacySystem.Views.LoginForm
 {
@@ -15,5 +16,6 @@ namespace PharmacySystem.Views.LoginForm
 
         event EventHandler Login;
         void CloseForm();
+       
     }
 }

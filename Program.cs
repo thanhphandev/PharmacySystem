@@ -20,8 +20,13 @@ namespace PharmacySystem
         static void Main()
         {
 
-
-            string connectionString = "Server=127.0.0.1;Database=pharmacy_db2;Uid=root;Pwd=;";
+       
+            string connectionString = ConfigurationManager.ConnectionStrings["PharmacyDb"].ConnectionString;
+            
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                Console.WriteLine("Connection string not found");
+            }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -31,3 +36,4 @@ namespace PharmacySystem
         }
     }
 }
+

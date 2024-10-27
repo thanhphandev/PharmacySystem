@@ -31,7 +31,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbuser = new System.Windows.Forms.Label();
             this.btnMain = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.btnEmployees = new System.Windows.Forms.Button();
             this.btnProvider = new System.Windows.Forms.Button();
             this.btnMedicine = new System.Windows.Forms.Button();
@@ -40,10 +39,14 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ControlsPanel = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnReport = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMain)).BeginInit();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.flowLayoutPanel.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -52,9 +55,9 @@
             this.panel1.Controls.Add(this.lbuser);
             this.panel1.Controls.Add(this.btnMain);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(188, 0);
+            this.panel1.Location = new System.Drawing.Point(191, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(888, 73);
+            this.panel1.Size = new System.Drawing.Size(885, 73);
             this.panel1.TabIndex = 0;
             // 
             // lbuser
@@ -72,29 +75,13 @@
             this.btnMain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMain.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMain.Image = global::PharmacySystem.Properties.Resources.home_button;
-            this.btnMain.Location = new System.Drawing.Point(816, 22);
+            this.btnMain.Location = new System.Drawing.Point(813, 22);
             this.btnMain.Name = "btnMain";
             this.btnMain.Size = new System.Drawing.Size(28, 28);
             this.btnMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnMain.TabIndex = 3;
             this.btnMain.TabStop = false;
             this.btnMain.Click += new System.EventHandler(this.btnMain_Click);
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel2.Controls.Add(this.btnEmployees);
-            this.panel2.Controls.Add(this.btnProvider);
-            this.panel2.Controls.Add(this.btnMedicine);
-            this.panel2.Controls.Add(this.btnCategory);
-            this.panel2.Controls.Add(this.btnDashboard);
-            this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(188, 588);
-            this.panel2.TabIndex = 0;
             // 
             // btnEmployees
             // 
@@ -103,9 +90,9 @@
             this.btnEmployees.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEmployees.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEmployees.ForeColor = System.Drawing.Color.White;
-            this.btnEmployees.Location = new System.Drawing.Point(13, 314);
+            this.btnEmployees.Location = new System.Drawing.Point(3, 135);
             this.btnEmployees.Name = "btnEmployees";
-            this.btnEmployees.Size = new System.Drawing.Size(159, 38);
+            this.btnEmployees.Size = new System.Drawing.Size(175, 38);
             this.btnEmployees.TabIndex = 2;
             this.btnEmployees.Text = "Nhân viên";
             this.btnEmployees.UseVisualStyleBackColor = false;
@@ -117,9 +104,9 @@
             this.btnProvider.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnProvider.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProvider.ForeColor = System.Drawing.Color.White;
-            this.btnProvider.Location = new System.Drawing.Point(13, 371);
+            this.btnProvider.Location = new System.Drawing.Point(3, 179);
             this.btnProvider.Name = "btnProvider";
-            this.btnProvider.Size = new System.Drawing.Size(159, 38);
+            this.btnProvider.Size = new System.Drawing.Size(175, 38);
             this.btnProvider.TabIndex = 2;
             this.btnProvider.Text = "Nhà cung cấp";
             this.btnProvider.UseVisualStyleBackColor = false;
@@ -132,12 +119,13 @@
             this.btnMedicine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMedicine.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMedicine.ForeColor = System.Drawing.Color.White;
-            this.btnMedicine.Location = new System.Drawing.Point(12, 259);
+            this.btnMedicine.Location = new System.Drawing.Point(3, 91);
             this.btnMedicine.Name = "btnMedicine";
-            this.btnMedicine.Size = new System.Drawing.Size(159, 38);
+            this.btnMedicine.Size = new System.Drawing.Size(175, 38);
             this.btnMedicine.TabIndex = 2;
             this.btnMedicine.Text = "Medicines";
             this.btnMedicine.UseVisualStyleBackColor = false;
+            this.btnMedicine.Click += new System.EventHandler(this.btnMedicine_Click);
             // 
             // btnCategory
             // 
@@ -147,9 +135,9 @@
             this.btnCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCategory.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCategory.ForeColor = System.Drawing.Color.White;
-            this.btnCategory.Location = new System.Drawing.Point(12, 201);
+            this.btnCategory.Location = new System.Drawing.Point(3, 47);
             this.btnCategory.Name = "btnCategory";
-            this.btnCategory.Size = new System.Drawing.Size(159, 38);
+            this.btnCategory.Size = new System.Drawing.Size(175, 38);
             this.btnCategory.TabIndex = 2;
             this.btnCategory.Text = "Nhóm thuốc";
             this.btnCategory.UseVisualStyleBackColor = false;
@@ -162,9 +150,9 @@
             this.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDashboard.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDashboard.ForeColor = System.Drawing.Color.White;
-            this.btnDashboard.Location = new System.Drawing.Point(12, 145);
+            this.btnDashboard.Location = new System.Drawing.Point(3, 3);
             this.btnDashboard.Name = "btnDashboard";
-            this.btnDashboard.Size = new System.Drawing.Size(159, 38);
+            this.btnDashboard.Size = new System.Drawing.Size(175, 38);
             this.btnDashboard.TabIndex = 2;
             this.btnDashboard.Text = "Dashboard";
             this.btnDashboard.UseVisualStyleBackColor = false;
@@ -173,7 +161,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::PharmacySystem.Properties.Resources.pharmacy;
-            this.pictureBox1.Location = new System.Drawing.Point(59, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(60, 50);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -184,7 +172,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(9, 73);
+            this.label1.Location = new System.Drawing.Point(8, 76);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(173, 21);
             this.label1.TabIndex = 0;
@@ -196,10 +184,50 @@
             this.ControlsPanel.BackColor = System.Drawing.Color.Gainsboro;
             this.ControlsPanel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ControlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ControlsPanel.Location = new System.Drawing.Point(188, 73);
+            this.ControlsPanel.Location = new System.Drawing.Point(191, 73);
             this.ControlsPanel.Name = "ControlsPanel";
-            this.ControlsPanel.Size = new System.Drawing.Size(888, 515);
+            this.ControlsPanel.Size = new System.Drawing.Size(885, 515);
             this.ControlsPanel.TabIndex = 1;
+            // 
+            // flowLayoutPanel
+            // 
+            this.flowLayoutPanel.Controls.Add(this.btnDashboard);
+            this.flowLayoutPanel.Controls.Add(this.btnCategory);
+            this.flowLayoutPanel.Controls.Add(this.btnMedicine);
+            this.flowLayoutPanel.Controls.Add(this.btnEmployees);
+            this.flowLayoutPanel.Controls.Add(this.btnProvider);
+            this.flowLayoutPanel.Controls.Add(this.btnReport);
+            this.flowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel.Location = new System.Drawing.Point(3, 142);
+            this.flowLayoutPanel.Name = "flowLayoutPanel";
+            this.flowLayoutPanel.Size = new System.Drawing.Size(182, 383);
+            this.flowLayoutPanel.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.flowLayoutPanel);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(191, 588);
+            this.panel2.TabIndex = 0;
+            // 
+            // btnReport
+            // 
+            this.btnReport.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.btnReport.FlatAppearance.BorderColor = System.Drawing.Color.DarkTurquoise;
+            this.btnReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReport.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReport.ForeColor = System.Drawing.Color.White;
+            this.btnReport.Location = new System.Drawing.Point(3, 223);
+            this.btnReport.Name = "btnReport";
+            this.btnReport.Size = new System.Drawing.Size(175, 38);
+            this.btnReport.TabIndex = 2;
+            this.btnReport.Text = "Báo cáo";
+            this.btnReport.UseVisualStyleBackColor = false;
             // 
             // DashboardView
             // 
@@ -220,9 +248,10 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.flowLayoutPanel.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -231,7 +260,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel ControlsPanel;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -242,5 +270,8 @@
         private System.Windows.Forms.Button btnCategory;
         private System.Windows.Forms.Button btnProvider;
         private System.Windows.Forms.Button btnEmployees;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnReport;
     }
 }

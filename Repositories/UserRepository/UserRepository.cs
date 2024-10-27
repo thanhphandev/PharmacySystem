@@ -5,9 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+
 
 namespace PharmacySystem.Repositories.UserRepository
 {
@@ -21,7 +19,7 @@ namespace PharmacySystem.Repositories.UserRepository
         }
 
         
-        public void AddUser(UserModel user)
+        public async Task AddUser(UserModel user)
         {
             using (var connection = new MySqlConnection(_connectionString))
             {
@@ -38,13 +36,13 @@ namespace PharmacySystem.Repositories.UserRepository
                     command.Parameters.AddWithValue("@BOD", user.BoD);
                     command.Parameters.AddWithValue("@Address", user.Address);
                     // Mở kết nối tới Server
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                    await connection.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
                 }
             }
         }
-
-        public void DeleteUser(string username)
+        
+        public async Task DeleteUser(string username)
         {
             using (var connection = new MySqlConnection(_connectionString))
             {
@@ -52,13 +50,13 @@ namespace PharmacySystem.Repositories.UserRepository
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", username);
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                    await connection.OpenAsync();
+                    await command.ExecuteNonQueryAsync();
                 }
             }
         }
 
-        public List<UserModel> GetAllUsers()
+        public async Task<List<UserModel>> GetAllUsers()
         {
             List<UserModel> users = new List<UserModel>();
             using(var connection = new MySqlConnection(_connectionString))
@@ -66,8 +64,8 @@ namespace PharmacySystem.Repositories.UserRepository
                 string query = "SELECT * FROM employee";
                 using(var command = new MySqlCommand(query, connection))
                 {
-                    connection.Open();
-                    using(var reader = command.ExecuteReader())
+                    await connection.OpenAsync();
+                    using(var reader = await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
@@ -91,7 +89,7 @@ namespace PharmacySystem.Repositories.UserRepository
             
         }
 
-        public UserModel GetUserByUsername(string username)
+        public async Task<UserModel> GetUserByUsername(string username)
         {
             UserModel user = null;
 
@@ -103,11 +101,11 @@ namespace PharmacySystem.Repositories.UserRepository
                 {
                     command.Parameters.AddWithValue("@Username", username);
 
-                    connection.Open();
+                    await connection.OpenAsync();
 
-                    using (var reader = command.ExecuteReader())
+                    using (var reader = await command.ExecuteReaderAsync())
                     {
-                        if (reader.Read())
+                        if (await reader.ReadAsync())
                         {
                             user = new UserModel
                             {
@@ -131,7 +129,7 @@ namespace PharmacySystem.Repositories.UserRepository
         }
 
 
-        public void UpdateUser(UserModel user)
+        public async Task UpdateUser(UserModel user)
         {
             if (user == null)
             {
@@ -164,9 +162,9 @@ namespace PharmacySystem.Repositories.UserRepository
                     command.Parameters.AddWithValue("@Address", user.Address);
                     command.Parameters.AddWithValue("@Role", user.Role);
 
-                    connection.Open();
+                    await connection.OpenAsync();
 
-                    int rowsAffected = command.ExecuteNonQuery();
+                    int rowsAffected = await command.ExecuteNonQueryAsync();
                     if (rowsAffected == 0)
                     {
                         throw new InvalidOperationException($"No user found with ID {user.UserId} to update.");

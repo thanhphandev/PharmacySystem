@@ -63,6 +63,7 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(219, 20);
             this.txtPassword.TabIndex = 3;
+            this.txtPassword.Text = "Thanh@041610";
             // 
             // label4
             // 
@@ -80,6 +81,7 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(219, 20);
             this.txtUsername.TabIndex = 3;
+            this.txtUsername.Text = "admin";
             // 
             // chkDisplayPassword
             // 

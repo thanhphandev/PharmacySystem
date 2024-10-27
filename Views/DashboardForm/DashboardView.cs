@@ -1,7 +1,9 @@
 ﻿using PharmacySystem.Presenters;
+using PharmacySystem.Repositories.MedicineGroupRepository;
 using PharmacySystem.Services;
 using PharmacySystem.Views.MainForm;
 using PharmacySystem.Views.MedicineCategoryForm;
+using PharmacySystem.Views.MedicinesForm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,8 +27,47 @@ namespace PharmacySystem.Views.DashboardForm
             new DashboardPresenter(this, connectionString);
             _connectionString = connectionString;
             LoadUserData();
+            DisplayFunctionBaseRole();
            
         }
+
+
+        private void DisplayFunctionBaseRole()
+        {
+           
+            List<Control> allControls = new List<Control>
+            {
+                btnDashboard,
+                btnCategory,
+                btnMedicine,
+                btnEmployees,
+                btnProvider,
+                btnReport
+            };
+
+            flowLayoutPanel.Controls.Clear();
+            foreach (var control in allControls)
+            {
+                if (UserSession.Role == "seller")
+                {
+                   
+                    if (control == btnDashboard)
+                    {
+                        flowLayoutPanel.Controls.Add(control);
+                    }
+                    if (control == btnReport)
+                    {
+                        flowLayoutPanel.Controls.Add(control);
+                    }
+                }
+                else
+                {
+                    flowLayoutPanel.Controls.Add(control);
+                }
+            }
+        }
+
+
 
         private void LoadUserData()
         {
@@ -68,5 +109,10 @@ namespace PharmacySystem.Views.DashboardForm
             AddControls(view);
         }
 
+        private void btnMedicine_Click(object sender, EventArgs e)
+        {
+            MedicinesView view = new MedicinesView(_connectionString);
+            AddControls(view);
+        }
     }
 }

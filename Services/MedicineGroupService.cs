@@ -5,14 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace PharmacySystem.Services
 {
     public class MedicineGroupService
     {
         private readonly string _connectionString;
-        private readonly IMedicineGroup _medicineGroup;
+        private readonly IMedicineGroupRepository _medicineGroup;
 
         public MedicineGroupService(string connectionString) 
         {

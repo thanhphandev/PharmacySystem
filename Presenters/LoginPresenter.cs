@@ -28,11 +28,12 @@ namespace PharmacySystem.Presenters
             _connectionString = connectionString;
             _authService = new AuthService(_connectionString);
 
-            _loginView.Login += OnLogin;
-  
+            _loginView.Login += async (sender, args) => await OnLogin();
+
+
         }
 
-        private void OnLogin(object sender, EventArgs e)
+        private async Task OnLogin()
         {
             if (string.IsNullOrWhiteSpace(_loginView.Username))
             {
@@ -49,14 +50,14 @@ namespace PharmacySystem.Presenters
 
             try
             {
-                var accountExist = _authService.CheckAccountExist(_loginView.Username);
+                var accountExist = await _authService.CheckAccountExist(_loginView.Username);
                 if(accountExist == null)
                 {
                     MessageBox.Show("Tài khoản không tồn tại! vui lòng đăng ký", "Thông báo");
                     return;
                 }
                 
-                bool loginSucessfull = _authService.Login(_loginView.Username, _loginView.Password);
+                bool loginSucessfull = await _authService.Login(_loginView.Username, _loginView.Password);
                 
                 if (loginSucessfull)
                 {
