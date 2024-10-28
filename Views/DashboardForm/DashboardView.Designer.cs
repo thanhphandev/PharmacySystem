@@ -40,8 +40,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ControlsPanel = new System.Windows.Forms.Panel();
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.btnReport = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -110,6 +110,7 @@
             this.btnProvider.TabIndex = 2;
             this.btnProvider.Text = "Nhà cung cấp";
             this.btnProvider.UseVisualStyleBackColor = false;
+            this.btnProvider.Click += new System.EventHandler(this.btnProvider_Click);
             // 
             // btnMedicine
             // 
@@ -161,7 +162,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::PharmacySystem.Properties.Resources.pharmacy;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(54, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(60, 50);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -203,18 +204,6 @@
             this.flowLayoutPanel.Size = new System.Drawing.Size(182, 383);
             this.flowLayoutPanel.TabIndex = 0;
             // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Controls.Add(this.flowLayoutPanel);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(191, 588);
-            this.panel2.TabIndex = 0;
-            // 
             // btnReport
             // 
             this.btnReport.BackColor = System.Drawing.Color.DarkTurquoise;
@@ -228,6 +217,18 @@
             this.btnReport.TabIndex = 2;
             this.btnReport.Text = "Báo cáo";
             this.btnReport.UseVisualStyleBackColor = false;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.flowLayoutPanel);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(191, 588);
+            this.panel2.TabIndex = 0;
             // 
             // DashboardView
             // 

@@ -38,8 +38,7 @@ namespace PharmacySystem.Repositories.UnitTypeRepository
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while updating the user: {ex.Message}");
-                throw;
+                throw new Exception(ex.Message);
             }
 
 
@@ -63,8 +62,7 @@ namespace PharmacySystem.Repositories.UnitTypeRepository
             } 
             catch(Exception ex)
             {
-                Console.WriteLine($"An error occurred while updating the user: {ex.Message}");
-                throw;
+                throw new Exception(ex.Message);
             }
         }
 

@@ -36,8 +36,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while updating the user: {ex.Message}");
-                throw;
+                throw new Exception(ex.Message);
             }
             
 
@@ -60,8 +59,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while updating the user: {ex.Message}");
-                throw;
+                throw new Exception(ex.Message);
             }
 
             
@@ -125,8 +123,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-                throw;
+                throw new Exception(ex.Message);
             }
             
         }
@@ -158,8 +155,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while updating the group: {ex.Message}");
-                throw;
+                throw new Exception(ex.Message);
             }
         }
 

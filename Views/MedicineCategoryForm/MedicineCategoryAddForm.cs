@@ -17,7 +17,7 @@ namespace PharmacySystem.Views.MedicineCategoryForm
     {
 
         private bool isEditMode;
-        public MedicineCategoryAddForm(string connectionString)
+        public MedicineCategoryAddForm()
         {
             InitializeComponent();
 

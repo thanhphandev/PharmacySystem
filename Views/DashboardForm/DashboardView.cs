@@ -4,6 +4,7 @@ using PharmacySystem.Services;
 using PharmacySystem.Views.MainForm;
 using PharmacySystem.Views.MedicineCategoryForm;
 using PharmacySystem.Views.MedicinesForm;
+using PharmacySystem.Views.SuppliersForm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,7 +20,6 @@ namespace PharmacySystem.Views.DashboardForm
     public partial class DashboardView : Form, IDashboard
     {
         private readonly string _connectionString;
-        public event EventHandler ShowMainView;
 
         public DashboardView(string connectionString)
         {
@@ -112,6 +112,12 @@ namespace PharmacySystem.Views.DashboardForm
         private void btnMedicine_Click(object sender, EventArgs e)
         {
             MedicinesView view = new MedicinesView(_connectionString);
+            AddControls(view);
+        }
+
+        private void btnProvider_Click(object sender, EventArgs e)
+        {
+            SuppliersView view = new SuppliersView(_connectionString);
             AddControls(view);
         }
     }
