@@ -1,4 +1,5 @@
-﻿using PharmacySystem.Views.DashboardForm.BaseForm;
+﻿using PharmacySystem.Presenters.SupplierPresenter;
+using PharmacySystem.Views.DashboardForm.BaseForm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,9 +16,11 @@ namespace PharmacySystem.Views.SuppliersForm
     public partial class AddSupplierForm : BaseAddForm, IAddSupplierView
     {
         private bool isEditMode;
-        public AddSupplierForm()
+        private int id;
+        public AddSupplierForm(string connectionString)
         {
             InitializeComponent();
+            new AddSupplierPresenter(this, connectionString);
         }
 
         public string LabelHeader { get => lbHeader.Text; set => lbHeader.Text = value; }
@@ -25,6 +28,7 @@ namespace PharmacySystem.Views.SuppliersForm
         public string SupplierName { get => txtSupplierName.Text; set => txtSupplierName.Text = value; }
         public string SupplierPhone { get => txtSupplierPhone.Text; set => txtSupplierPhone.Text = value; }
         public string SupplierAddress { get => txtSupplierAddress.Text; set => txtSupplierAddress.Text = value; }
+        public int SupplierId { get => id; set => id = value; }
 
         public event EventHandler AddSupplier;
         public event EventHandler UpdateSupplier;

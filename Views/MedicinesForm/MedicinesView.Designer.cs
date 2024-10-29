@@ -39,6 +39,8 @@
             // txtHeader
             // 
             this.txtHeader.Location = new System.Drawing.Point(42, 25);
+            this.txtHeader.Size = new System.Drawing.Size(105, 20);
+            this.txtHeader.Text = "Quản lý thuốc";
             // 
             // txtSearch
             // 

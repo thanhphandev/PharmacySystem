@@ -1,5 +1,5 @@
 ﻿using PharmacySystem.Models;
-using PharmacySystem.Presenters;
+using PharmacySystem.Presenters.SupplierPresenter;
 using PharmacySystem.Views.DashboardForm.BaseForm;
 using System;
 using System.Collections.Generic;
@@ -25,13 +25,12 @@ namespace PharmacySystem.Views.SuppliersForm
         {
             InitializeComponent();
             _connectionString = connectionString;
-            var presenter = new SupplierPresenter(this, _connectionString);
+            var presenter = new SupplierViewPresenter(this, _connectionString);
             presenter.LoadData();
             AsscociateAndRaiseViewEvents(presenter);
 
         }
-
-        private void AsscociateAndRaiseViewEvents(SupplierPresenter presenter)
+        private void AsscociateAndRaiseViewEvents(SupplierViewPresenter presenter)
         {
             cbFilter.SelectedItem = "All";
 
@@ -53,7 +52,7 @@ namespace PharmacySystem.Views.SuppliersForm
             cbFilter.SelectedIndexChanged += (s, e) => SearchMedicineGroupsBasedOnFilter(presenter);
         }
 
-        private void SearchMedicineGroupsBasedOnFilter(SupplierPresenter presenter)
+        private void SearchMedicineGroupsBasedOnFilter(SupplierViewPresenter presenter)
         {
 
             var filter = cbFilter.SelectedItem?.ToString();

@@ -1,3 +1,4 @@
+-- Lưu trữ tên đơn vị
 CREATE TABLE unit_type (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	unit_name VARCHAR(100)            -- Tên đơn vị

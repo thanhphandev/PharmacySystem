@@ -113,7 +113,8 @@
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Presenters\MedicineGroupViewPresenter.cs" />
     <Compile Include="Presenters\SignupPresenter.cs" />
-    <Compile Include="Presenters\SupplierPresenter.cs" />
+    <Compile Include="Presenters\SupplierPresenter\AddSupplierPresenter.cs" />
+    <Compile Include="Presenters\SupplierPresenter\SupplierViewPresenter.cs" />
     <Compile Include="Presenters\UnitTypePresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
