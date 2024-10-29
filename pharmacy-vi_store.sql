@@ -1,9 +1,4 @@
--- Lưu trữ thông tin địa điểm cửa hàng
-CREATE TABLE location (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    location_name VARCHAR(100)            -- Tên địa điểm
-);
-
+-- Lưu trữ tên đơn vị
 CREATE TABLE unit_type (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	unit_name VARCHAR(100)            -- Tên đơn vị
@@ -27,13 +22,13 @@ CREATE TABLE medicine_group (
 
 -- Lưu trữ thông tin chi tiết về thuốc
 CREATE TABLE medicine_info (
-    medicine_code VARCHAR(50) PRIMARY KEY, HJ      -- Mã thuốc (primary key)
-    medicine_name VARCHAR(100),            Panadom      -- Tên thuốc
-    unit_type INT,                         Vi      -- Đơn vị tính (liên kết với bảng unit_type)
-    medicine_img VARCHAR(255),             /link      -- Hình ảnh thuốc            
-    medicine_content VARCHAR(255),         thuoc nhuc dau      -- Nội dung mô tả thuốc
-    medicine_element VARCHAR(255),         dhjsjhs      -- Thành phần của thuốc
-    group_code VARCHAR(15),             uguuf-- Mã nhóm thuốc (liên kết với bảng medicine_group)
+    medicine_code VARCHAR(50) PRIMARY KEY,       -- Mã thuốc (primary key)
+    medicine_name VARCHAR(100) UNIQUE,                  -- Tên thuốc
+    unit_type INT,                               -- Đơn vị tính (liên kết với bảng unit_type)
+    medicine_img VARCHAR(255),                   -- Hình ảnh thuốc            
+    medicine_content VARCHAR(255),               -- Nội dung mô tả thuốc
+    medicine_element VARCHAR(255),               -- Thành phần của thuốc
+    group_code VARCHAR(15),             -- Mã nhóm thuốc (liên kết với bảng medicine_group)
     FOREIGN KEY (group_code) REFERENCES medicine_group(group_code),
     FOREIGN KEY (unit_type) REFERENCES unit_type(id)
 );
@@ -49,16 +44,8 @@ CREATE TABLE medicine (
     FOREIGN KEY (medicine_code) REFERENCES medicine_info(medicine_code)  -- Chỉ ra quan hệ với bảng medicine_info
 );
 
--- Lưu trữ thông tin vị trí lưu trữ thuốc
-CREATE TABLE medicine_location (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    medicine_id INT,                      -- Mã định danh thuốc, liên kết với bảng medicine
-    location_id INT,                      -- Mã định danh địa điểm, liên kết với bảng location
-    FOREIGN KEY (medicine_id) REFERENCES medicine(id),
-    FOREIGN KEY (location_id) REFERENCES location(id)
-);
 
--- Lưu trữ số lượng thuốc
+-- Lưu trữ số lượng thuốc -----
 CREATE TABLE medicine_quantity (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     medicine_id INT,                      -- Mã định danh thuốc, liên kết với bảng medicine
@@ -81,7 +68,6 @@ CREATE TABLE employee (
 );
 
 
--- Lưu trữ thông tin hóa đơn tài chính (theo dõi biến động tài chính khoản thu/ khoản chi)
 CREATE TABLE finance_bill (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     finance_bill_time DATETIME DEFAULT CURRENT_TIMESTAMP,            -- Thời gian tạo hóa đơn

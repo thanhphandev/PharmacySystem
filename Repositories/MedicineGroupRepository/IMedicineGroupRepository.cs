@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PharmacySystem.Repositories.MedicineGroupRepository
 {
-    public interface IMedicineGroup
+    public interface IMedicineGroupRepository
     {
         MedicineGroupModel GetMedicineGroupByCode(string code);
         List<MedicineGroupModel> GetAllMedicineGroups();

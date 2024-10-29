@@ -9,10 +9,10 @@ namespace PharmacySystem.Repositories.UserRepository
 {
     public interface IUserRepository
     {
-        void AddUser(UserModel user);
-        void UpdateUser(UserModel user);
-        void DeleteUser(string username);
-        List<UserModel> GetAllUsers();
-        UserModel GetUserByUsername(string username);
+        Task AddUser(UserModel user);
+        Task UpdateUser(UserModel user);
+        Task DeleteUser(string username);
+        Task<List<UserModel>> GetAllUsers();
+        Task<UserModel> GetUserByUsername(string username);
     }
 }

@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace PharmacySystem.Repositories.MedicineGroupRepository
 {
-    public class MedicineGroupRepository : BaseRepository, IMedicineGroup
+    public class MedicineGroupRepository : BaseRepository, IMedicineGroupRepository
     {
         private readonly string _connectionString;
         public MedicineGroupRepository(string connectionString)
@@ -36,8 +36,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while updating the user: {ex.Message}");
-                throw;
+                throw new Exception(ex.Message);
             }
             
 
@@ -45,16 +44,23 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
 
         public void DeleteMedicineGroup(string groupCode)
         {
-           using (var connection = new MySqlConnection(_connectionString))
-           {
-                string query = "DELETE FROM medicine_group WHERE group_code =@GroupCode";
-                using (var command = new MySqlCommand(query, connection))
+            try
+            {
+                using (var connection = new MySqlConnection(_connectionString))
                 {
-                    command.Parameters.AddWithValue("GroupCode", groupCode);
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                    string query = "DELETE FROM medicine_group WHERE group_code =@GroupCode";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("GroupCode", groupCode);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
                 }
-           }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
             
         }
@@ -89,29 +95,37 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
 
         public MedicineGroupModel GetMedicineGroupByCode(string groupCode)
         {
-            MedicineGroupModel medicineGroup = null;
-            using (var connection = new MySqlConnection(_connectionString))
+            try 
             {
-                string query = "SELECT group_code, group_name, group_content FROM medicine_group WHERE group_code = @GroupCode";
-                using (var command = new MySqlCommand(query, connection))
+                MedicineGroupModel medicineGroup = null;
+                using (var connection = new MySqlConnection(_connectionString))
                 {
-                    command.Parameters.AddWithValue("GroupCode", groupCode);
-                    connection.Open();
-                    using (var reader = command.ExecuteReader())
+                    string query = "SELECT group_code, group_name, group_content FROM medicine_group WHERE group_code = @GroupCode";
+                    using (var command = new MySqlCommand(query, connection))
                     {
-                        if (reader.Read())
+                        command.Parameters.AddWithValue("GroupCode", groupCode);
+                        connection.Open();
+                        using (var reader = command.ExecuteReader())
                         {
-                            medicineGroup = new MedicineGroupModel
+                            if (reader.Read())
                             {
-                                GroupCode = reader["group_code"].ToString(),
-                                GroupName = reader["group_name"].ToString(),
-                                Description = reader["group_content"].ToString()
-                            };
+                                medicineGroup = new MedicineGroupModel
+                                {
+                                    GroupCode = reader["group_code"].ToString(),
+                                    GroupName = reader["group_name"].ToString(),
+                                    Description = reader["group_content"].ToString()
+                                };
+                            }
                         }
                     }
                 }
+                return medicineGroup;
             }
-            return medicineGroup;
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
         public void UpdateMedicineGroup(string oldGroupCode, MedicineGroupModel updatedMedicineGroup)
@@ -141,8 +155,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while updating the group: {ex.Message}");
-                throw;
+                throw new Exception(ex.Message);
             }
         }
 

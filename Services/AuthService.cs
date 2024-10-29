@@ -21,9 +21,9 @@ namespace PharmacySystem.Services
 
         }
 
-        public UserModel CheckAccountExist(string username)
+        public async Task<UserModel> CheckAccountExist(string username)
         {
-            var user = _userRepository.GetUserByUsername(username);
+            var user = await _userRepository.GetUserByUsername(username);
             if (user == null)
             {
                 return null;
@@ -31,10 +31,10 @@ namespace PharmacySystem.Services
             return user;
         }
 
-        public bool Signup(string username, string password, string fullname, string gender, string email, string phone, DateTime BoD, string address)
+        public async Task<bool> Signup(string username, string password, string fullname, string gender, string email, string phone, DateTime BoD, string address)
         {
             
-            var existingUser = CheckAccountExist(username);
+            var existingUser = await CheckAccountExist(username);
             if (existingUser != null)
             {
                 return false;
@@ -52,14 +52,14 @@ namespace PharmacySystem.Services
                 BoD = BoD,
             };
             
-            _userRepository.AddUser(user);
+            await _userRepository.AddUser(user);
             return true; 
         }
 
 
-        public bool Login(string username, string password)
+        public async Task<bool> Login(string username, string password)
         {
-            var user  = CheckAccountExist(username);
+            var user  = await CheckAccountExist(username);
             if (user == null)
             {
                 return false;
@@ -70,6 +70,7 @@ namespace PharmacySystem.Services
             {
                 return false;
             }
+
             UserSession.UserId = user.UserId;
             UserSession.Username = user.Username;
             UserSession.FullName = user.FullName;

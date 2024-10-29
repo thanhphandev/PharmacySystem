@@ -105,21 +105,32 @@
   <ItemGroup>
     <Compile Include="Common\DiacriticsRemover.cs" />
     <Compile Include="Models\MedicineGroupModel.cs" />
+    <Compile Include="Models\SupplierModel.cs" />
+    <Compile Include="Models\UnitTypeModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Presenters\DashboardPresenter.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Presenters\MedicineGroupViewPresenter.cs" />
     <Compile Include="Presenters\SignupPresenter.cs" />
+    <Compile Include="Presenters\SupplierPresenter\AddSupplierPresenter.cs" />
+    <Compile Include="Presenters\SupplierPresenter\SupplierViewPresenter.cs" />
+    <Compile Include="Presenters\UnitTypePresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
-    <Compile Include="Repositories\MedicineGroupRepository\IMedicineGroup.cs" />
+    <Compile Include="Repositories\MedicineGroupRepository\IMedicineGroupRepository.cs" />
     <Compile Include="Repositories\MedicineGroupRepository\MedicineGroupRepository.cs" />
+    <Compile Include="Repositories\SupplierRepository\ISupplierRepository.cs" />
+    <Compile Include="Repositories\SupplierRepository\SupplierRepository.cs" />
+    <Compile Include="Repositories\UnitTypeRepository\IUnitTypeRepository.cs" />
+    <Compile Include="Repositories\UnitTypeRepository\UnitTypeRepository.cs" />
     <Compile Include="Repositories\UserRepository\IUserRepository.cs" />
     <Compile Include="Repositories\UserRepository\UserRepository.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\MedicineGroupService.cs" />
+    <Compile Include="Services\SupplierService.cs" />
+    <Compile Include="Services\UnitTypeService.cs" />
     <Compile Include="Services\UserSession.cs" />
     <Compile Include="Views\DashboardForm\BaseForm\BaseAddForm.cs">
       <SubType>Form</SubType>
@@ -174,12 +185,39 @@
     <Compile Include="Views\MedicineCategoryForm\MedicineCategoryView.Designer.cs">
       <DependentUpon>MedicineCategoryView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\MedicinesForm\MedicinesView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MedicinesForm\MedicinesView.Designer.cs">
+      <DependentUpon>MedicinesView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\RegisterForm\ISignupView.cs" />
     <Compile Include="Views\RegisterForm\SignupView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\RegisterForm\SignupView.Designer.cs">
       <DependentUpon>SignupView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SuppliersForm\AddSupplierForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SuppliersForm\AddSupplierForm.Designer.cs">
+      <DependentUpon>AddSupplierForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SuppliersForm\IAddSupplierView.cs" />
+    <Compile Include="Views\SuppliersForm\ISuppliersView.cs" />
+    <Compile Include="Views\SuppliersForm\SuppliersView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SuppliersForm\SuppliersView.Designer.cs">
+      <DependentUpon>SuppliersView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UnitTypeForm\IUnitTypeView.cs" />
+    <Compile Include="Views\UnitTypeForm\UnitTypeView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UnitTypeForm\UnitTypeView.Designer.cs">
+      <DependentUpon>UnitTypeView.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -215,8 +253,20 @@
     <EmbeddedResource Include="Views\MedicineCategoryForm\MedicineCategoryView.resx">
       <DependentUpon>MedicineCategoryView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\MedicinesForm\MedicinesView.resx">
+      <DependentUpon>MedicinesView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\RegisterForm\SignupView.resx">
       <DependentUpon>SignupView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SuppliersForm\AddSupplierForm.resx">
+      <DependentUpon>AddSupplierForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SuppliersForm\SuppliersView.resx">
+      <DependentUpon>SuppliersView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UnitTypeForm\UnitTypeView.resx">
+      <DependentUpon>UnitTypeView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -291,6 +341,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wallet.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

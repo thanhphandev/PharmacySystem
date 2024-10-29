@@ -26,11 +26,11 @@ namespace PharmacySystem.Presenters
             _connectionString = connectionString;
             _authService = new AuthService(_connectionString);
 
-            _signupView.Signup += OnSignup;
+            _signupView.Signup += async(sender, args) => await OnSignup();
     
         }
 
-        private void OnSignup(object sender, EventArgs e)
+        private async Task OnSignup()
         {
             
             if (string.IsNullOrWhiteSpace(_signupView.Username))
@@ -85,7 +85,7 @@ namespace PharmacySystem.Presenters
             try
             {
                
-                bool signupSuccessfull = _authService.Signup(_signupView.Username,
+                bool signupSuccessfull = await _authService.Signup(_signupView.Username,
                                                              _signupView.Password,
                                                              _signupView.FullName,
                                                              _signupView.Gender,

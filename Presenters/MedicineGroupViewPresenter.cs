@@ -59,7 +59,7 @@ namespace PharmacySystem.Presenters
         {
             try
             {
-                MedicineCategoryAddForm view = new MedicineCategoryAddForm(_connectionString)
+                MedicineCategoryAddForm view = new MedicineCategoryAddForm()
                 {
                     IsEditMode = false
                 };
@@ -113,7 +113,7 @@ namespace PharmacySystem.Presenters
 
             try
             {
-                MedicineCategoryAddForm view = new MedicineCategoryAddForm(_connectionString)
+                MedicineCategoryAddForm view = new MedicineCategoryAddForm()
                 {
                     GroupCode = currentMedicineGroup.GroupCode,
                     GroupName = currentMedicineGroup.GroupName,
