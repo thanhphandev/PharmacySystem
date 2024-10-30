@@ -30,7 +30,6 @@ namespace PharmacySystem.Presenters
 
             _loginView.Login += async (sender, args) => await OnLogin();
 
-
         }
 
         private async Task OnLogin()

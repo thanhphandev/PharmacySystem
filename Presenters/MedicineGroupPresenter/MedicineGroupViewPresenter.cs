@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace PharmacySystem.Presenters
+namespace PharmacySystem.Presenters.MedicineGroupPresenter
 {
     public class MedicineGroupViewPresenter
     {
@@ -34,8 +34,7 @@ namespace PharmacySystem.Presenters
         }
 
         private void OnRefreshData(object sender, EventArgs e)
-        {
-            _medicineCategoryView.TextSearch = string.Empty;
+        { 
             LoadData();
         }
 
@@ -44,6 +43,7 @@ namespace PharmacySystem.Presenters
 
             try
             {
+                _medicineCategoryView.TextSearch = string.Empty;
                 List<MedicineGroupModel> medicineGroups = _medicineGroupService.GetAllMedicineGroups();
 
                 _medicineCategoryView.DisplayMedicineGroups(medicineGroups);
@@ -59,42 +59,12 @@ namespace PharmacySystem.Presenters
         {
             try
             {
-                MedicineCategoryAddForm view = new MedicineCategoryAddForm()
+                MedicineCategoryAddForm view = new MedicineCategoryAddForm(_connectionString)
                 {
                     IsEditMode = false
                 };
-
-                view.AddMedicineGroup += (s, args) =>
-                {
-                    MedicineGroupModel newMedicineGroup = new MedicineGroupModel
-                    {
-                        GroupCode = view.GroupCode.Trim(),
-                        GroupName = view.GroupName.Trim(),
-                        Description = view.Content.Trim()
-                    };
-
-                   
-                    if (string.IsNullOrWhiteSpace(newMedicineGroup.GroupCode) || string.IsNullOrWhiteSpace(newMedicineGroup.GroupName))
-                    {
-                        MessageBox.Show("Mã nhóm và tên nhóm không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-
-                    // Kiểm tra tính duy nhất của GroupCode khi thêm mới
-                    bool isAddSuccessfull = _medicineGroupService.AddMedicineGroup(newMedicineGroup);
-                    if (isAddSuccessfull)
-                    {
-                        MessageBox.Show("Nhóm thuốc đã được thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        view.CloseForm();
-                        LoadData();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Mã nhóm đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-
                 view.ShowDialog();
+                LoadData();
             }
             catch (Exception ex)
             {
@@ -113,54 +83,18 @@ namespace PharmacySystem.Presenters
 
             try
             {
-                MedicineCategoryAddForm view = new MedicineCategoryAddForm()
+                MedicineCategoryAddForm view = new MedicineCategoryAddForm(_connectionString)
                 {
+                    OldGroupCode = currentMedicineGroup.GroupCode,
                     GroupCode = currentMedicineGroup.GroupCode,
                     GroupName = currentMedicineGroup.GroupName,
                     Content = currentMedicineGroup.Description,
-                    IsEditMode = true
-                };
-
-                view.LabelHeader = "Cập nhật nhóm thuốc";
-                view.UpdateMedicineGroup += (s, args) =>
-                {
-                    string oldGroupCode = currentMedicineGroup.GroupCode;
-                    string newGroupCode = view.GroupCode.Trim();
-                    string newGroupName = view.GroupName.Trim();
-
-                    if (string.IsNullOrWhiteSpace(newGroupCode) || string.IsNullOrWhiteSpace(newGroupName))
-                    {
-                        MessageBox.Show("Mã nhóm và tên nhóm không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-
-                    if (!newGroupCode.Equals(oldGroupCode))
-                    {
-                        var existGroup = _medicineGroupService.CheckGroupExist(newGroupCode);
-                        if (existGroup != null)
-                        {
-                            MessageBox.Show("Mã nhóm đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
-                    }
-
-
-                    currentMedicineGroup.GroupCode = newGroupCode;
-                    currentMedicineGroup.GroupName = newGroupName;
-                    currentMedicineGroup.Description = view.Content.Trim();
-
-                    bool isUpdateSuccessfull = _medicineGroupService.UpdateMedicineGroup(oldGroupCode, currentMedicineGroup);
-                    if (isUpdateSuccessfull)
-                    {
-                        MessageBox.Show("Nhóm thuốc đã được cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        view.CloseForm();
-                        LoadData();
-                    }
-                    _medicineCategoryView.TextSearch = string.Empty;
-
+                    IsEditMode = true,
+                    LabelHeader = "Cập nhật nhóm thuốc"
                 };
 
                 view.ShowDialog();
+                LoadData();
             }
             catch (Exception ex)
             {
@@ -184,7 +118,6 @@ namespace PharmacySystem.Presenters
                 LoadData();
             }
         }
-
 
 
         public void SearchMedicineGroups(string searchText, bool searchByCode = true, bool searchByName = true)

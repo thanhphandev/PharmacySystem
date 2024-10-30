@@ -9,6 +9,7 @@ namespace PharmacySystem.Views.MedicineCategoryForm
     public interface IMedicineGroupAddForm
     {
         string LabelHeader { get; set; }
+        string OldGroupCode { get; set; }
         string GroupCode { get; set; }
         string GroupName { get; set; }
         bool IsEditMode { get; set; }

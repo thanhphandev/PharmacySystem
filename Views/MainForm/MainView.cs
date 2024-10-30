@@ -50,6 +50,5 @@ namespace PharmacySystem.Views.MainForm
             this.Close();
         }
 
-        
     }
 }

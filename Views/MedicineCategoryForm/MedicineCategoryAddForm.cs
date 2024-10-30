@@ -1,5 +1,6 @@
 ﻿using Mysqlx.Crud;
 using PharmacySystem.Presenters;
+using PharmacySystem.Presenters.MedicineGroupPresenter;
 using PharmacySystem.Views.DashboardForm.BaseForm;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,10 @@ namespace PharmacySystem.Views.MedicineCategoryForm
     {
 
         private bool isEditMode;
-        public MedicineCategoryAddForm()
+        private string oldGroupCode;
+        public MedicineCategoryAddForm(string connectionString)
         {
+            new AddMedicineGroupPresenter(this, connectionString);
             InitializeComponent();
 
         }
@@ -28,6 +31,7 @@ namespace PharmacySystem.Views.MedicineCategoryForm
         public string Content { get => txtContent.Text; set => txtContent.Text = value; }
         public string LabelHeader { get => lbHeader.Text; set => lbHeader.Text = value; }
         public bool IsEditMode { get => isEditMode; set => isEditMode = value; }
+        public string OldGroupCode { get => oldGroupCode; set => oldGroupCode = value; }
 
         public event EventHandler AddMedicineGroup;
         public event EventHandler UpdateMedicineGroup;

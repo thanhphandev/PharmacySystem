@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace PharmacySystem.Repositories.MedicineGroupRepository
 {
-    public class MedicineGroupRepository : BaseRepository, IMedicineGroupRepository
+    public class MedicineGroupRepository :  IMedicineGroupRepository
     {
         private readonly string _connectionString;
         public MedicineGroupRepository(string connectionString)

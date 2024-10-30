@@ -133,18 +133,18 @@ namespace PharmacySystem.Presenters
         }
 
         
-    private bool IsValidEmail(string email)
-        {
-            try
+        private bool IsValidEmail(string email)
             {
-                var mail = new System.Net.Mail.MailAddress(email);
-                return mail.Address == email;
+                try
+                {
+                    var mail = new System.Net.Mail.MailAddress(email);
+                    return mail.Address == email;
+                }
+                catch
+                {
+                    return false;
+                }
             }
-            catch
-            {
-                return false;
-            }
-        }
 
         private bool IsValidPhoneNumber(string phoneNumber)
         {

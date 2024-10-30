@@ -10,7 +10,6 @@ namespace PharmacySystem.Models
     {
         private int id;
         private string name;
-
         public int Id { get => id; set => id = value; }
         public string UnitType { get => name; set => name = value; }
     }
