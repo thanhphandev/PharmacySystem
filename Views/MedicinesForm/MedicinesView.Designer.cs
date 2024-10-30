@@ -42,6 +42,10 @@
             this.txtHeader.Size = new System.Drawing.Size(105, 20);
             this.txtHeader.Text = "Quản lý thuốc";
             // 
+            // btnAdd
+            // 
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
             // txtSearch
             // 
             this.txtSearch.Location = new System.Drawing.Point(476, 94);

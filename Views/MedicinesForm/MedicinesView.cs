@@ -26,5 +26,11 @@ namespace PharmacySystem.Views.MedicinesForm
             UnitTypeView view = new UnitTypeView(_connectionString);
             view.ShowDialog();
         }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            AddMedicineForm view = new AddMedicineForm();
+            view.ShowDialog();
+        }
     }
 }
