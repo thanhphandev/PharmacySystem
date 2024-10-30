@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient;
 
 namespace PharmacySystem.Repositories.UserRepository
 {
-    public class UserRepository : BaseRepository, IUserRepository { 
+    public class UserRepository :  IUserRepository { 
     
         private readonly string _connectionString;
 

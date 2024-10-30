@@ -74,7 +74,6 @@ namespace PharmacySystem.Presenters.SupplierPresenter
 
         private void OnRefreshData(object sender, EventArgs e)
         {
-            _suppliersView.TextSearch = string.Empty;
             LoadData();
         }
 
@@ -83,6 +82,7 @@ namespace PharmacySystem.Presenters.SupplierPresenter
 
             try
             {
+                _suppliersView.TextSearch = string.Empty;
                 List<SupplierModel> suppliers = _supplierService.GetAllSuppliers();
                 _suppliersView.DisplaySuppliers(suppliers);
             }
