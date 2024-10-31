@@ -72,8 +72,6 @@ namespace PharmacySystem.Views.DashboardForm
         private void LoadUserData()
         {
             lbuser.Text = $"Xin chào, {UserSession.FullName}\nBạn đang đăng nhập với vai trò là {UserSession.Role}";
-            HomeUI homeUI = new HomeUI();
-            AddControls(homeUI);
         }
 
         public void CloseForm()
@@ -99,7 +97,7 @@ namespace PharmacySystem.Views.DashboardForm
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
-            HomeUI homeUI = new HomeUI();
+            HomeUI homeUI = new HomeUI(_connectionString);
             AddControls(homeUI);
         }
 
