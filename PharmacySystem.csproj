@@ -156,6 +156,9 @@
   <ItemGroup>
     <Compile Include="Common\DiacriticsRemover.cs" />
     <Compile Include="Models\MedicineGroupModel.cs" />
+    <Compile Include="Models\MedicineInfoModel.cs" />
+    <Compile Include="Models\MedicineModel.cs" />
+    <Compile Include="Models\MedicineQuantity.cs" />
     <Compile Include="Models\SupplierModel.cs" />
     <Compile Include="Models\UnitTypeModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -244,6 +247,7 @@
     <Compile Include="Views\MedicinesForm\AddMedicineForm.Designer.cs">
       <DependentUpon>AddMedicineForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\MedicinesForm\IMedicineView.cs" />
     <Compile Include="Views\MedicinesForm\MedicinesView.cs">
       <SubType>Form</SubType>
     </Compile>
