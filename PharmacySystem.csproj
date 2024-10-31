@@ -159,7 +159,7 @@
     <Compile Include="Models\MedicineGroupModel.cs" />
     <Compile Include="Models\MedicineInfoModel.cs" />
     <Compile Include="Models\MedicineModel.cs" />
-    <Compile Include="Models\MedicineQuantity.cs" />
+    <Compile Include="Models\MedicineQuantityModel.cs" />
     <Compile Include="Models\RoleCountModel.cs" />
     <Compile Include="Models\SupplierModel.cs" />
     <Compile Include="Models\UnitTypeModel.cs" />
@@ -170,6 +170,7 @@
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Presenters\MedicineGroupPresenter\AddMedicineGroupPresenter.cs" />
     <Compile Include="Presenters\MedicineGroupPresenter\MedicineGroupViewPresenter.cs" />
+    <Compile Include="Presenters\MedicinePresenter\AddMedicinePresenter.cs" />
     <Compile Include="Presenters\SignupPresenter.cs" />
     <Compile Include="Presenters\SupplierPresenter\AddSupplierPresenter.cs" />
     <Compile Include="Presenters\SupplierPresenter\SupplierViewPresenter.cs" />
@@ -178,6 +179,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\MedicineGroupRepository\IMedicineGroupRepository.cs" />
     <Compile Include="Repositories\MedicineGroupRepository\MedicineGroupRepository.cs" />
+    <Compile Include="Repositories\MedicineInfoRepository\IMedicineInfoRepository.cs" />
+    <Compile Include="Repositories\MedicineInfoRepository\MedicineInfoRepository.cs" />
+    <Compile Include="Repositories\MedicineQuantityRepository\IMedicineQuantityRepository.cs" />
+    <Compile Include="Repositories\MedicineQuantityRepository\MedicineQuantityRepository.cs" />
+    <Compile Include="Repositories\MedicineRepository\IMedicineRepository.cs" />
+    <Compile Include="Repositories\MedicineRepository\MedicineRepository.cs" />
     <Compile Include="Repositories\SupplierRepository\ISupplierRepository.cs" />
     <Compile Include="Repositories\SupplierRepository\SupplierRepository.cs" />
     <Compile Include="Repositories\UnitTypeRepository\IUnitTypeRepository.cs" />
@@ -188,6 +195,9 @@
     <Compile Include="Services\CloudinaryImageUploadService.cs" />
     <Compile Include="Services\Interface\IImageUploadService.cs" />
     <Compile Include="Services\MedicineGroupService.cs" />
+    <Compile Include="Services\MedicineService\MedicineInfoService.cs" />
+    <Compile Include="Services\MedicineService\MedicineQuantityService.cs" />
+    <Compile Include="Services\MedicineService\MedicineService.cs" />
     <Compile Include="Services\SupplierService.cs" />
     <Compile Include="Services\UnitTypeService.cs" />
     <Compile Include="Services\UserSession.cs" />
@@ -251,6 +261,7 @@
     <Compile Include="Views\MedicinesForm\AddMedicineForm.Designer.cs">
       <DependentUpon>AddMedicineForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\MedicinesForm\IAddMedicineForm.cs" />
     <Compile Include="Views\MedicinesForm\IMedicineView.cs" />
     <Compile Include="Views\MedicinesForm\MedicinesView.cs">
       <SubType>Form</SubType>
@@ -419,5 +430,6 @@
   <ItemGroup>
     <Content Include="pharmacy-vi_store.sql" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

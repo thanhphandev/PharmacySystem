@@ -36,17 +36,7 @@ namespace PharmacySystem.Presenters.SupplierPresenter
             };
 
 
-            if (string.IsNullOrWhiteSpace(newSupplier.SupplierName) || string.IsNullOrWhiteSpace(newSupplier.SupplierPhone))
-            {
-                MessageBox.Show("Tên nhà cung cấp và số điện thoại không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (!IsValidPhoneNumber(newSupplier.SupplierPhone))
-            {
-                MessageBox.Show("Vui lòng nhập số điện thoại hợp lệ!", "Thông báo");
-                return;
-            }
+            if (!IsValidSupplierData(newSupplier)) return;
 
 
             bool isAddSuccessfull = _supplierService.AddSupplier(newSupplier);

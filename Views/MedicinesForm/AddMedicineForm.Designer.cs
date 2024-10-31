@@ -66,6 +66,7 @@
             // btnSave
             // 
             this.btnSave.FlatAppearance.BorderColor = System.Drawing.Color.DarkTurquoise;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // label1
             // 
@@ -225,7 +226,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(462, 106);
+            this.label9.Location = new System.Drawing.Point(439, 165);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(89, 17);
             this.label9.TabIndex = 1;
@@ -234,15 +235,15 @@
             // cbSupplier
             // 
             this.cbSupplier.FormattingEnabled = true;
-            this.cbSupplier.Location = new System.Drawing.Point(465, 126);
+            this.cbSupplier.Location = new System.Drawing.Point(442, 185);
             this.cbSupplier.Name = "cbSupplier";
-            this.cbSupplier.Size = new System.Drawing.Size(101, 25);
+            this.cbSupplier.Size = new System.Drawing.Size(137, 25);
             this.cbSupplier.TabIndex = 3;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(439, 165);
+            this.label10.Location = new System.Drawing.Point(464, 106);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(61, 17);
             this.label10.TabIndex = 1;
@@ -250,7 +251,7 @@
             // 
             // txtQuantity
             // 
-            this.txtQuantity.Location = new System.Drawing.Point(442, 185);
+            this.txtQuantity.Location = new System.Drawing.Point(467, 126);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(83, 25);
             this.txtQuantity.TabIndex = 2;

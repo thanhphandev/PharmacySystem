@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PharmacySystem.Models
 {
-    public class MedicineQuantity
+    public class MedicineQuantityModel
     {
         private int id;
         private int medicineId; // reference to MedicineModel.Id

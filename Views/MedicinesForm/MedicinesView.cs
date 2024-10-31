@@ -49,7 +49,7 @@ namespace PharmacySystem.Views.MedicinesForm
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            AddMedicineForm view = new AddMedicineForm();
+            AddMedicineForm view = new AddMedicineForm(_connectionString);
             view.ShowDialog();
         }
     }
