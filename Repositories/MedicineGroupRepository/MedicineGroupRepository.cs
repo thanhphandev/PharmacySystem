@@ -27,7 +27,7 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
                     {
                         command.Parameters.AddWithValue("GroupCode", medicineCategory.GroupCode);
                         command.Parameters.AddWithValue("GroupName", medicineCategory.GroupName);
-                        command.Parameters.AddWithValue("Groupdescription", medicineCategory.Description);
+                        command.Parameters.AddWithValue("GroupDescription", medicineCategory.Description);
 
                         connection.Open();
                         command.ExecuteNonQuery();

@@ -2,6 +2,7 @@
 using PharmacySystem.Presenters;
 using PharmacySystem.Services;
 using PharmacySystem.Views.UIComponents;
+using PharmacySystem.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,29 +25,28 @@ namespace PharmacySystem.Views.MainForm
             InitializeComponent();
             var presenter = new MainPresenter(this, connectionString);
             presenter.LoadData();
-            AsscociateAndRaiseViewEvents();
+            AssociateAndRaiseViewEvents();
             CartItemsDataGrid.CellValueChanged += CartItemsDataGrid_CellValueChanged;
 
         }
 
         private void CartItemsDataGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            // Ensure we're updating only for the Quantity column
+            // Update only for the Quantity column
             if (e.ColumnIndex == CartItemsDataGrid.Columns["dgvQuantity"].Index && e.RowIndex >= 0)
             {
                 var row = CartItemsDataGrid.Rows[e.RowIndex];
 
-                // Get the price from the dgvPrice column
                 if (decimal.TryParse(row.Cells["dgvPrice"].Value?.ToString(), out decimal price) &&
                     int.TryParse(row.Cells["dgvQuantity"].Value?.ToString(), out int quantity))
                 {
-                    // Calculate and update the Amount column
-                    row.Cells["dgvAmount"].Value = price * quantity;
+                    row.Cells["dgvAmount"].Value = CurrencyFormatter.FormatVND(price * quantity);
+                    GetTotal(); // Update total whenever quantity changes
                 }
             }
         }
 
-        private void AsscociateAndRaiseViewEvents()
+        private void AssociateAndRaiseViewEvents()
         {
             LoadUserData();
             btnLogout.Click += delegate
@@ -96,18 +96,17 @@ namespace PharmacySystem.Views.MainForm
             {
                 if (string.Equals(row.Cells["dgvCode"].Value?.ToString(), product.MedicineCode, StringComparison.OrdinalIgnoreCase))
                 {
-                    // Increment quantity
                     int currentQuantity = Convert.ToInt32(row.Cells["dgvQuantity"].Value);
                     int newQuantity = currentQuantity + 1;
                     row.Cells["dgvQuantity"].Value = newQuantity;
 
-                    // Update total amount
                     decimal price = product.MedicinePrice;
-                    row.Cells["dgvAmount"].Value = newQuantity * price;
+                    row.Cells["dgvAmount"].Value = CurrencyFormatter.FormatVND(newQuantity * price);
+                    GetTotal();
                     return;
                 }
             }
-            
+
             // Add new item to cart if it doesn't exist
             CartItemsDataGrid.Rows.Add(new object[]
             {
@@ -116,10 +115,11 @@ namespace PharmacySystem.Views.MainForm
                 product.MedicineName,
                 1, // Initial quantity
                 product.MedicinePrice,
-                product.MedicinePrice
-                    });
+                CurrencyFormatter.FormatVND(product.MedicinePrice) // Initial amount
+            });
             GetTotal();
         }
+
 
         public void LoadMedicineData(List<MedicineInfoModel> medicineInfo)
         {
@@ -132,14 +132,13 @@ namespace PharmacySystem.Views.MainForm
         private void GetTotal()
         {
             decimal total = 0;
-            txtTotal.Text = "";
-            txtTempTotal.Text = "";
             foreach (DataGridViewRow row in CartItemsDataGrid.Rows)
             {
-                total += Convert.ToDecimal(row.Cells["dgvAmount"].Value);
+                total += Convert.ToDecimal(row.Cells["dgvAmount"].Value.ToString().Replace("₫", "").Replace(".", "").Trim());
             }
-            txtTotal.Text = total.ToString();
-            txtTempTotal.Text = total.ToString();
+
+            txtTotal.Text = CurrencyFormatter.FormatVND(total);
+            txtTempTotal.Text = CurrencyFormatter.FormatVND(total);
         }
     }
 }
