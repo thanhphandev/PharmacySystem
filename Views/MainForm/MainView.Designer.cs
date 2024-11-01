@@ -197,18 +197,18 @@
             this.txtTotal.AutoSize = true;
             this.txtTotal.Location = new System.Drawing.Point(309, 59);
             this.txtTotal.Name = "txtTotal";
-            this.txtTotal.Size = new System.Drawing.Size(68, 17);
+            this.txtTotal.Size = new System.Drawing.Size(27, 17);
             this.txtTotal.TabIndex = 1;
-            this.txtTotal.Text = "XXX.000 đ";
+            this.txtTotal.Text = "0 đ";
             // 
             // txtTempTotal
             // 
             this.txtTempTotal.AutoSize = true;
             this.txtTempTotal.Location = new System.Drawing.Point(309, 29);
             this.txtTempTotal.Name = "txtTempTotal";
-            this.txtTempTotal.Size = new System.Drawing.Size(68, 17);
+            this.txtTempTotal.Size = new System.Drawing.Size(27, 17);
             this.txtTempTotal.TabIndex = 1;
-            this.txtTempTotal.Text = "XXX.000 đ";
+            this.txtTempTotal.Text = "0 đ";
             // 
             // label2
             // 

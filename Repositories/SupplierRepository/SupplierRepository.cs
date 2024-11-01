@@ -11,7 +11,7 @@ namespace PharmacySystem.Repositories.SupplierRepository
     public class SupplierRepository : ISupplierRepository
     {
         private readonly string _connectionString;
-        public SupplierRepository(string connectionString) 
+        public SupplierRepository(string connectionString)
         {
             _connectionString = connectionString;
         }
@@ -20,10 +20,10 @@ namespace PharmacySystem.Repositories.SupplierRepository
         {
             try
             {
-               using (var connection = new MySqlConnection(_connectionString))
-               {
+                using (var connection = new MySqlConnection(_connectionString))
+                {
                     string query = "INSERT INTO supplier (supplier_name, supplier_phone, supplier_address) VALUES (@SupplierName, @SupplierPhone, @SupplierAddress)";
-                    using(var command = new MySqlCommand(query, connection))
+                    using (var command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("SupplierName", supplier.SupplierName);
                         command.Parameters.AddWithValue("SupplierPhone", supplier.SupplierPhone);
@@ -33,7 +33,7 @@ namespace PharmacySystem.Repositories.SupplierRepository
                         command.ExecuteNonQuery();
                     }
 
-               }
+                }
 
             }
             catch (Exception ex)
@@ -84,8 +84,8 @@ namespace PharmacySystem.Repositories.SupplierRepository
                                 {
                                     SupplierId = reader.GetInt32("id"),
                                     SupplierName = reader.GetString("supplier_name"),
-                                    SupplierPhone = reader.GetString("supplier_phone"),
-                                    SupplierAddress = reader.GetString("supplier_address")
+                                    SupplierPhone = reader.IsDBNull(reader.GetOrdinal("supplier_phone")) ? null : reader.GetString("supplier_phone"),
+                                    SupplierAddress = reader.IsDBNull(reader.GetOrdinal("supplier_address")) ? null : reader.GetString("supplier_address")
                                 };
 
                                 suppliers.Add(supplier);
@@ -95,11 +95,18 @@ namespace PharmacySystem.Repositories.SupplierRepository
                 }
                 return suppliers;
             }
+            catch (MySqlException ex)
+            {
+                // Consider logging the full exception details (e.g., using a logging framework)
+                throw new Exception($"Database error retrieving suppliers: {ex.Message}", ex);
+            }
             catch (Exception ex)
             {
-                throw new Exception("Error retrieving all suppliers: " + ex.Message);
+                // General error logging
+                throw new Exception("Error retrieving all suppliers: " + ex.Message, ex);
             }
         }
+
 
         public void UpdateSupplier(int id, SupplierModel supplier)
         {
@@ -131,7 +138,7 @@ namespace PharmacySystem.Repositories.SupplierRepository
             }
         }
 
-        
+
     }
-    
+
 }
