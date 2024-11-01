@@ -74,51 +74,85 @@ namespace PharmacySystem.Presenters.MedicinePresenter
         private async void OnAddData(object sender, EventArgs e)
         {
             try
-            {               
+            {
+                string medicineName = _addMedicineForm.MedicineName.Trim();
+                var existingMedicineInfo = _medicineInfoService.GetMedicineInfoByMedicineName(medicineName);
 
-                MedicineInfoModel medicineInfo = new MedicineInfoModel
+                // If the medicine info already exists, we skip adding it
+                if (existingMedicineInfo != null)
                 {
-                    MedicineCode = _addMedicineForm.MedicineCode,
-                    MedicineName = _addMedicineForm.MedicineName,
-                    MedicinePrice = _addMedicineForm.MedicinePrice,
-                    UnitType = _addMedicineForm.UnitType,
-                    GroupCode = _addMedicineForm.GroupCode,
-                    MedicineElement = _addMedicineForm.MedicineElement,
-                    MedicineContent = _addMedicineForm.MedicineContent
-                };
+                    // Create the Medicine and MedicineQuantity using existing medicine info
+                    MedicineModel medicine = new MedicineModel
+                    {
+                        MedicineCode = existingMedicineInfo.MedicineCode, // Use existing medicine code
+                        ExpireDate = _addMedicineForm.ExpireDate,
+                        SupplierId = _addMedicineForm.SupplierId
+                    };
 
+                    MedicineQuantityModel medicineQuantity = new MedicineQuantityModel
+                    {
+                        Quantity = _addMedicineForm.Quantity
+                    };
 
-                MedicineModel medicine = new MedicineModel
+                    if (!IsValidData(medicine, existingMedicineInfo, medicineQuantity)) return;
+
+                    // Add Medicine and MedicineQuantity
+                    int medicineId = _medicineService.AddMedicine(medicine);
+                    int quantity = medicineQuantity.Quantity;
+                    _medicineQuantityService.AddMedicineQuantity(medicineId, quantity);
+
+                    MessageBox.Show("Thuốc đã được thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
                 {
-                    MedicineCode = medicineInfo.MedicineCode,
-                    ExpireDate = _addMedicineForm.ExpireDate,
-                    SupplierId = _addMedicineForm.SupplierId
-                };
+                    // If MedicineInfo does not exist, create a new MedicineInfo and then Medicine
+                    MedicineInfoModel medicineInfo = new MedicineInfoModel
+                    {
+                        MedicineCode = _addMedicineForm.MedicineCode,
+                        MedicineName = _addMedicineForm.MedicineName,
+                        MedicinePrice = _addMedicineForm.MedicinePrice,
+                        UnitType = _addMedicineForm.UnitType,
+                        GroupCode = _addMedicineForm.GroupCode,
+                        MedicineElement = _addMedicineForm.MedicineElement,
+                        MedicineContent = _addMedicineForm.MedicineContent
+                    };
 
-                MedicineQuantityModel medicineQuantity = new MedicineQuantityModel
-                {
-                    Quantity = _addMedicineForm.Quantity
-                };
+                    MedicineModel medicine = new MedicineModel
+                    {
+                        MedicineCode = medicineInfo.MedicineCode,
+                        ExpireDate = _addMedicineForm.ExpireDate,
+                        SupplierId = _addMedicineForm.SupplierId
+                    };
 
-                if (!IsValidData(medicine, medicineInfo, medicineQuantity)) return;
+                    MedicineQuantityModel medicineQuantity = new MedicineQuantityModel
+                    {
+                        Quantity = _addMedicineForm.Quantity
+                    };
 
-                string imageUrl = await UploadImageAsync(_addMedicineForm.MedicineImage);
-                medicineInfo.MedicineImage = imageUrl;
+                    if (!IsValidData(medicine, medicineInfo, medicineQuantity)) return;
 
-                _medicineInfoService.AddMedicineInfo(medicineInfo);
-                int medicineId = _medicineService.AddMedicine(medicine);
-                int quantity = medicineQuantity.Quantity;
-                
-                _medicineQuantityService.AddMedicineQuantity(medicineId, quantity);
+                    // Handle image upload if necessary
+                    string imageUrl = await UploadImageAsync(_addMedicineForm.MedicineImage);
+                    medicineInfo.MedicineImage = imageUrl;
 
-                MessageBox.Show("Thuốc đã được thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Add new MedicineInfo and then Medicine
+                    _medicineInfoService.AddMedicineInfo(medicineInfo);
+                    int medicineId = _medicineService.AddMedicine(medicine);
+                    int quantity = medicineQuantity.Quantity;
+
+                    _medicineQuantityService.AddMedicineQuantity(medicineId, quantity);
+
+                    MessageBox.Show("Thuốc đã được thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
                 _addMedicineForm.CloseForm();
-
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show($"Đã có lỗi xảy ra!\nLỗi: {ex.Message}");
             }
         }
+
 
         private async Task<string> UploadImageAsync(string imagePath)
         {
