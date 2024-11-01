@@ -27,10 +27,13 @@ namespace PharmacySystem.Views.MedicinesForm
         
         int Quantity { get; set; }
 
+        
+        void SetAutoCompleteNameData(List<string> medicineName);
         void LoadMedicineGroups(List<MedicineGroupModel> medicineGroups);
         void LoadUnitTypes(List<UnitTypeModel> unitTypes);
         void LoadSuppliers(List<SupplierModel> suppliers);
         void CloseForm();
+        event EventHandler LeaveTextBoxName;
         event EventHandler AddMedicine;
         event EventHandler UpdateMedicine;
     }

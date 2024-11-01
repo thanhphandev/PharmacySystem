@@ -1,4 +1,5 @@
-﻿using PharmacySystem.Models;
+﻿using Mysqlx.Crud;
+using PharmacySystem.Models;
 using PharmacySystem.Presenters.MedicinePresenter;
 using PharmacySystem.Views.DashboardForm.BaseForm;
 using System;
@@ -11,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace PharmacySystem.Views.MedicinesForm
 {
     public partial class AddMedicineForm : BaseAddForm, IAddMedicineForm
@@ -22,9 +24,23 @@ namespace PharmacySystem.Views.MedicinesForm
             InitializeComponent();
             var presenter = new AddMedicinePresenter(this, connectionString);
             presenter.LoadData();
+            txtName.Leave += delegate
+            {
+                LeaveTextBoxName?.Invoke(this, EventArgs.Empty);
+            };
         }
 
         // LoadData from database
+        public void SetAutoCompleteNameData(List<string> medicineName)
+        {
+            AutoCompleteStringCollection suggest = new AutoCompleteStringCollection();
+            suggest.AddRange(medicineName.ToArray());
+
+            // Configure TextBox for autocomplete
+            txtName.AutoCompleteMode = AutoCompleteMode.Suggest;
+            txtName.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtName.AutoCompleteCustomSource = suggest;
+        }
         public void LoadMedicineGroups(List<MedicineGroupModel> medicineGroups)
         {
             cbMedicineGroup.DataSource = medicineGroups;
@@ -59,7 +75,16 @@ namespace PharmacySystem.Views.MedicinesForm
             set => txtPrice.Text = value.ToString("F2"); // Định dạng giá trị thành chuỗi với 2 chữ số sau dấu thập phân
         }
 
-        public string MedicineImage { get => selectedImagePath; set => selectedImagePath = value; }
+        public string MedicineImage
+        {
+            get => selectedImagePath;
+            set
+            {
+                selectedImagePath = value;
+                // Automatically update the PictureBox with the new image location
+                pbMedicineImage.ImageLocation = selectedImagePath;
+            }
+        }
         public string MedicineContent { get => txtContent.Text; set => txtContent.Text = value; }
         public string MedicineElement { get => txtElement.Text; set => txtElement.Text = value; }
         public string GroupCode {
@@ -77,6 +102,7 @@ namespace PharmacySystem.Views.MedicinesForm
 
         public event EventHandler AddMedicine;
         public event EventHandler UpdateMedicine;
+        public event EventHandler LeaveTextBoxName;
 
         public void CloseForm()
         {
@@ -92,7 +118,7 @@ namespace PharmacySystem.Views.MedicinesForm
                 {
                     selectedImagePath = openFileDialog.FileName;
                     pbMedicineImage.Image = Image.FromFile(selectedImagePath);
-
+                    
                 }
             }
         }

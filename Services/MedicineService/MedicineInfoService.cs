@@ -53,11 +53,11 @@ namespace PharmacySystem.Services.MedicineService
             }
         }
 
-        public MedicineInfoModel GetMedicineInfoByMedicineCode(string medicineCode)
+        public MedicineInfoModel GetMedicineInfoByMedicineName(string medicineName)
         {
             try
             {
-                var medicine = _medicineRepository.GetMedicineInfoByMedicineCode(medicineCode);
+                var medicine = _medicineRepository.GetMedicineInfoByMedicineName(medicineName);
                 return medicine;
             }
             catch (Exception ex)
@@ -71,6 +71,19 @@ namespace PharmacySystem.Services.MedicineService
             try
             {
                 var medicines = _medicineRepository.GetAllMedicineInfo();
+                return medicines;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<string> GetAllMedicineName()
+        {
+            try
+            {
+                List<string> medicines = _medicineRepository.GetAllMedicineName();
                 return medicines;
             }
             catch (Exception ex)

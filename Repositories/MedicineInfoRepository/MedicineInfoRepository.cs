@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PharmacySystem.Repositories.MedicineInfoRepository
 {
@@ -114,17 +115,17 @@ namespace PharmacySystem.Repositories.MedicineInfoRepository
             
         }
 
-        public MedicineInfoModel GetMedicineInfoByMedicineCode(string medicineCode)
+        public MedicineInfoModel GetMedicineInfoByMedicineName(string medicineName)
         {
             try
             {
                 MedicineInfoModel medicineInfo = null;
                 using (var connection = new MySqlConnection(_connectionString))
                 {
-                    string query = "SELECT * FROM medicine_info WHERE medicine_code = @code";
+                    string query = "SELECT * FROM medicine_info WHERE medicine_name = @name";
                     using (MySqlCommand cmd = new MySqlCommand(query, connection))
                     {
-                        cmd.Parameters.AddWithValue("@code", medicineCode);
+                        cmd.Parameters.AddWithValue("@name", medicineName);
                         connection.Open();
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
@@ -151,6 +152,29 @@ namespace PharmacySystem.Repositories.MedicineInfoRepository
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public List<string> GetAllMedicineName()
+        {
+            List<string> suggestions = new List<string>();
+
+            using (var connection = new MySqlConnection(_connectionString))
+            {
+                string query = "SELECT medicine_name FROM medicine_info";
+                using (var cmd = new MySqlCommand(query, connection))
+                {
+                    connection.Open();
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            suggestions.Add(reader.GetString(0));
+                        }
+                    }
+                }
+            }
+
+            return suggestions;
         }
 
         public void UpdateMedicineInfo(string medicineCode, MedicineInfoModel medicineInfo)

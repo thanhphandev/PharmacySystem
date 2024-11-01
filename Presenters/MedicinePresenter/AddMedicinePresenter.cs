@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace PharmacySystem.Presenters.MedicinePresenter
 {
@@ -42,6 +43,20 @@ namespace PharmacySystem.Presenters.MedicinePresenter
             _cloudinaryService = new CloudinaryImageUploadService();
 
             _addMedicineForm.AddMedicine += OnAddData;
+            _addMedicineForm.LeaveTextBoxName += CheckExistMedicineInfo;
+        }
+
+        private void CheckExistMedicineInfo(object sender, EventArgs e)
+        {
+            string medicineName = _addMedicineForm.MedicineName.Trim();
+            if (string.IsNullOrEmpty(medicineName))
+                return;
+            var medicineInfo = _medicineInfoService.GetMedicineInfoByMedicineName(medicineName);
+            if (medicineInfo != null)
+            {
+                AutoFillData(medicineInfo);
+            }
+
         }
 
         public void LoadData()
@@ -49,6 +64,8 @@ namespace PharmacySystem.Presenters.MedicinePresenter
             var unitTypes = _unitTypeService.GetAllUnitTypes();
             var medicineGroups = _medicineGroupService.GetAllMedicineGroups();
             var suppliers = _supplierService.GetAllSuppliers();
+            var medicineNames = _medicineInfoService.GetAllMedicineName();
+            _addMedicineForm.SetAutoCompleteNameData(medicineNames);
             _addMedicineForm.LoadUnitTypes(unitTypes);
             _addMedicineForm.LoadMedicineGroups(medicineGroups);
             _addMedicineForm.LoadSuppliers(suppliers);
@@ -57,16 +74,13 @@ namespace PharmacySystem.Presenters.MedicinePresenter
         private async void OnAddData(object sender, EventArgs e)
         {
             try
-            {
-                // Init Object
-                string imageUrl = await UploadImageAsync(_addMedicineForm.MedicineImage);
+            {               
 
                 MedicineInfoModel medicineInfo = new MedicineInfoModel
                 {
                     MedicineCode = _addMedicineForm.MedicineCode,
                     MedicineName = _addMedicineForm.MedicineName,
                     MedicinePrice = _addMedicineForm.MedicinePrice,
-                    MedicineImage = imageUrl,
                     UnitType = _addMedicineForm.UnitType,
                     GroupCode = _addMedicineForm.GroupCode,
                     MedicineElement = _addMedicineForm.MedicineElement,
@@ -87,6 +101,9 @@ namespace PharmacySystem.Presenters.MedicinePresenter
                 };
 
                 if (!IsValidData(medicine, medicineInfo, medicineQuantity)) return;
+
+                string imageUrl = await UploadImageAsync(_addMedicineForm.MedicineImage);
+                medicineInfo.MedicineImage = imageUrl;
 
                 _medicineInfoService.AddMedicineInfo(medicineInfo);
                 int medicineId = _medicineService.AddMedicine(medicine);
@@ -175,6 +192,18 @@ namespace PharmacySystem.Presenters.MedicinePresenter
 
             
             return true;
+        }
+
+        private void AutoFillData(MedicineInfoModel medicineInfo)
+        {
+            _addMedicineForm.MedicineCode = medicineInfo.MedicineCode;
+            _addMedicineForm.UnitType = medicineInfo.UnitType;
+            _addMedicineForm.MedicinePrice = medicineInfo.MedicinePrice;
+            _addMedicineForm.MedicineImage = medicineInfo.MedicineImage;
+            _addMedicineForm.MedicineContent = medicineInfo.MedicineContent;
+            _addMedicineForm.MedicineElement = medicineInfo.MedicineElement;
+            _addMedicineForm.GroupCode = medicineInfo.GroupCode;
+
         }
 
     }

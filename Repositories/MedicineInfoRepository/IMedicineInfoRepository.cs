@@ -13,6 +13,7 @@ namespace PharmacySystem.Repositories.MedicineInfoRepository
         void DeleteMedicineInfo(int medicineId);
         void UpdateMedicineInfo(string medicineCode, MedicineInfoModel medicineInfo);
         List<MedicineInfoModel> GetAllMedicineInfo();
-        MedicineInfoModel GetMedicineInfoByMedicineCode(string medicineCode);
+        List<string> GetAllMedicineName();
+        MedicineInfoModel GetMedicineInfoByMedicineName(string medicineName);
     }
 }
