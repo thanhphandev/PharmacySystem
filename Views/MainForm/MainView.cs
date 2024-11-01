@@ -27,6 +27,7 @@ namespace PharmacySystem.Views.MainForm
             presenter.LoadData();
             AssociateAndRaiseViewEvents();
             CartItemsDataGrid.CellValueChanged += CartItemsDataGrid_CellValueChanged;
+            
 
         }
 
@@ -139,6 +140,23 @@ namespace PharmacySystem.Views.MainForm
 
             txtTotal.Text = CurrencyFormatter.FormatVND(total);
             txtTempTotal.Text = CurrencyFormatter.FormatVND(total);
+        }
+
+        private void CartItemsDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (CartItemsDataGrid.CurrentCell.OwningColumn.Name == "Delete")
+            {
+                CartItemsDataGrid.Rows.RemoveAt(e.RowIndex);
+
+                GetTotal();
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            CartItemsDataGrid.Rows.Clear();
+
+            GetTotal();
         }
     }
 }

@@ -440,6 +440,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pharmacy-vi_store.sql" />
+    <None Include="Resources\minus.png" />
     <None Include="Resources\Panadol-Extra-Advance-Box-32s380x463.png" />
   </ItemGroup>
   <ItemGroup />

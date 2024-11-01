@@ -27,10 +27,10 @@ namespace PharmacySystem.Views.SuppliersForm
             _connectionString = connectionString;
             var presenter = new SupplierViewPresenter(this, _connectionString);
             presenter.LoadData();
-            AsscociateAndRaiseViewEvents(presenter);
+            AssociateAndRaiseViewEvents(presenter);
 
         }
-        private void AsscociateAndRaiseViewEvents(SupplierViewPresenter presenter)
+        private void AssociateAndRaiseViewEvents(SupplierViewPresenter presenter)
         {
             cbFilter.SelectedItem = "All";
 
