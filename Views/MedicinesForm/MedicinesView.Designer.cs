@@ -30,7 +30,7 @@
         {
             this.btnAddUnitType = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.SupplierDataGrid = new System.Windows.Forms.DataGridView();
+            this.MedicineDataGrid = new System.Windows.Forms.DataGridView();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,7 +47,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddUnitType)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SupplierDataGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MedicineDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // txtHeader
@@ -99,21 +99,21 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "Thêm đơn vị";
             // 
-            // SupplierDataGrid
+            // MedicineDataGrid
             // 
-            this.SupplierDataGrid.AllowUserToAddRows = false;
-            this.SupplierDataGrid.AllowUserToDeleteRows = false;
-            this.SupplierDataGrid.AllowUserToOrderColumns = true;
-            this.SupplierDataGrid.AllowUserToResizeColumns = false;
-            this.SupplierDataGrid.AllowUserToResizeRows = false;
-            this.SupplierDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.MedicineDataGrid.AllowUserToAddRows = false;
+            this.MedicineDataGrid.AllowUserToDeleteRows = false;
+            this.MedicineDataGrid.AllowUserToOrderColumns = true;
+            this.MedicineDataGrid.AllowUserToResizeColumns = false;
+            this.MedicineDataGrid.AllowUserToResizeRows = false;
+            this.MedicineDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SupplierDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.SupplierDataGrid.BackgroundColor = System.Drawing.Color.MintCream;
-            this.SupplierDataGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.SupplierDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.SupplierDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.MedicineDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.MedicineDataGrid.BackgroundColor = System.Drawing.Color.MintCream;
+            this.MedicineDataGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.MedicineDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.MedicineDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Index,
             this.dgvCode,
             this.dgvName,
@@ -126,12 +126,12 @@
             this.dgvSupplier,
             this.Edit,
             this.Delete});
-            this.SupplierDataGrid.Location = new System.Drawing.Point(46, 139);
-            this.SupplierDataGrid.Name = "SupplierDataGrid";
-            this.SupplierDataGrid.ReadOnly = true;
-            this.SupplierDataGrid.RowTemplate.Height = 30;
-            this.SupplierDataGrid.Size = new System.Drawing.Size(1066, 420);
-            this.SupplierDataGrid.TabIndex = 10;
+            this.MedicineDataGrid.Location = new System.Drawing.Point(46, 139);
+            this.MedicineDataGrid.Name = "MedicineDataGrid";
+            this.MedicineDataGrid.ReadOnly = true;
+            this.MedicineDataGrid.RowTemplate.Height = 30;
+            this.MedicineDataGrid.Size = new System.Drawing.Size(1066, 420);
+            this.MedicineDataGrid.TabIndex = 10;
             // 
             // Index
             // 
@@ -233,7 +233,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1135, 597);
-            this.Controls.Add(this.SupplierDataGrid);
+            this.Controls.Add(this.MedicineDataGrid);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAddUnitType);
             this.Name = "MedicinesView";
@@ -246,12 +246,12 @@
             this.Controls.SetChildIndex(this.cbFilter, 0);
             this.Controls.SetChildIndex(this.btnAddUnitType, 0);
             this.Controls.SetChildIndex(this.label1, 0);
-            this.Controls.SetChildIndex(this.SupplierDataGrid, 0);
+            this.Controls.SetChildIndex(this.MedicineDataGrid, 0);
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddUnitType)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SupplierDataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MedicineDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,7 +261,7 @@
 
         private System.Windows.Forms.PictureBox btnAddUnitType;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView SupplierDataGrid;
+        private System.Windows.Forms.DataGridView MedicineDataGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvName;

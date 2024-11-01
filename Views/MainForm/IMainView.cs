@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PharmacySystem.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace PharmacySystem.Views.MainForm
         event EventHandler Logout;
         event EventHandler ShowDashboard;
         void LoadUserData();
+        void LoadMedicineData(List<MedicineInfoModel> medicineInfo);
         void CloseForm();
     }
 }

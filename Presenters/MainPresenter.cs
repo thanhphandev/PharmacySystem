@@ -1,5 +1,6 @@
 ﻿using PharmacySystem.Repositories.UserRepository;
 using PharmacySystem.Services;
+using PharmacySystem.Services.MedicineService;
 using PharmacySystem.Views;
 using PharmacySystem.Views.DashboardForm;
 using PharmacySystem.Views.LoginForm;
@@ -17,16 +18,25 @@ namespace PharmacySystem.Presenters
     {
         private readonly IMainView _mainView;
         private readonly AuthService _authService;
+        private readonly MedicineInfoService _medicineInfoService;
         private readonly string _connectionString;
 
         public MainPresenter(IMainView mainView, string connectionString)
         {
             _mainView = mainView;
             _connectionString = connectionString;
-            _authService = new AuthService(_connectionString);
 
+            _authService = new AuthService(_connectionString);
+            _medicineInfoService = new MedicineInfoService(_connectionString);
             _mainView.Logout += OnLogout;
             _mainView.ShowDashboard += OnShowDashboard;
+        }
+
+        public void LoadData()
+        {
+            var medicineInfo = _medicineInfoService.GetAllMedicineInfo();
+            _mainView.LoadMedicineData(medicineInfo);
+
         }
 
         private void OnShowDashboard(object sender, EventArgs e)

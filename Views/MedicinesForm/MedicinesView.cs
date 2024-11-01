@@ -33,7 +33,7 @@ namespace PharmacySystem.Views.MedicinesForm
 
         public void DisplayMedicines(List<MedicineModel> medicines)
         {
-            throw new NotImplementedException();
+           
         }
 
         public MedicineModel GetSelectedMedicine()

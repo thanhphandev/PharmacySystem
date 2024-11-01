@@ -40,24 +40,24 @@
             this.lbLogo = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.txtTotal = new System.Windows.Forms.Label();
             this.txtTempTotal = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.SupplierDataGrid = new System.Windows.Forms.DataGridView();
+            this.CartItemsDataGrid = new System.Windows.Forms.DataGridView();
+            this.MedicineProductPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnDashboard)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -65,7 +65,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SupplierDataGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CartItemsDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -173,8 +173,8 @@
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel3.Controls.Add(this.panel2);
-            this.panel3.Controls.Add(this.SupplierDataGrid);
-            this.panel3.Controls.Add(this.flowLayoutPanel2);
+            this.panel3.Controls.Add(this.CartItemsDataGrid);
+            this.panel3.Controls.Add(this.MedicineProductPanel);
             this.panel3.Controls.Add(this.flowLayoutPanel1);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -194,10 +194,19 @@
             this.panel2.Controls.Add(this.txtTempTotal);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(844, 437);
+            this.panel2.Location = new System.Drawing.Point(808, 437);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(411, 119);
+            this.panel2.Size = new System.Drawing.Size(447, 119);
             this.panel2.TabIndex = 10;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(18, 4);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(61, 17);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Thuế VAT";
             // 
             // button1
             // 
@@ -267,96 +276,44 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Tạm tính:";
             // 
-            // SupplierDataGrid
+            // CartItemsDataGrid
             // 
-            this.SupplierDataGrid.AllowUserToAddRows = false;
-            this.SupplierDataGrid.AllowUserToDeleteRows = false;
-            this.SupplierDataGrid.AllowUserToOrderColumns = true;
-            this.SupplierDataGrid.AllowUserToResizeColumns = false;
-            this.SupplierDataGrid.AllowUserToResizeRows = false;
-            this.SupplierDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.CartItemsDataGrid.AllowUserToAddRows = false;
+            this.CartItemsDataGrid.AllowUserToDeleteRows = false;
+            this.CartItemsDataGrid.AllowUserToOrderColumns = true;
+            this.CartItemsDataGrid.AllowUserToResizeColumns = false;
+            this.CartItemsDataGrid.AllowUserToResizeRows = false;
+            this.CartItemsDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SupplierDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.SupplierDataGrid.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.SupplierDataGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.SupplierDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.SupplierDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CartItemsDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.CartItemsDataGrid.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.CartItemsDataGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.CartItemsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CartItemsDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Index,
-            this.code,
+            this.dgvCode,
             this.dgvName,
             this.dgvQuantity,
             this.dgvPrice,
             this.dgvAmount,
             this.Delete});
-            this.SupplierDataGrid.Location = new System.Drawing.Point(844, 72);
-            this.SupplierDataGrid.Name = "SupplierDataGrid";
-            this.SupplierDataGrid.ReadOnly = true;
-            this.SupplierDataGrid.RowTemplate.Height = 30;
-            this.SupplierDataGrid.Size = new System.Drawing.Size(411, 358);
-            this.SupplierDataGrid.TabIndex = 9;
+            this.CartItemsDataGrid.Location = new System.Drawing.Point(808, 72);
+            this.CartItemsDataGrid.Name = "CartItemsDataGrid";
+            this.CartItemsDataGrid.RowTemplate.Height = 30;
+            this.CartItemsDataGrid.Size = new System.Drawing.Size(447, 358);
+            this.CartItemsDataGrid.TabIndex = 9;
             // 
-            // Index
+            // MedicineProductPanel
             // 
-            this.Index.FillWeight = 14.75847F;
-            this.Index.HeaderText = "#";
-            this.Index.Name = "Index";
-            this.Index.ReadOnly = true;
-            // 
-            // code
-            // 
-            this.code.FillWeight = 18.80264F;
-            this.code.HeaderText = "id";
-            this.code.Name = "code";
-            this.code.ReadOnly = true;
-            // 
-            // dgvName
-            // 
-            this.dgvName.FillWeight = 102.2159F;
-            this.dgvName.HeaderText = "Tên";
-            this.dgvName.Name = "dgvName";
-            this.dgvName.ReadOnly = true;
-            // 
-            // dgvQuantity
-            // 
-            this.dgvQuantity.FillWeight = 21.10533F;
-            this.dgvQuantity.HeaderText = "SL";
-            this.dgvQuantity.Name = "dgvQuantity";
-            this.dgvQuantity.ReadOnly = true;
-            // 
-            // dgvPrice
-            // 
-            this.dgvPrice.FillWeight = 57.25486F;
-            this.dgvPrice.HeaderText = "Giá";
-            this.dgvPrice.Name = "dgvPrice";
-            this.dgvPrice.ReadOnly = true;
-            // 
-            // dgvAmount
-            // 
-            this.dgvAmount.FillWeight = 52.43291F;
-            this.dgvAmount.HeaderText = "S.tiền";
-            this.dgvAmount.Name = "dgvAmount";
-            this.dgvAmount.ReadOnly = true;
-            // 
-            // Delete
-            // 
-            this.Delete.FillWeight = 18.36213F;
-            this.Delete.HeaderText = "";
-            this.Delete.Image = global::PharmacySystem.Properties.Resources.remove;
-            this.Delete.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.Delete.MinimumWidth = 10;
-            this.Delete.Name = "Delete";
-            this.Delete.ReadOnly = true;
-            // 
-            // flowLayoutPanel2
-            // 
-            this.flowLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.MedicineProductPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 72);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(835, 484);
-            this.flowLayoutPanel2.TabIndex = 2;
+            this.MedicineProductPanel.AutoScroll = true;
+            this.MedicineProductPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.MedicineProductPanel.Location = new System.Drawing.Point(3, 72);
+            this.MedicineProductPanel.Name = "MedicineProductPanel";
+            this.MedicineProductPanel.Size = new System.Drawing.Size(799, 484);
+            this.MedicineProductPanel.TabIndex = 2;
             // 
             // flowLayoutPanel1
             // 
@@ -374,14 +331,56 @@
             this.panel4.Size = new System.Drawing.Size(1255, 56);
             this.panel4.TabIndex = 0;
             // 
-            // label3
+            // Index
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 4);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 17);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Thuế VAT";
+            this.Index.FillWeight = 31.81985F;
+            this.Index.HeaderText = "#";
+            this.Index.Name = "Index";
+            this.Index.ReadOnly = true;
+            // 
+            // dgvCode
+            // 
+            this.dgvCode.FillWeight = 31.0732F;
+            this.dgvCode.HeaderText = "id";
+            this.dgvCode.Name = "dgvCode";
+            this.dgvCode.ReadOnly = true;
+            // 
+            // dgvName
+            // 
+            this.dgvName.FillWeight = 90.28855F;
+            this.dgvName.HeaderText = "Tên";
+            this.dgvName.Name = "dgvName";
+            this.dgvName.ReadOnly = true;
+            // 
+            // dgvQuantity
+            // 
+            this.dgvQuantity.FillWeight = 18.64259F;
+            this.dgvQuantity.HeaderText = "SL";
+            this.dgvQuantity.Name = "dgvQuantity";
+            // 
+            // dgvPrice
+            // 
+            this.dgvPrice.FillWeight = 50.57392F;
+            this.dgvPrice.HeaderText = "Giá";
+            this.dgvPrice.Name = "dgvPrice";
+            this.dgvPrice.ReadOnly = true;
+            // 
+            // dgvAmount
+            // 
+            this.dgvAmount.FillWeight = 46.31463F;
+            this.dgvAmount.HeaderText = "S.tiền";
+            this.dgvAmount.Name = "dgvAmount";
+            this.dgvAmount.ReadOnly = true;
+            // 
+            // Delete
+            // 
+            this.Delete.FillWeight = 16.21949F;
+            this.Delete.HeaderText = "";
+            this.Delete.Image = global::PharmacySystem.Properties.Resources.remove;
+            this.Delete.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.Delete.MinimumWidth = 10;
+            this.Delete.Name = "Delete";
+            this.Delete.ReadOnly = true;
             // 
             // MainView
             // 
@@ -407,7 +406,7 @@
             this.panel3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SupplierDataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CartItemsDataGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -423,24 +422,24 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label lbFullName;
         private System.Windows.Forms.PictureBox btnDashboard;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.FlowLayoutPanel MedicineProductPanel;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.DataGridView SupplierDataGrid;
+        private System.Windows.Forms.DataGridView CartItemsDataGrid;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Index;
-        private System.Windows.Forms.DataGridViewTextBoxColumn code;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvQuantity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvAmount;
-        private System.Windows.Forms.DataGridViewImageColumn Delete;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnCharge;
         private System.Windows.Forms.Label txtTotal;
         private System.Windows.Forms.Label txtTempTotal;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Index;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvQuantity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvAmount;
+        private System.Windows.Forms.DataGridViewImageColumn Delete;
     }
 }

@@ -290,6 +290,13 @@
     <Compile Include="Views\SuppliersForm\SuppliersView.Designer.cs">
       <DependentUpon>SuppliersView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\UIComponents\IMedicineProduct.cs" />
+    <Compile Include="Views\UIComponents\MedicineProduct.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\UIComponents\MedicineProduct.Designer.cs">
+      <DependentUpon>MedicineProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UnitTypeForm\IUnitTypeView.cs" />
     <Compile Include="Views\UnitTypeForm\UnitTypeView.cs">
       <SubType>Form</SubType>
@@ -345,6 +352,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\SuppliersForm\SuppliersView.resx">
       <DependentUpon>SuppliersView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UIComponents\MedicineProduct.resx">
+      <DependentUpon>MedicineProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UnitTypeForm\UnitTypeView.resx">
       <DependentUpon>UnitTypeView.cs</DependentUpon>
@@ -429,6 +439,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pharmacy-vi_store.sql" />
+    <None Include="Resources\Panadol-Extra-Advance-Box-32s380x463.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
