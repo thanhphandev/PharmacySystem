@@ -21,6 +21,8 @@ namespace PharmacySystem.Views.MainForm
         public event EventHandler ShowDashboard;
         private readonly MainPresenter _presenter;
 
+        public string TextSearch { get => txtSearch.Text; set => txtSearch.Text = value; }
+
         public MainView(string connectionString)
         {
             InitializeComponent();
@@ -124,7 +126,7 @@ namespace PharmacySystem.Views.MainForm
                 product.MedicineCode,
                 product.MedicineName,
                 1, // Initial quantity
-                product.MedicinePrice,
+                CurrencyFormatter.FormatVND(product.MedicinePrice),
                 CurrencyFormatter.FormatVND(product.MedicinePrice) // Initial amount
             });
             GetTotal();
@@ -168,21 +170,32 @@ namespace PharmacySystem.Views.MainForm
 
             GetTotal();
         }
-
+        
         private void cbMedicineGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
             var selectedGroupCode = cbMedicineGroup.SelectedValue as string;
 
             if (string.IsNullOrEmpty(selectedGroupCode))
             {
-                // Load all medicines when "All Medicines" is selected
                 _presenter.LoadAllMedicines();
+                if (!string.IsNullOrEmpty(TextSearch))
+                {
+                    _presenter.SearchMedicines(TextSearch, null);
+                }
             }
             else
             {
-                // Filter by the selected group code
                 _presenter.FilterMedicinesByGroupId(selectedGroupCode);
+                if (!string.IsNullOrEmpty(TextSearch))
+                {
+                    _presenter.SearchMedicines(TextSearch, selectedGroupCode);
+                }
             }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            _presenter.SearchMedicines(TextSearch, cbMedicineGroup.SelectedValue as string);
         }
     }
 }

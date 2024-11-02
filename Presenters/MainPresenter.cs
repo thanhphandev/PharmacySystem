@@ -54,7 +54,7 @@ namespace PharmacySystem.Presenters
             var medicineGroups = _medicineGroup.GetAllMedicineGroups();
             medicineGroups.Insert(0, new MedicineGroupModel
             {
-                GroupCode = "",  // Blank or a special value to represent all
+                GroupCode = null,
                 GroupName = "Tất cả"
             });
 
@@ -66,6 +66,33 @@ namespace PharmacySystem.Presenters
             var filteredMedicines = _medicineInfoService.GetMedicinesByGroupCode(groupId);
             _mainView.LoadMedicineData(filteredMedicines);
         }
+
+        public void SearchMedicines(string searchText, string groupCode)
+        {
+            try
+            {
+                List<MedicineInfoModel> medicines;
+
+                if (!string.IsNullOrEmpty(groupCode))
+                {
+                    // Search within the selected group
+                    medicines = _medicineInfoService.GetMedicinesByNameAndGroup(searchText, groupCode);
+                }
+                else
+                {
+                    // Search across all groups
+                    medicines = _medicineInfoService.GetMedicinesByNameAndGroup(searchText, null);
+                }
+
+                _mainView.LoadMedicineData(medicines); // Display results in the view
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during search: {ex.Message}");
+            }
+        }
+
+
 
         private void OnShowDashboard(object sender, EventArgs e)
         {

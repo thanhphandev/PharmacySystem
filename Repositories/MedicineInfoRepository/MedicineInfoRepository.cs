@@ -217,6 +217,61 @@ namespace PharmacySystem.Repositories.MedicineInfoRepository
             return suggestions;
         }
 
+        public List<MedicineInfoModel> GetMedicinesByNameAndGroup(string searchName, string groupCode)
+        {
+            try
+            {
+                List<MedicineInfoModel> medicines = new List<MedicineInfoModel>();
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    // Define a base query to search by name, optionally filtering by group
+                    string query = "SELECT * FROM medicine_info WHERE medicine_name LIKE @searchName";
+                    if (!string.IsNullOrEmpty(groupCode))
+                    {
+                        query += " AND group_code = @groupCode";
+                    }
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    {
+                        // Set parameters for the search query
+                        cmd.Parameters.AddWithValue("@searchName", $"%{searchName}%");
+
+                        if (!string.IsNullOrEmpty(groupCode))
+                        {
+                            cmd.Parameters.AddWithValue("@groupCode", groupCode);
+                        }
+
+                        connection.Open();
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Map each row to a MedicineInfoModel
+                                MedicineInfoModel medicine = new MedicineInfoModel
+                                {
+                                    MedicineCode = reader["medicine_code"].ToString(),
+                                    MedicineName = reader["medicine_name"].ToString(),
+                                    UnitType = Convert.ToInt32(reader["unit_type"]),
+                                    MedicinePrice = Convert.ToDecimal(reader["medicine_price"]),
+                                    MedicineImage = reader["medicine_img"].ToString(),
+                                    MedicineContent = reader["medicine_content"].ToString(),
+                                    MedicineElement = reader["medicine_element"].ToString(),
+                                    GroupCode = reader["group_code"].ToString()
+                                };
+                                medicines.Add(medicine);
+                            }
+                        }
+                    }
+                }
+                return medicines;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving medicines by name and group: {ex.Message}");
+            }
+        }
+
+
         public void UpdateMedicineInfo(string medicineCode, MedicineInfoModel medicineInfo)
         {
             try

@@ -33,14 +33,13 @@
             this.cbMedicineGroup = new System.Windows.Forms.ComboBox();
             this.btnDashboard = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.lbFullName = new System.Windows.Forms.Label();
             this.btnLogout = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lbLogo = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.txtTotal = new System.Windows.Forms.Label();
@@ -48,17 +47,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.CartItemsDataGrid = new System.Windows.Forms.DataGridView();
+            this.MedicineProductPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Delete = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedicineProductPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnDashboard)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -75,7 +74,7 @@
             this.panel1.Controls.Add(this.cbMedicineGroup);
             this.panel1.Controls.Add(this.btnDashboard);
             this.panel1.Controls.Add(this.pictureBox2);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.txtSearch);
             this.panel1.Controls.Add(this.lbFullName);
             this.panel1.Controls.Add(this.btnLogout);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -119,12 +118,13 @@
             this.pictureBox2.TabIndex = 5;
             this.pictureBox2.TabStop = false;
             // 
-            // textBox1
+            // txtSearch
             // 
-            this.textBox1.Location = new System.Drawing.Point(376, 21);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(367, 25);
-            this.textBox1.TabIndex = 4;
+            this.txtSearch.Location = new System.Drawing.Point(376, 21);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(367, 25);
+            this.txtSearch.TabIndex = 4;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // lbFullName
             // 
@@ -189,26 +189,16 @@
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Controls.Add(this.btnCharge);
             this.panel2.Controls.Add(this.txtTotal);
             this.panel2.Controls.Add(this.txtTempTotal);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(756, 437);
+            this.panel2.Location = new System.Drawing.Point(723, 437);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(499, 119);
+            this.panel2.Size = new System.Drawing.Size(532, 119);
             this.panel2.TabIndex = 10;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 4);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 17);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Thuế VAT";
             // 
             // btnCancel
             // 
@@ -217,7 +207,7 @@
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.ForeColor = System.Drawing.Color.Red;
-            this.btnCancel.Location = new System.Drawing.Point(57, 79);
+            this.btnCancel.Location = new System.Drawing.Point(107, 79);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(127, 30);
             this.btnCancel.TabIndex = 2;
@@ -232,7 +222,7 @@
             this.btnCharge.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCharge.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCharge.ForeColor = System.Drawing.Color.White;
-            this.btnCharge.Location = new System.Drawing.Point(200, 79);
+            this.btnCharge.Location = new System.Drawing.Point(296, 79);
             this.btnCharge.Name = "btnCharge";
             this.btnCharge.Size = new System.Drawing.Size(127, 30);
             this.btnCharge.TabIndex = 2;
@@ -241,8 +231,9 @@
             // 
             // txtTotal
             // 
+            this.txtTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTotal.AutoSize = true;
-            this.txtTotal.Location = new System.Drawing.Point(309, 59);
+            this.txtTotal.Location = new System.Drawing.Point(458, 59);
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.Size = new System.Drawing.Size(27, 17);
             this.txtTotal.TabIndex = 1;
@@ -250,8 +241,9 @@
             // 
             // txtTempTotal
             // 
+            this.txtTempTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTempTotal.AutoSize = true;
-            this.txtTempTotal.Location = new System.Drawing.Point(309, 29);
+            this.txtTempTotal.Location = new System.Drawing.Point(458, 29);
             this.txtTempTotal.Name = "txtTempTotal";
             this.txtTempTotal.Size = new System.Drawing.Size(27, 17);
             this.txtTempTotal.TabIndex = 1;
@@ -300,12 +292,51 @@
             this.dgvPrice,
             this.dgvAmount,
             this.Delete});
-            this.CartItemsDataGrid.Location = new System.Drawing.Point(756, 72);
+            this.CartItemsDataGrid.Location = new System.Drawing.Point(723, 72);
             this.CartItemsDataGrid.Name = "CartItemsDataGrid";
             this.CartItemsDataGrid.RowTemplate.Height = 30;
-            this.CartItemsDataGrid.Size = new System.Drawing.Size(499, 358);
+            this.CartItemsDataGrid.Size = new System.Drawing.Size(532, 358);
             this.CartItemsDataGrid.TabIndex = 9;
             this.CartItemsDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CartItemsDataGrid_CellClick);
+            // 
+            // MedicineProductPanel
+            // 
+            this.MedicineProductPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MedicineProductPanel.AutoScroll = true;
+            this.MedicineProductPanel.BackColor = System.Drawing.Color.GhostWhite;
+            this.MedicineProductPanel.Location = new System.Drawing.Point(3, 72);
+            this.MedicineProductPanel.Name = "MedicineProductPanel";
+            this.MedicineProductPanel.Size = new System.Drawing.Size(714, 484);
+            this.MedicineProductPanel.TabIndex = 2;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(337, 253);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(8, 8);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(0, 562);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1255, 56);
+            this.panel4.TabIndex = 0;
+            // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.FillWeight = 16.21949F;
+            this.dataGridViewImageColumn1.HeaderText = "";
+            this.dataGridViewImageColumn1.Image = global::PharmacySystem.Properties.Resources.minus;
+            this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.dataGridViewImageColumn1.MinimumWidth = 10;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.ReadOnly = true;
+            this.dataGridViewImageColumn1.Width = 26;
             // 
             // Index
             // 
@@ -351,51 +382,13 @@
             // Delete
             // 
             this.Delete.FillWeight = 16.21949F;
-            this.Delete.HeaderText = "Xóa";
+            this.Delete.HeaderText = "";
+            this.Delete.Image = global::PharmacySystem.Properties.Resources.remove;
+            this.Delete.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
             this.Delete.MinimumWidth = 10;
             this.Delete.Name = "Delete";
             this.Delete.ReadOnly = true;
             this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // MedicineProductPanel
-            // 
-            this.MedicineProductPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.MedicineProductPanel.AutoScroll = true;
-            this.MedicineProductPanel.BackColor = System.Drawing.Color.GhostWhite;
-            this.MedicineProductPanel.Location = new System.Drawing.Point(3, 72);
-            this.MedicineProductPanel.Name = "MedicineProductPanel";
-            this.MedicineProductPanel.Size = new System.Drawing.Size(747, 484);
-            this.MedicineProductPanel.TabIndex = 2;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(337, 253);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(8, 8);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 562);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1255, 56);
-            this.panel4.TabIndex = 0;
-            // 
-            // dataGridViewImageColumn1
-            // 
-            this.dataGridViewImageColumn1.FillWeight = 16.21949F;
-            this.dataGridViewImageColumn1.HeaderText = "";
-            this.dataGridViewImageColumn1.Image = global::PharmacySystem.Properties.Resources.minus;
-            this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.dataGridViewImageColumn1.MinimumWidth = 10;
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.ReadOnly = true;
-            this.dataGridViewImageColumn1.Width = 26;
             // 
             // MainView
             // 
@@ -432,7 +425,7 @@
         private System.Windows.Forms.Label lbLogo;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox btnLogout;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label lbFullName;
@@ -448,14 +441,13 @@
         private System.Windows.Forms.Button btnCharge;
         private System.Windows.Forms.Label txtTotal;
         private System.Windows.Forms.Label txtTempTotal;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvName;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvQuantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Delete;
-        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
+        private System.Windows.Forms.DataGridViewImageColumn Delete;
     }
 }
