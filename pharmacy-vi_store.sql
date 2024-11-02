@@ -8,7 +8,7 @@ CREATE TABLE unit_type (
 CREATE TABLE supplier (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     supplier_name VARCHAR(100) NOT NULL,           
-   	supplier_phone VARCHAR(50),                   
+   	supplier_phone VARCHAR(50) NOT NULL,                   
     supplier_address VARCHAR(255)                  
 );
 

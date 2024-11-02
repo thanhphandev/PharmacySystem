@@ -19,16 +19,25 @@ namespace PharmacySystem.Views.MainForm
     {
         public event EventHandler Logout;
         public event EventHandler ShowDashboard;
+        private readonly MainPresenter _presenter;
 
         public MainView(string connectionString)
         {
             InitializeComponent();
             var presenter = new MainPresenter(this, connectionString);
+            _presenter = presenter;
             presenter.LoadData();
             AssociateAndRaiseViewEvents();
             CartItemsDataGrid.CellValueChanged += CartItemsDataGrid_CellValueChanged;
             
 
+        }
+
+        public void LoadMedicineGroups(List<MedicineGroupModel> medicineGroups)
+        {
+            cbMedicineGroup.DataSource = medicineGroups;
+            cbMedicineGroup.DisplayMember = "GroupName";
+            cbMedicineGroup.ValueMember = "GroupCode";
         }
 
         private void CartItemsDataGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -124,6 +133,7 @@ namespace PharmacySystem.Views.MainForm
 
         public void LoadMedicineData(List<MedicineInfoModel> medicineInfo)
         {
+            MedicineProductPanel.Controls.Clear();
             foreach (var item in medicineInfo)
             {
                 AddMedicineItems(item.MedicineCode, item.MedicineName, item.MedicinePrice, item.MedicineImage);
@@ -157,6 +167,22 @@ namespace PharmacySystem.Views.MainForm
             CartItemsDataGrid.Rows.Clear();
 
             GetTotal();
+        }
+
+        private void cbMedicineGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedGroupCode = cbMedicineGroup.SelectedValue as string;
+
+            if (string.IsNullOrEmpty(selectedGroupCode))
+            {
+                // Load all medicines when "All Medicines" is selected
+                _presenter.LoadAllMedicines();
+            }
+            else
+            {
+                // Filter by the selected group code
+                _presenter.FilterMedicinesByGroupId(selectedGroupCode);
+            }
         }
     }
 }

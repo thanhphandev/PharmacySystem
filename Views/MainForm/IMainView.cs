@@ -13,6 +13,7 @@ namespace PharmacySystem.Views.MainForm
         event EventHandler ShowDashboard;
         void LoadUserData();
         void LoadMedicineData(List<MedicineInfoModel> medicineInfo);
+        void LoadMedicineGroups(List<MedicineGroupModel> medicineGroups);
         void CloseForm();
     }
 }

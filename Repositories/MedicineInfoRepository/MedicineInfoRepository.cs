@@ -13,9 +13,9 @@ namespace PharmacySystem.Repositories.MedicineInfoRepository
     public class MedicineInfoRepository : IMedicineInfoRepository
     {
         private readonly string _connectionString;
-        public MedicineInfoRepository(string connetionString)
+        public MedicineInfoRepository(string connectionString)
         {
-            _connectionString = connetionString;
+            _connectionString = connectionString;
 
         }
         public void AddMedicineInfo(MedicineInfoModel medicineInfo)
@@ -70,6 +70,46 @@ namespace PharmacySystem.Repositories.MedicineInfoRepository
                 throw new Exception(ex.Message);
             }
             
+        }
+
+        public List<MedicineInfoModel> GetMedicinesByGroupCode(string groupCode)
+        {
+            try
+            {
+                List<MedicineInfoModel> medicines = new List<MedicineInfoModel>();
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    string query = "SELECT * FROM medicine_info WHERE group_code = @groupCode";
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@groupCode", groupCode);
+                        connection.Open();
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                MedicineInfoModel medicine = new MedicineInfoModel
+                                {
+                                    MedicineCode = reader["medicine_code"].ToString(),
+                                    MedicineName = reader["medicine_name"].ToString(),
+                                    UnitType = Convert.ToInt32(reader["unit_type"]),
+                                    MedicinePrice = Convert.ToDecimal(reader["medicine_price"]),
+                                    MedicineImage = reader["medicine_img"].ToString(),
+                                    MedicineContent = reader["medicine_content"].ToString(),
+                                    MedicineElement = reader["medicine_element"].ToString(),
+                                    GroupCode = reader["group_code"].ToString()
+                                };
+                                medicines.Add(medicine);
+                            }
+                        }
+                    }
+                }
+                return medicines;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public List<MedicineInfoModel> GetAllMedicineInfo()

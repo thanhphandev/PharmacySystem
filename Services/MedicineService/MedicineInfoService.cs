@@ -66,6 +66,19 @@ namespace PharmacySystem.Services.MedicineService
             }
         }
 
+        public List<MedicineInfoModel> GetMedicinesByGroupCode(string groupCode)
+        {
+            try
+            {
+                var medicines = _medicineRepository.GetMedicinesByGroupCode(groupCode);
+                return medicines;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public List<MedicineInfoModel> GetAllMedicineInfo()
         {
             try
