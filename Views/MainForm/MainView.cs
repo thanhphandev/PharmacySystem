@@ -184,5 +184,6 @@ namespace PharmacySystem.Views.MainForm
                 _presenter.FilterMedicinesByGroupId(selectedGroupCode);
             }
         }
+
     }
 }
