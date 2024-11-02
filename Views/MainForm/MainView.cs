@@ -31,7 +31,7 @@ namespace PharmacySystem.Views.MainForm
             presenter.LoadData();
             AssociateAndRaiseViewEvents();
             CartItemsDataGrid.CellValueChanged += CartItemsDataGrid_CellValueChanged;
-            
+
 
         }
 
@@ -126,7 +126,7 @@ namespace PharmacySystem.Views.MainForm
                 product.MedicineCode,
                 product.MedicineName,
                 1, // Initial quantity
-                CurrencyFormatter.FormatVND(product.MedicinePrice),
+                product.MedicinePrice,
                 CurrencyFormatter.FormatVND(product.MedicinePrice) // Initial amount
             });
             GetTotal();
@@ -156,8 +156,14 @@ namespace PharmacySystem.Views.MainForm
 
         private void CartItemsDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0 || e.RowIndex >= CartItemsDataGrid.Rows.Count)
+            {
+                return; // Ignore clicks outside valid rows
+            }
             if (CartItemsDataGrid.CurrentCell.OwningColumn.Name == "Delete")
             {
+                // Ensure the click is in a valid area (not a header or invalid row index)
+                
                 CartItemsDataGrid.Rows.RemoveAt(e.RowIndex);
 
                 GetTotal();
@@ -170,7 +176,7 @@ namespace PharmacySystem.Views.MainForm
 
             GetTotal();
         }
-        
+
         private void cbMedicineGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
             var selectedGroupCode = cbMedicineGroup.SelectedValue as string;

@@ -47,18 +47,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.CartItemsDataGrid = new System.Windows.Forms.DataGridView();
-            this.MedicineProductPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-
             this.dgvName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
+            this.MedicineProductPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnDashboard)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -67,14 +66,12 @@
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CartItemsDataGrid)).BeginInit();
-
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel1.Controls.Add(this.cbMedicineGroup);
-
             this.panel1.Controls.Add(this.btnDashboard);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.txtSearch);
@@ -89,7 +86,6 @@
             this.panel1.Size = new System.Drawing.Size(1255, 66);
             this.panel1.TabIndex = 3;
             // 
-
             // cbMedicineGroup
             // 
             this.cbMedicineGroup.FormattingEnabled = true;
@@ -98,7 +94,6 @@
             this.cbMedicineGroup.Size = new System.Drawing.Size(133, 25);
             this.cbMedicineGroup.TabIndex = 7;
             this.cbMedicineGroup.SelectedIndexChanged += new System.EventHandler(this.cbMedicineGroup_SelectedIndexChanged);
-
             // 
             // btnDashboard
             // 
@@ -182,7 +177,6 @@
             this.panel3.Controls.Add(this.panel2);
             this.panel3.Controls.Add(this.CartItemsDataGrid);
             this.panel3.Controls.Add(this.MedicineProductPanel);
-
             this.panel3.Controls.Add(this.flowLayoutPanel1);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -196,15 +190,14 @@
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.btnCancel);
-
             this.panel2.Controls.Add(this.btnCharge);
             this.panel2.Controls.Add(this.txtTotal);
             this.panel2.Controls.Add(this.txtTempTotal);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(723, 437);
+            this.panel2.Location = new System.Drawing.Point(749, 437);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(532, 119);
+            this.panel2.Size = new System.Drawing.Size(506, 119);
             this.panel2.TabIndex = 10;
             // 
             // btnCancel
@@ -221,7 +214,6 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-
             // 
             // btnCharge
             // 
@@ -241,24 +233,21 @@
             // 
             this.txtTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTotal.AutoSize = true;
-            this.txtTotal.Location = new System.Drawing.Point(458, 59);
+            this.txtTotal.Location = new System.Drawing.Point(396, 58);
             this.txtTotal.Name = "txtTotal";
-
             this.txtTotal.Size = new System.Drawing.Size(27, 17);
             this.txtTotal.TabIndex = 1;
             this.txtTotal.Text = "0 đ";
-
             // 
             // txtTempTotal
             // 
             this.txtTempTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTempTotal.AutoSize = true;
-            this.txtTempTotal.Location = new System.Drawing.Point(458, 29);
+            this.txtTempTotal.Location = new System.Drawing.Point(396, 29);
             this.txtTempTotal.Name = "txtTempTotal";
             this.txtTempTotal.Size = new System.Drawing.Size(27, 17);
             this.txtTempTotal.TabIndex = 1;
             this.txtTempTotal.Text = "0 đ";
-
             // 
             // label2
             // 
@@ -303,51 +292,12 @@
             this.dgvPrice,
             this.dgvAmount,
             this.Delete});
-            this.CartItemsDataGrid.Location = new System.Drawing.Point(723, 72);
+            this.CartItemsDataGrid.Location = new System.Drawing.Point(749, 72);
             this.CartItemsDataGrid.Name = "CartItemsDataGrid";
             this.CartItemsDataGrid.RowTemplate.Height = 30;
-            this.CartItemsDataGrid.Size = new System.Drawing.Size(532, 358);
+            this.CartItemsDataGrid.Size = new System.Drawing.Size(506, 358);
             this.CartItemsDataGrid.TabIndex = 9;
             this.CartItemsDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CartItemsDataGrid_CellClick);
-            // 
-            // MedicineProductPanel
-            // 
-            this.MedicineProductPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.MedicineProductPanel.AutoScroll = true;
-            this.MedicineProductPanel.BackColor = System.Drawing.Color.GhostWhite;
-            this.MedicineProductPanel.Location = new System.Drawing.Point(3, 72);
-            this.MedicineProductPanel.Name = "MedicineProductPanel";
-            this.MedicineProductPanel.Size = new System.Drawing.Size(714, 484);
-            this.MedicineProductPanel.TabIndex = 2;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(337, 253);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(8, 8);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 562);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1255, 56);
-            this.panel4.TabIndex = 0;
-            // 
-            // dataGridViewImageColumn1
-            // 
-            this.dataGridViewImageColumn1.FillWeight = 16.21949F;
-            this.dataGridViewImageColumn1.HeaderText = "";
-            this.dataGridViewImageColumn1.Image = global::PharmacySystem.Properties.Resources.minus;
-            this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.dataGridViewImageColumn1.MinimumWidth = 10;
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.ReadOnly = true;
-            this.dataGridViewImageColumn1.Width = 26;
             // 
             // Index
             // 
@@ -379,7 +329,6 @@
             // dgvPrice
             // 
             this.dgvPrice.FillWeight = 50.57392F;
-
             this.dgvPrice.HeaderText = "Giá";
             this.dgvPrice.Name = "dgvPrice";
             this.dgvPrice.ReadOnly = true;
@@ -401,6 +350,45 @@
             this.Delete.Name = "Delete";
             this.Delete.ReadOnly = true;
             this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // MedicineProductPanel
+            // 
+            this.MedicineProductPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MedicineProductPanel.AutoScroll = true;
+            this.MedicineProductPanel.BackColor = System.Drawing.Color.GhostWhite;
+            this.MedicineProductPanel.Location = new System.Drawing.Point(3, 72);
+            this.MedicineProductPanel.Name = "MedicineProductPanel";
+            this.MedicineProductPanel.Size = new System.Drawing.Size(740, 484);
+            this.MedicineProductPanel.TabIndex = 2;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(337, 253);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(8, 8);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(0, 562);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1255, 56);
+            this.panel4.TabIndex = 0;
+            // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.FillWeight = 16.21949F;
+            this.dataGridViewImageColumn1.HeaderText = "";
+            this.dataGridViewImageColumn1.Image = global::PharmacySystem.Properties.Resources.minus;
+            this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.dataGridViewImageColumn1.MinimumWidth = 10;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.ReadOnly = true;
+            this.dataGridViewImageColumn1.Width = 26;
             // 
             // MainView
             // 
@@ -427,7 +415,6 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CartItemsDataGrid)).EndInit();
-
             this.ResumeLayout(false);
 
         }
