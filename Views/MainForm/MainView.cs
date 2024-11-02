@@ -197,5 +197,6 @@ namespace PharmacySystem.Views.MainForm
         {
             _presenter.SearchMedicines(TextSearch, cbMedicineGroup.SelectedValue as string);
         }
+
     }
 }

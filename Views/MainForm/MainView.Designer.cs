@@ -53,6 +53,7 @@
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+
             this.dgvName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,12 +67,14 @@
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CartItemsDataGrid)).BeginInit();
+
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel1.Controls.Add(this.cbMedicineGroup);
+
             this.panel1.Controls.Add(this.btnDashboard);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.txtSearch);
@@ -86,6 +89,7 @@
             this.panel1.Size = new System.Drawing.Size(1255, 66);
             this.panel1.TabIndex = 3;
             // 
+
             // cbMedicineGroup
             // 
             this.cbMedicineGroup.FormattingEnabled = true;
@@ -94,6 +98,7 @@
             this.cbMedicineGroup.Size = new System.Drawing.Size(133, 25);
             this.cbMedicineGroup.TabIndex = 7;
             this.cbMedicineGroup.SelectedIndexChanged += new System.EventHandler(this.cbMedicineGroup_SelectedIndexChanged);
+
             // 
             // btnDashboard
             // 
@@ -177,6 +182,7 @@
             this.panel3.Controls.Add(this.panel2);
             this.panel3.Controls.Add(this.CartItemsDataGrid);
             this.panel3.Controls.Add(this.MedicineProductPanel);
+
             this.panel3.Controls.Add(this.flowLayoutPanel1);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -190,6 +196,7 @@
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.btnCancel);
+
             this.panel2.Controls.Add(this.btnCharge);
             this.panel2.Controls.Add(this.txtTotal);
             this.panel2.Controls.Add(this.txtTempTotal);
@@ -214,6 +221,7 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+
             // 
             // btnCharge
             // 
@@ -235,9 +243,11 @@
             this.txtTotal.AutoSize = true;
             this.txtTotal.Location = new System.Drawing.Point(458, 59);
             this.txtTotal.Name = "txtTotal";
+
             this.txtTotal.Size = new System.Drawing.Size(27, 17);
             this.txtTotal.TabIndex = 1;
             this.txtTotal.Text = "0 đ";
+
             // 
             // txtTempTotal
             // 
@@ -248,6 +258,7 @@
             this.txtTempTotal.Size = new System.Drawing.Size(27, 17);
             this.txtTempTotal.TabIndex = 1;
             this.txtTempTotal.Text = "0 đ";
+
             // 
             // label2
             // 
@@ -368,6 +379,7 @@
             // dgvPrice
             // 
             this.dgvPrice.FillWeight = 50.57392F;
+
             this.dgvPrice.HeaderText = "Giá";
             this.dgvPrice.Name = "dgvPrice";
             this.dgvPrice.ReadOnly = true;
@@ -415,6 +427,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CartItemsDataGrid)).EndInit();
+
             this.ResumeLayout(false);
 
         }
@@ -444,6 +457,7 @@
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvCode;
+
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvName;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvQuantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvPrice;
