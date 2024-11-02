@@ -1,59 +1,56 @@
--- Lưu trữ tên đơn vị
+
 CREATE TABLE unit_type (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	unit_name VARCHAR(100)            -- Tên đơn vị
+	unit_name VARCHAR(100)           
 );
 
--- Lưu trữ thông tin nhà cung cấp
- CREATE TABLE supplier (
+
+CREATE TABLE supplier (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    supplier_name VARCHAR(100) NOT NULL,            -- Tên nhà cung cấp
-   	supplier_phone VARCHAR(50),                    -- Số điện thoại nhà cung cấp
-    supplier_address VARCHAR(255)                   -- Địa chỉ nhà cung cấp
- );
-
-
--- Lưu trữ thông tin về nhóm thuốc
-CREATE TABLE medicine_group (
-    group_code VARCHAR(15) PRIMARY KEY,         -- Mã nhóm thuốc (primary key)
-    group_name VARCHAR(100),                     -- Tên nhóm thuốc
-    group_content VARCHAR(255)                   -- Nội dung mô tả
+    supplier_name VARCHAR(100) NOT NULL,           
+   	supplier_phone VARCHAR(50) NOT NULL,                   
+    supplier_address VARCHAR(255)                  
 );
 
--- Lưu trữ thông tin chi tiết về thuốc
+
+CREATE TABLE medicine_group (
+    group_code VARCHAR(15) PRIMARY KEY,         
+    group_name VARCHAR(100),                    
+    group_content VARCHAR(255)                  
+);
+
 CREATE TABLE medicine_info (
-    medicine_code VARCHAR(50) PRIMARY KEY,       -- Mã thuốc (primary key)
-    medicine_name VARCHAR(100) UNIQUE,                  -- Tên thuốc
-    unit_type INT,                               -- Đơn vị tính (liên kết với bảng unit_type)
-    medicine_img VARCHAR(255),                   -- Hình ảnh thuốc            
-    medicine_content VARCHAR(255),               -- Nội dung mô tả thuốc
-    medicine_element VARCHAR(255),               -- Thành phần của thuốc
-    group_code VARCHAR(15),             -- Mã nhóm thuốc (liên kết với bảng medicine_group)
+    medicine_code VARCHAR(50) PRIMARY KEY,      
+    medicine_name VARCHAR(100) UNIQUE,                
+    unit_type INT,
+    medicine_price DECIMAL(10, 2),
+    medicine_img VARCHAR(255),                  
+    medicine_content VARCHAR(255),               
+    medicine_element VARCHAR(255),              
+    group_code VARCHAR(15),             
     FOREIGN KEY (group_code) REFERENCES medicine_group(group_code),
     FOREIGN KEY (unit_type) REFERENCES unit_type(id)
 );
 
--- Lưu trữ thông tin về thuốc
+
 CREATE TABLE medicine (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    medicine_expire_date DATE,            -- Ngày hết hạn của thuốc
-    medicine_price DECIMAL(10, 2),        -- Giá của thuốc
-    medicine_code VARCHAR(50),            -- Mã thông tin thuốc, liên kết với bảng medicine_info
-    supplier_id INT,                      -- Mã định danh nhà cung cấp, liên kết với bảng supplier
-    FOREIGN KEY (supplier_id) REFERENCES supplier(id),  -- Chỉ ra quan hệ với bảng supplier
-    FOREIGN KEY (medicine_code) REFERENCES medicine_info(medicine_code)  -- Chỉ ra quan hệ với bảng medicine_info
+    medicine_expire_date DATE,           
+    medicine_code VARCHAR(50),            
+    supplier_id INT,                     
+    FOREIGN KEY (supplier_id) REFERENCES supplier(id), 
+    FOREIGN KEY (medicine_code) REFERENCES medicine_info(medicine_code)
 );
 
 
--- Lưu trữ số lượng thuốc -----
 CREATE TABLE medicine_quantity (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    medicine_id INT,                      -- Mã định danh thuốc, liên kết với bảng medicine
-    quantity INT,                         -- Số lượng thuốc
+    medicine_id INT,                     
+    quantity INT,                         
     FOREIGN KEY (medicine_id) REFERENCES medicine(id)
 );
 
--- Lưu trữ thông tin nhân viên
+
 CREATE TABLE employee (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(30) NOT NULL UNIQUE,
@@ -70,51 +67,51 @@ CREATE TABLE employee (
 
 CREATE TABLE finance_bill (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    finance_bill_time DATETIME DEFAULT CURRENT_TIMESTAMP,            -- Thời gian tạo hóa đơn
-    finance_bill_change DECIMAL(10, 2),    -- Số tiền biến động
+    finance_bill_time DATETIME DEFAULT CURRENT_TIMESTAMP,           
+    finance_bill_change DECIMAL(10, 2),  
     finance_is_spend_bill TINYINT(1) COMMENT 'Loại hóa đơn (1 nếu là chi tiêu, 0 nếu là khoản thu)',
-    finance_bill_content VARCHAR(255),     -- Nội dung chi tiết của hóa đơn
-    employee_id INT,                          -- Mã định danh nhân viên, liên kết với bảng employee
+    finance_bill_content VARCHAR(255),    
+    employee_id INT,  
     FOREIGN KEY (employee_id) REFERENCES employee(id)
 );
 
--- Lưu trữ thông tin hóa đơn kho
+
 CREATE TABLE warehouse_bill (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    warehouse_bill_time DATETIME DEFAULT CURRENT_TIMESTAMP,       -- Thời gian tạo hóa đơn kho
-    employee_id INT,                          -- Mã định danh nhân viên, liên kết với bảng employee
-    warehouse_is_import_bill TINYINT(1) COMMENT 'Loại hóa đơn kho (1 nếu là hóa đơn nhập, 0 nếu là hóa đơn xuất)',
+    warehouse_bill_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    employee_id INT,
+    warehouse_is_import_bill TINYINT(1) COMMENT '(1 nếu là hóa đơn nhập, 0 nếu là hóa đơn xuất)',
     FOREIGN KEY (employee_id) REFERENCES employee(id)
 );
 
--- Lưu trữ thông tin hóa đơn nhập thuốc
+
 CREATE TABLE medicine_warehouse_bill (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    warehouse_bill_id INT,                   -- Mã định danh của hóa đơn kho, liên kết với bảng warehouse_bill
-    medicine_id INT,                         -- Mã định danh thuốc, liên kết với bảng medicine
-    medicine_quantity INT,                   -- Số lượng thuốc
+    warehouse_bill_id INT,                  
+    medicine_id INT,                        
+    medicine_quantity INT,                   
     FOREIGN KEY (warehouse_bill_id) REFERENCES warehouse_bill(id),
     FOREIGN KEY (medicine_id) REFERENCES medicine(id)
 );
 
--- Lưu trữ thông tin khách hàng
+
 CREATE TABLE customer (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    customer_name VARCHAR(100),            -- Tên khách hàng
-    customer_phone VARCHAR(50),            -- Số điện thoại khách hàng
-    customer_address VARCHAR(255)          -- Địa chỉ khách hàng
+    customer_name VARCHAR(100),         
+    customer_phone VARCHAR(50),          
+    customer_address VARCHAR(255)        
 );
 
--- Lưu trữ thông tin hóa đơn POS (bán hàng)
+
 CREATE TABLE pos_bill (
     pos_bill_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    pos_bill_time DATETIME DEFAULT CURRENT_TIMESTAMP,              -- Thời gian tạo hóa đơn POS
-    pos_bill_receive DECIMAL(10, 2),       -- Số tiền nhận được từ khách hàng
-    employee_id INT,                       -- Mã định danh nhân viên, liên kết với bảng employee
-    pos_is_sell_bill TINYINT(1),           -- Loại hóa đơn POS (1 nếu là hóa đơn bán hàng, 0 nếu là hóa đơn trả hàng)
-    warehouse_bill_id INT,                 -- Mã định danh hóa đơn kho, liên kết với bảng warehouse_bill
-    finance_bill_id INT,                   -- Mã định danh hóa đơn tài chính, liên kết với bảng finance_bill
-    customer_id INT,                       -- Mã định danh khách hàng, liên kết với bảng customer
+    pos_bill_time DATETIME DEFAULT CURRENT_TIMESTAMP,           
+    pos_bill_receive DECIMAL(10, 2),      
+    employee_id INT,                      
+    pos_is_sell_bill TINYINT(1) COMMENT '(1 nếu là hóa đơn bán hàng, 0 nếu là hóa đơn trả hàng',
+    warehouse_bill_id INT,                 
+    finance_bill_id INT,                  
+    customer_id INT,                      
     FOREIGN KEY (employee_id) REFERENCES employee(id),
     FOREIGN KEY (warehouse_bill_id) REFERENCES warehouse_bill(id),
     FOREIGN KEY (finance_bill_id) REFERENCES finance_bill(id),

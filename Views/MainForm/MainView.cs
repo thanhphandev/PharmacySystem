@@ -1,5 +1,8 @@
-﻿using PharmacySystem.Presenters;
+﻿using PharmacySystem.Models;
+using PharmacySystem.Presenters;
 using PharmacySystem.Services;
+using PharmacySystem.Views.UIComponents;
+using PharmacySystem.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,16 +19,44 @@ namespace PharmacySystem.Views.MainForm
     {
         public event EventHandler Logout;
         public event EventHandler ShowDashboard;
+        private readonly MainPresenter _presenter;
 
         public MainView(string connectionString)
         {
             InitializeComponent();
-            new MainPresenter(this, connectionString);
-            AsscociateAndRaiseViewEvents();
+            var presenter = new MainPresenter(this, connectionString);
+            _presenter = presenter;
+            presenter.LoadData();
+            AssociateAndRaiseViewEvents();
+            CartItemsDataGrid.CellValueChanged += CartItemsDataGrid_CellValueChanged;
             
+
         }
 
-        private void AsscociateAndRaiseViewEvents()
+        public void LoadMedicineGroups(List<MedicineGroupModel> medicineGroups)
+        {
+            cbMedicineGroup.DataSource = medicineGroups;
+            cbMedicineGroup.DisplayMember = "GroupName";
+            cbMedicineGroup.ValueMember = "GroupCode";
+        }
+
+        private void CartItemsDataGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            // Update only for the Quantity column
+            if (e.ColumnIndex == CartItemsDataGrid.Columns["dgvQuantity"].Index && e.RowIndex >= 0)
+            {
+                var row = CartItemsDataGrid.Rows[e.RowIndex];
+
+                if (decimal.TryParse(row.Cells["dgvPrice"].Value?.ToString(), out decimal price) &&
+                    int.TryParse(row.Cells["dgvQuantity"].Value?.ToString(), out int quantity))
+                {
+                    row.Cells["dgvAmount"].Value = CurrencyFormatter.FormatVND(price * quantity);
+                    GetTotal(); // Update total whenever quantity changes
+                }
+            }
+        }
+
+        private void AssociateAndRaiseViewEvents()
         {
             LoadUserData();
             btnLogout.Click += delegate
@@ -36,7 +67,7 @@ namespace PharmacySystem.Views.MainForm
             {
                 ShowDashboard?.Invoke(this, EventArgs.Empty);
             };
-            
+
         }
 
         public void LoadUserData()
@@ -48,6 +79,110 @@ namespace PharmacySystem.Views.MainForm
         public void CloseForm()
         {
             this.Close();
+        }
+
+        private void AddMedicineItems(string code, string medicineName, decimal medicinePrice, string imageUrl)
+        {
+
+            IMedicineProduct medicineProduct = new MedicineProduct()
+            {
+                MedicineCode = code,
+                MedicineName = medicineName,
+                MedicinePrice = medicinePrice,
+                MedicineImage = imageUrl
+            };
+
+            MedicineProductPanel.Controls.Add((MedicineProduct)medicineProduct);
+            medicineProduct.AddToCart += (sender, e) =>
+            {
+                AddOrUpdateCartItem((MedicineProduct)sender);
+            };
+
+        }
+
+        private void AddOrUpdateCartItem(MedicineProduct product)
+        {
+            foreach (DataGridViewRow row in CartItemsDataGrid.Rows)
+            {
+                if (string.Equals(row.Cells["dgvCode"].Value?.ToString(), product.MedicineCode, StringComparison.OrdinalIgnoreCase))
+                {
+                    int currentQuantity = Convert.ToInt32(row.Cells["dgvQuantity"].Value);
+                    int newQuantity = currentQuantity + 1;
+                    row.Cells["dgvQuantity"].Value = newQuantity;
+
+                    decimal price = product.MedicinePrice;
+                    row.Cells["dgvAmount"].Value = CurrencyFormatter.FormatVND(newQuantity * price);
+                    GetTotal();
+                    return;
+                }
+            }
+
+            // Add new item to cart if it doesn't exist
+            CartItemsDataGrid.Rows.Add(new object[]
+            {
+                CartItemsDataGrid.Rows.Count + 1,
+                product.MedicineCode,
+                product.MedicineName,
+                1, // Initial quantity
+                product.MedicinePrice,
+                CurrencyFormatter.FormatVND(product.MedicinePrice) // Initial amount
+            });
+            GetTotal();
+        }
+
+
+        public void LoadMedicineData(List<MedicineInfoModel> medicineInfo)
+        {
+            MedicineProductPanel.Controls.Clear();
+            foreach (var item in medicineInfo)
+            {
+                AddMedicineItems(item.MedicineCode, item.MedicineName, item.MedicinePrice, item.MedicineImage);
+            }
+        }
+
+        private void GetTotal()
+        {
+            decimal total = 0;
+            foreach (DataGridViewRow row in CartItemsDataGrid.Rows)
+            {
+                total += Convert.ToDecimal(row.Cells["dgvAmount"].Value.ToString().Replace("₫", "").Replace(".", "").Trim());
+            }
+
+            txtTotal.Text = CurrencyFormatter.FormatVND(total);
+            txtTempTotal.Text = CurrencyFormatter.FormatVND(total);
+        }
+
+        private void CartItemsDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (CartItemsDataGrid.CurrentCell.OwningColumn.Name == "Delete")
+            {
+                CartItemsDataGrid.Rows.RemoveAt(e.RowIndex);
+
+                GetTotal();
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            CartItemsDataGrid.Rows.Clear();
+
+            GetTotal();
+        }
+
+        private void cbMedicineGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedGroupCode = cbMedicineGroup.SelectedValue as string;
+
+            if (string.IsNullOrEmpty(selectedGroupCode))
+            {
+                // Load all medicines when "All Medicines" is selected
+                _presenter.LoadAllMedicines();
+            }
+            else
+            {
+                // Filter by the selected group code
+                _presenter.FilterMedicinesByGroupId(selectedGroupCode);
+            }
         }
 
     }

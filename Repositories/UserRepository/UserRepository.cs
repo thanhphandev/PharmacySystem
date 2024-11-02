@@ -174,5 +174,36 @@ namespace PharmacySystem.Repositories.UserRepository
         }
 
 
+        public async Task<List<RoleCountModel>> GetEmployeeCountByRole()
+        {
+            var roleCounts = new List<RoleCountModel>();
+
+            using (var connection = new MySqlConnection(_connectionString))
+            {
+                string query = "SELECT role, COUNT(*) AS count FROM employee GROUP BY role";
+
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    await connection.OpenAsync();
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            roleCounts.Add(new RoleCountModel
+                            {
+                                Role = reader["role"].ToString(),
+                                Count = Convert.ToInt32(reader["count"])
+                            });
+                        }
+                    }
+                }
+            }
+
+            return roleCounts;
+        }
+
+
+
     }
 }

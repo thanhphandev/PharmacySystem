@@ -27,10 +27,10 @@ namespace PharmacySystem.Views.SuppliersForm
             _connectionString = connectionString;
             var presenter = new SupplierViewPresenter(this, _connectionString);
             presenter.LoadData();
-            AsscociateAndRaiseViewEvents(presenter);
+            AssociateAndRaiseViewEvents(presenter);
 
         }
-        private void AsscociateAndRaiseViewEvents(SupplierViewPresenter presenter)
+        private void AssociateAndRaiseViewEvents(SupplierViewPresenter presenter)
         {
             cbFilter.SelectedItem = "All";
 
@@ -103,7 +103,7 @@ namespace PharmacySystem.Views.SuppliersForm
                     SupplierId = Convert.ToInt32(SupplierDataGrid.CurrentRow.Cells["Index"].Value),
                     SupplierName = SupplierDataGrid.CurrentRow.Cells["SupplierName"].Value.ToString(),
                     SupplierPhone = SupplierDataGrid.CurrentRow.Cells["SupplierPhone"].Value.ToString(),
-                    SupplierAddress = SupplierDataGrid.CurrentRow.Cells["SupplierAddress"].Value.ToString()
+                    SupplierAddress = SupplierDataGrid.CurrentRow.Cells["SupplierAddress"]?.Value.ToString()
                 };
 
             }
