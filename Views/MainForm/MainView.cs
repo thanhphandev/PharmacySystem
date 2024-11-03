@@ -151,7 +151,8 @@ namespace PharmacySystem.Views.MainForm
             }
 
             txtTotal.Text = CurrencyFormatter.FormatVND(total);
-            txtTempTotal.Text = CurrencyFormatter.FormatVND(total);
+            txtCustomerPaidAmount.Text = "";
+            txtChange.Text = CurrencyFormatter.FormatVND(total);
         }
 
         private void CartItemsDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -203,6 +204,38 @@ namespace PharmacySystem.Views.MainForm
         {
             _presenter.SearchMedicines(TextSearch, cbMedicineGroup.SelectedValue as string);
         }
+
+        private void txtCustomerPaidAmount_TextChanged(object sender, EventArgs e)
+        {
+            // Ensure total is properly formatted for parsing
+            string totalText = txtTotal.Text.Replace("₫", "").Replace(".", "").Replace(",", "").Trim();
+            string paidAmountText = txtCustomerPaidAmount.Text.Replace("₫", "").Replace(".", "").Replace(",", "").Trim();
+
+            if (decimal.TryParse(totalText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal totalAmount) &&
+                decimal.TryParse(paidAmountText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal customerPaidAmount))
+            {
+                // Calculate the change amount
+                decimal changeAmount = customerPaidAmount - totalAmount;
+
+                // Validate if customer paid enough
+                if (changeAmount >= 0)
+                {
+                    // Format and display the calculated change amount
+                    txtChange.Text = CurrencyFormatter.FormatVND(changeAmount);
+                }
+                else
+                {
+                    // Show "0 ₫" if insufficient amount
+                    txtChange.Text = "0 ₫";
+                }
+            }
+            else
+            {
+                // Clear txtChange if input is invalid
+                txtChange.Text = "0 ₫";
+            }
+        }
+
 
     }
 }

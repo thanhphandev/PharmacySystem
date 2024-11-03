@@ -43,7 +43,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.txtTotal = new System.Windows.Forms.Label();
-            this.txtTempTotal = new System.Windows.Forms.Label();
+            this.txtChange = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.CartItemsDataGrid = new System.Windows.Forms.DataGridView();
@@ -58,6 +59,8 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.txtCustomerPaidAmount = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnDashboard)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -88,6 +91,8 @@
             // 
             // cbMedicineGroup
             // 
+            this.cbMedicineGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbMedicineGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbMedicineGroup.FormattingEnabled = true;
             this.cbMedicineGroup.Location = new System.Drawing.Point(237, 21);
             this.cbMedicineGroup.Name = "cbMedicineGroup";
@@ -189,15 +194,18 @@
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.txtCustomerPaidAmount);
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Controls.Add(this.btnCharge);
+            this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.txtTotal);
-            this.panel2.Controls.Add(this.txtTempTotal);
+            this.panel2.Controls.Add(this.txtChange);
+            this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(749, 437);
+            this.panel2.Location = new System.Drawing.Point(749, 414);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(506, 119);
+            this.panel2.Size = new System.Drawing.Size(506, 142);
             this.panel2.TabIndex = 10;
             // 
             // btnCancel
@@ -207,7 +215,7 @@
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.ForeColor = System.Drawing.Color.Red;
-            this.btnCancel.Location = new System.Drawing.Point(107, 79);
+            this.btnCancel.Location = new System.Drawing.Point(106, 97);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(127, 30);
             this.btnCancel.TabIndex = 2;
@@ -217,12 +225,13 @@
             // 
             // btnCharge
             // 
+            this.btnCharge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCharge.BackColor = System.Drawing.Color.Blue;
             this.btnCharge.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
             this.btnCharge.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCharge.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCharge.ForeColor = System.Drawing.Color.White;
-            this.btnCharge.Location = new System.Drawing.Point(296, 79);
+            this.btnCharge.Location = new System.Drawing.Point(319, 97);
             this.btnCharge.Name = "btnCharge";
             this.btnCharge.Size = new System.Drawing.Size(127, 30);
             this.btnCharge.TabIndex = 2;
@@ -233,43 +242,54 @@
             // 
             this.txtTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTotal.AutoSize = true;
-            this.txtTotal.Location = new System.Drawing.Point(396, 58);
+            this.txtTotal.Location = new System.Drawing.Point(419, 18);
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.Size = new System.Drawing.Size(27, 17);
             this.txtTotal.TabIndex = 1;
             this.txtTotal.Text = "0 đ";
             // 
-            // txtTempTotal
+            // txtChange
             // 
-            this.txtTempTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTempTotal.AutoSize = true;
-            this.txtTempTotal.Location = new System.Drawing.Point(396, 29);
-            this.txtTempTotal.Name = "txtTempTotal";
-            this.txtTempTotal.Size = new System.Drawing.Size(27, 17);
-            this.txtTempTotal.TabIndex = 1;
-            this.txtTempTotal.Text = "0 đ";
+            this.txtChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtChange.AutoSize = true;
+            this.txtChange.Location = new System.Drawing.Point(419, 67);
+            this.txtChange.Name = "txtChange";
+            this.txtChange.Size = new System.Drawing.Size(27, 17);
+            this.txtChange.TabIndex = 1;
+            this.txtChange.Text = "0 đ";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
+            this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label3.Location = new System.Drawing.Point(15, 65);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 19);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Tiền thối:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(14, 57);
+            this.label2.Location = new System.Drawing.Point(15, 14);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 19);
+            this.label2.Size = new System.Drawing.Size(106, 19);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Tổng:";
+            this.label2.Text = "Tổng hóa đơn:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(14, 27);
+            this.label1.Location = new System.Drawing.Point(15, 40);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 19);
+            this.label1.Size = new System.Drawing.Size(103, 19);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Tạm tính:";
+            this.label1.Text = "Tiền khách trả";
             // 
             // CartItemsDataGrid
             // 
@@ -295,7 +315,7 @@
             this.CartItemsDataGrid.Location = new System.Drawing.Point(749, 72);
             this.CartItemsDataGrid.Name = "CartItemsDataGrid";
             this.CartItemsDataGrid.RowTemplate.Height = 30;
-            this.CartItemsDataGrid.Size = new System.Drawing.Size(506, 358);
+            this.CartItemsDataGrid.Size = new System.Drawing.Size(506, 336);
             this.CartItemsDataGrid.TabIndex = 9;
             this.CartItemsDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CartItemsDataGrid_CellClick);
             // 
@@ -390,6 +410,25 @@
             this.dataGridViewImageColumn1.ReadOnly = true;
             this.dataGridViewImageColumn1.Width = 26;
             // 
+            // txtCustomerPaidAmount
+            // 
+            this.txtCustomerPaidAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCustomerPaidAmount.Location = new System.Drawing.Point(389, 38);
+            this.txtCustomerPaidAmount.Name = "txtCustomerPaidAmount";
+            this.txtCustomerPaidAmount.Size = new System.Drawing.Size(83, 25);
+            this.txtCustomerPaidAmount.TabIndex = 3;
+            this.txtCustomerPaidAmount.TextChanged += new System.EventHandler(this.txtCustomerPaidAmount_TextChanged);
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(478, 42);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(16, 17);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "đ";
+            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -440,7 +479,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnCharge;
         private System.Windows.Forms.Label txtTotal;
-        private System.Windows.Forms.Label txtTempTotal;
+        private System.Windows.Forms.Label txtChange;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvCode;
@@ -450,5 +489,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvAmount;
         private System.Windows.Forms.DataGridViewImageColumn Delete;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtCustomerPaidAmount;
+        private System.Windows.Forms.Label label4;
     }
 }
