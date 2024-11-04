@@ -43,10 +43,9 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnCharge = new System.Windows.Forms.Button();
             this.txtTotal = new System.Windows.Forms.Label();
-            this.txtChange = new System.Windows.Forms.Label();
+            this.txtVAT = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.CartItemsDataGrid = new System.Windows.Forms.DataGridView();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,8 +58,8 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.txtCustomerPaidAmount = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtChange = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnDashboard)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -194,15 +193,14 @@
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.txtCustomerPaidAmount);
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Controls.Add(this.btnCharge);
-            this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.txtTotal);
             this.panel2.Controls.Add(this.txtChange);
+            this.panel2.Controls.Add(this.txtVAT);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.label2);
             this.panel2.Location = new System.Drawing.Point(749, 414);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(506, 142);
@@ -242,32 +240,32 @@
             // 
             this.txtTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTotal.AutoSize = true;
-            this.txtTotal.Location = new System.Drawing.Point(419, 18);
+            this.txtTotal.Location = new System.Drawing.Point(419, 16);
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.Size = new System.Drawing.Size(27, 17);
             this.txtTotal.TabIndex = 1;
             this.txtTotal.Text = "0 đ";
             // 
-            // txtChange
+            // txtVAT
             // 
-            this.txtChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtChange.AutoSize = true;
-            this.txtChange.Location = new System.Drawing.Point(419, 67);
-            this.txtChange.Name = "txtChange";
-            this.txtChange.Size = new System.Drawing.Size(27, 17);
-            this.txtChange.TabIndex = 1;
-            this.txtChange.Text = "0 đ";
+            this.txtVAT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtVAT.AutoSize = true;
+            this.txtVAT.Location = new System.Drawing.Point(419, 37);
+            this.txtVAT.Name = "txtVAT";
+            this.txtVAT.Size = new System.Drawing.Size(27, 17);
+            this.txtVAT.TabIndex = 1;
+            this.txtVAT.Text = "0 đ";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label3.Location = new System.Drawing.Point(15, 65);
+            this.label3.Location = new System.Drawing.Point(15, 35);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 19);
+            this.label3.Size = new System.Drawing.Size(76, 19);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Tiền thối:";
+            this.label3.Text = "VAT (10%)";
             // 
             // label2
             // 
@@ -279,17 +277,6 @@
             this.label2.Size = new System.Drawing.Size(106, 19);
             this.label2.TabIndex = 0;
             this.label2.Text = "Tổng hóa đơn:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
-            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(15, 40);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 19);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Tiền khách trả";
             // 
             // CartItemsDataGrid
             // 
@@ -410,24 +397,26 @@
             this.dataGridViewImageColumn1.ReadOnly = true;
             this.dataGridViewImageColumn1.Width = 26;
             // 
-            // txtCustomerPaidAmount
+            // label1
             // 
-            this.txtCustomerPaidAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCustomerPaidAmount.Location = new System.Drawing.Point(389, 38);
-            this.txtCustomerPaidAmount.Name = "txtCustomerPaidAmount";
-            this.txtCustomerPaidAmount.Size = new System.Drawing.Size(83, 25);
-            this.txtCustomerPaidAmount.TabIndex = 3;
-            this.txtCustomerPaidAmount.TextChanged += new System.EventHandler(this.txtCustomerPaidAmount_TextChanged);
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label1.Location = new System.Drawing.Point(15, 61);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(106, 19);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Tổng hóa đơn:";
             // 
-            // label4
+            // txtChange
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(478, 42);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(16, 17);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "đ";
+            this.txtChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtChange.AutoSize = true;
+            this.txtChange.Location = new System.Drawing.Point(419, 62);
+            this.txtChange.Name = "txtChange";
+            this.txtChange.Size = new System.Drawing.Size(27, 17);
+            this.txtChange.TabIndex = 1;
+            this.txtChange.Text = "0 đ";
             // 
             // MainView
             // 
@@ -475,11 +464,10 @@
         private System.Windows.Forms.DataGridView CartItemsDataGrid;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnCharge;
         private System.Windows.Forms.Label txtTotal;
-        private System.Windows.Forms.Label txtChange;
+        private System.Windows.Forms.Label txtVAT;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvCode;
@@ -490,7 +478,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvAmount;
         private System.Windows.Forms.DataGridViewImageColumn Delete;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtCustomerPaidAmount;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label txtChange;
     }
 }

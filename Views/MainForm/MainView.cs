@@ -151,8 +151,9 @@ namespace PharmacySystem.Views.MainForm
             }
 
             txtTotal.Text = CurrencyFormatter.FormatVND(total);
-            txtCustomerPaidAmount.Text = "";
-            txtChange.Text = CurrencyFormatter.FormatVND(total);
+            decimal vat = total * 0.1m; // VAT is 10% of total
+            txtVAT.Text = CurrencyFormatter.FormatVND(vat); 
+            txtChange.Text = CurrencyFormatter.FormatVND(total + vat);
         }
 
         private void CartItemsDataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -162,8 +163,7 @@ namespace PharmacySystem.Views.MainForm
                 return; // Ignore clicks outside valid rows
             }
             if (CartItemsDataGrid.CurrentCell.OwningColumn.Name == "Delete")
-            {
-                // Ensure the click is in a valid area (not a header or invalid row index)
+            { 
                 
                 CartItemsDataGrid.Rows.RemoveAt(e.RowIndex);
 
@@ -205,36 +205,36 @@ namespace PharmacySystem.Views.MainForm
             _presenter.SearchMedicines(TextSearch, cbMedicineGroup.SelectedValue as string);
         }
 
-        private void txtCustomerPaidAmount_TextChanged(object sender, EventArgs e)
-        {
-            // Ensure total is properly formatted for parsing
-            string totalText = txtTotal.Text.Replace("₫", "").Replace(".", "").Replace(",", "").Trim();
-            string paidAmountText = txtCustomerPaidAmount.Text.Replace("₫", "").Replace(".", "").Replace(",", "").Trim();
+        //private void txtCustomerPaidAmount_TextChanged(object sender, EventArgs e)
+        //{
+        //    // Ensure total is properly formatted for parsing
+        //    string totalText = txtTotal.Text.Replace("₫", "").Replace(".", "").Replace(",", "").Trim();
+        //    string paidAmountText = txtCustomerPaidAmount.Text.Replace("₫", "").Replace(".", "").Replace(",", "").Trim();
 
-            if (decimal.TryParse(totalText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal totalAmount) &&
-                decimal.TryParse(paidAmountText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal customerPaidAmount))
-            {
-                // Calculate the change amount
-                decimal changeAmount = customerPaidAmount - totalAmount;
+        //    if (decimal.TryParse(totalText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal totalAmount) &&
+        //        decimal.TryParse(paidAmountText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal customerPaidAmount))
+        //    {
+        //        // Calculate the change amount
+        //        decimal changeAmount = customerPaidAmount - totalAmount;
 
-                // Validate if customer paid enough
-                if (changeAmount >= 0)
-                {
-                    // Format and display the calculated change amount
-                    txtChange.Text = CurrencyFormatter.FormatVND(changeAmount);
-                }
-                else
-                {
-                    // Show "0 ₫" if insufficient amount
-                    txtChange.Text = "0 ₫";
-                }
-            }
-            else
-            {
-                // Clear txtChange if input is invalid
-                txtChange.Text = "0 ₫";
-            }
-        }
+        //        // Validate if customer paid enough
+        //        if (changeAmount >= 0)
+        //        {
+        //            // Format and display the calculated change amount
+        //            txtVAT.Text = CurrencyFormatter.FormatVND(changeAmount);
+        //        }
+        //        else
+        //        {
+        //            // Show "0 ₫" if insufficient amount
+        //            txtVAT.Text = "0 ₫";
+        //        }
+        //    }
+        //    else
+        //    {
+        //        // Clear txtChange if input is invalid
+        //        txtVAT.Text = "0 ₫";
+        //    }
+        //}
 
 
     }
