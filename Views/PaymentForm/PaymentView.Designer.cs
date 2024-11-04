@@ -42,7 +42,7 @@
             // txtPaidAmount
             // 
             this.txtPaidAmount.Location = new System.Drawing.Point(404, 177);
-            this.txtPaidAmount.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtPaidAmount.Margin = new System.Windows.Forms.Padding(5);
             this.txtPaidAmount.Name = "txtPaidAmount";
             this.txtPaidAmount.Size = new System.Drawing.Size(107, 27);
             this.txtPaidAmount.TabIndex = 0;
@@ -91,7 +91,7 @@
             this.btnConfirmPayment.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnConfirmPayment.ForeColor = System.Drawing.Color.White;
             this.btnConfirmPayment.Location = new System.Drawing.Point(355, 324);
-            this.btnConfirmPayment.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnConfirmPayment.Margin = new System.Windows.Forms.Padding(5);
             this.btnConfirmPayment.Name = "btnConfirmPayment";
             this.btnConfirmPayment.Size = new System.Drawing.Size(157, 35);
             this.btnConfirmPayment.TabIndex = 2;
@@ -106,7 +106,7 @@
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.Location = new System.Drawing.Point(151, 324);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(5);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(101, 35);
             this.btnCancel.TabIndex = 2;
@@ -164,7 +164,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtPaidAmount);
             this.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximumSize = new System.Drawing.Size(683, 523);
             this.Name = "PaymentView";
             this.ShowIcon = false;

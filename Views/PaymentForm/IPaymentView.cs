@@ -8,7 +8,7 @@ namespace PharmacySystem.Views.PaymentForm
 {
     public interface IPaymentView
     {
-        decimal PaidAmount { get; set; }
+        decimal CashReceived { get; set; }
         decimal TotalAmount { get; set; }
         decimal Change { get; }
         void CloseForm();

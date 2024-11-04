@@ -41,6 +41,178 @@ namespace PharmacySystem.Repositories.MedicineRepository
             }
         }
 
+        public List<MedicineProductModel> GetAllMedicineProduct()
+        {
+            List<MedicineProductModel> medicineProductModels = new List<MedicineProductModel>();
+            try
+            {
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    string query = @"
+                SELECT 
+                    mi.medicine_code, 
+                    mi.medicine_name, 
+                    ut.unit_name AS medicine_unit, 
+                    mi.medicine_price AS price, 
+                    mq.quantity, 
+                    mi.medicine_img AS image_url
+                FROM 
+                    medicine_info mi
+                INNER JOIN 
+                    unit_type ut ON mi.unit_type = ut.id
+                LEFT JOIN 
+                    medicine m ON mi.medicine_code = m.medicine_code
+                LEFT JOIN 
+                    medicine_quantity mq ON m.id = mq.medicine_id";
+
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        connection.Open();
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                MedicineProductModel medicineProductModel = new MedicineProductModel
+                                {
+                                    MedicineCode = reader["medicine_code"].ToString(),
+                                    MedicineName = reader["medicine_name"].ToString(),
+                                    MedicineUnit = reader["medicine_unit"].ToString(),
+                                    Price = Convert.ToDecimal(reader["price"]),
+                                    Quantity = reader["quantity"] != DBNull.Value ? Convert.ToInt32(reader["quantity"]) : 0,
+                                    ImageUrl = reader["image_url"].ToString(),
+                                  
+                                };
+                                medicineProductModels.Add(medicineProductModel);
+                            }
+                        }
+                    }
+                }
+                return medicineProductModels;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<MedicineProductModel> GetMedicineProductsByGroupCode(string groupCode)
+        {
+            List<MedicineProductModel> medicineProductModels = new List<MedicineProductModel>();
+            try
+            {
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    string query = @"
+                SELECT 
+                    mi.medicine_code, 
+                    mi.medicine_name, 
+                    ut.unit_name AS medicine_unit, 
+                    mi.medicine_price AS price, 
+                    mq.quantity, 
+                    mi.medicine_img AS image_url
+                FROM 
+                    medicine_info mi
+                INNER JOIN 
+                    unit_type ut ON mi.unit_type = ut.id
+                LEFT JOIN 
+                    medicine m ON mi.medicine_code = m.medicine_code
+                LEFT JOIN 
+                    medicine_quantity mq ON m.id = mq.medicine_id
+                WHERE 
+                    mi.group_code = @GroupCode";
+
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@GroupCode", groupCode);
+
+                        connection.Open();
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                MedicineProductModel medicineProductModel = new MedicineProductModel
+                                {
+                                    MedicineCode = reader["medicine_code"].ToString(),
+                                    MedicineName = reader["medicine_name"].ToString(),
+                                    MedicineUnit = reader["medicine_unit"].ToString(),
+                                    Price = Convert.ToDecimal(reader["price"]),
+                                    Quantity = reader["quantity"] != DBNull.Value ? Convert.ToInt32(reader["quantity"]) : 0,
+                                    ImageUrl = reader["image_url"].ToString(),
+                                    
+                                };
+                                medicineProductModels.Add(medicineProductModel);
+                            }
+                        }
+                    }
+                }
+                return medicineProductModels;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<MedicineProductModel> GetMedicineProductsByNameAndGroup(string searchText, string groupCode)
+        {
+            List<MedicineProductModel> medicineProductModels = new List<MedicineProductModel>();
+            try
+            {
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    string query = @"
+                SELECT 
+                    mi.medicine_code, 
+                    mi.medicine_name, 
+                    ut.unit_name AS medicine_unit, 
+                    mi.medicine_price AS price, 
+                    mq.quantity, 
+                    mi.medicine_img AS image_url
+                FROM 
+                    medicine_info mi
+                INNER JOIN 
+                    unit_type ut ON mi.unit_type = ut.id
+                LEFT JOIN 
+                    medicine m ON mi.medicine_code = m.medicine_code
+                LEFT JOIN 
+                    medicine_quantity mq ON m.id = mq.medicine_id
+                WHERE 
+                    mi.group_code = @GroupCode 
+                    AND mi.medicine_name LIKE @SearchText";
+
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@GroupCode", groupCode);
+                        command.Parameters.AddWithValue("@SearchText", "%" + searchText + "%"); // Wildcard search
+
+                        connection.Open();
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                MedicineProductModel medicineProductModel = new MedicineProductModel
+                                {
+                                    MedicineCode = reader["medicine_code"].ToString(),
+                                    MedicineName = reader["medicine_name"].ToString(),
+                                    MedicineUnit = reader["medicine_unit"].ToString(),
+                                    Price = Convert.ToDecimal(reader["price"]),
+                                    Quantity = reader["quantity"] != DBNull.Value ? Convert.ToInt32(reader["quantity"]) : 0,
+                                    ImageUrl = reader["image_url"].ToString(),
+                                    
+                                };
+                                medicineProductModels.Add(medicineProductModel);
+                            }
+                        }
+                    }
+                }
+                return medicineProductModels;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
 
         public void DeleteMedicine(int id)
         {

@@ -24,7 +24,7 @@ namespace PharmacySystem.Services.MedicineService
                 int medicineId = _medicineRepository.AddMedicine(medicine);
                 return medicineId;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -35,6 +35,43 @@ namespace PharmacySystem.Services.MedicineService
             try
             {
                 _medicineRepository.DeleteMedicine(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<MedicineProductModel> GetAllMedicineProduct()
+        {
+            try
+            {
+                return _medicineRepository.GetAllMedicineProduct();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<MedicineProductModel> GetMedicineProductsByGroupCode(string groupCode)
+        {
+            try
+            {
+                return _medicineRepository.GetMedicineProductsByGroupCode(groupCode);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<MedicineProductModel> GetMedicineProductsByNameAndGroup(string searchText, string groupCode)
+        {
+            try
+            {
+                var medicineProducts = _medicineRepository.GetMedicineProductsByNameAndGroup(searchText, groupCode);
+                return medicineProducts;
             }
             catch (Exception ex)
             {

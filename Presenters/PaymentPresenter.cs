@@ -30,15 +30,25 @@ namespace PharmacySystem.Presenters
             var totalAmount = _paymentView.TotalAmount;
             var purchasedItems = _mainView.GetCartItems();
             int employeeId = UserSession.UserId;
+            string employeeName = UserSession.FullName;
+            decimal cashReceived = _paymentView.CashReceived;
 
+            var receiptPrinter = new ReceiptPrinter(employeeName, employeeId, purchasedItems, totalAmount, cashReceived);
+            
             _posService.AddPosBill(totalAmount, employeeId);
             foreach (var item in purchasedItems)
             {
                 _medicineQuantityService.UpdateQuantityByNearestExpiry(item.MedicineCode, item.Quantity);
             }
             MessageBox.Show("Thanh toán thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            receiptPrinter.Print();
             _paymentView.CloseForm();
 
+        }
+
+        private void PrintReceipt()
+        {
+            // Print receipt
         }
     }
 }

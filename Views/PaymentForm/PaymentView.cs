@@ -18,7 +18,7 @@ namespace PharmacySystem.Views.PaymentForm
 
             btnConfirmPayment.Click += delegate
             {
-                if (PaidAmount < TotalAmount)
+                if (CashReceived < TotalAmount)
                 {
                     MessageBox.Show("Số tiền không đủ để thanh toán", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -27,7 +27,7 @@ namespace PharmacySystem.Views.PaymentForm
             };
         }
 
-        public decimal PaidAmount
+        public decimal CashReceived
         {
             get => decimal.TryParse(txtPaidAmount.Text, out var amount) ? amount : 0;
             set => txtPaidAmount.Text = CurrencyFormatter.FormatVND(value);
@@ -39,7 +39,7 @@ namespace PharmacySystem.Views.PaymentForm
             set => totalAmount = value;
         }
 
-        public decimal Change => PaidAmount - TotalAmount;
+        public decimal Change => CashReceived - TotalAmount;
 
         private void txtPaidAmount_TextChanged(object sender, EventArgs e)
         {

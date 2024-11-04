@@ -84,17 +84,19 @@ namespace PharmacySystem.Views.MainForm
             this.Close();
         }
 
-        private void AddMedicineItems(string code, string medicineName, decimal medicinePrice, string imageUrl)
+        private void AddMedicineItems(MedicineProductModel medicine)
         {
 
             IMedicineProduct medicineProduct = new MedicineProduct()
             {
-                MedicineCode = code,
-                MedicineName = medicineName,
-                MedicinePrice = medicinePrice,
-                MedicineImage = imageUrl
+                MedicineCode = medicine.MedicineCode,
+                MedicineName = medicine.MedicineName,
+                MedicinePrice = medicine.Price,
+                Quantity = medicine.Quantity,
+                UnitType = medicine.MedicineUnit,
+                MedicineImage = medicine.ImageUrl
             };
-
+            
             MedicineProductPanel.Controls.Add((MedicineProduct)medicineProduct);
             medicineProduct.AddToCart += (sender, e) =>
             {
@@ -113,7 +115,7 @@ namespace PharmacySystem.Views.MainForm
                     int newQuantity = currentQuantity + 1;
                     row.Cells["dgvQuantity"].Value = newQuantity;
 
-                    decimal price = product.MedicinePrice;
+                    decimal price = Convert.ToDecimal(row.Cells["dgvPrice"].Value.ToString().Replace("₫", "").Replace(".", "").Trim());
                     row.Cells["dgvAmount"].Value = CurrencyFormatter.FormatVND(newQuantity * price);
                     GetTotal();
                     return;
@@ -127,19 +129,20 @@ namespace PharmacySystem.Views.MainForm
                 product.MedicineCode,
                 product.MedicineName,
                 1, // Initial quantity
-                product.MedicinePrice,
-                CurrencyFormatter.FormatVND(product.MedicinePrice) // Initial amount
+                CurrencyFormatter.FormatVND(product.MedicinePrice),
+                CurrencyFormatter.FormatVND(product.MedicinePrice)
             });
             GetTotal();
         }
 
 
-        public void LoadMedicineData(List<MedicineInfoModel> medicineInfo)
+        public void LoadMedicineData(List<MedicineProductModel> medicineInfo)
         {
             MedicineProductPanel.Controls.Clear();
             foreach (var item in medicineInfo)
             {
-                AddMedicineItems(item.MedicineCode, item.MedicineName, item.MedicinePrice, item.MedicineImage);
+                
+                AddMedicineItems(item);
             }
         }
 
@@ -218,9 +221,9 @@ namespace PharmacySystem.Views.MainForm
             GetTotal();
         }
 
-        public List<(string MedicineCode, int Quantity)> GetCartItems()
+        public List<MedicineProductModel> GetCartItems()
         {
-            var cartItems = new List<(string MedicineCode, int Quantity)>();
+            var cartItems = new List<MedicineProductModel>();
 
             foreach (DataGridViewRow row in CartItemsDataGrid.Rows)
             {
@@ -229,12 +232,22 @@ namespace PharmacySystem.Views.MainForm
                 var medicineCode = row.Cells["dgvCode"].Value?.ToString();
                 if (int.TryParse(row.Cells["dgvQuantity"].Value?.ToString(), out int quantity) && !string.IsNullOrEmpty(medicineCode))
                 {
-                    cartItems.Add((medicineCode, quantity));
+                    var item = new MedicineProductModel
+                    {
+                        MedicineCode = medicineCode,
+                        MedicineName = row.Cells["dgvName"].Value?.ToString(),
+                        Quantity = quantity,
+                        Price = Convert.ToDecimal(row.Cells["dgvPrice"].Value.ToString().Replace("₫", "").Replace(".", "").Trim()),
+                        //MedicineUnit = row.Cells["dgvUnitType"].Value?.ToString(),
+                    };
+
+                    cartItems.Add(item);
                 }
             }
 
             return cartItems;
         }
+
 
 
     }

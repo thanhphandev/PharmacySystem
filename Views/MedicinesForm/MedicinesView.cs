@@ -16,10 +16,10 @@ namespace PharmacySystem.Views.MedicinesForm
     public partial class MedicinesView : BaseManagementForm, IMedicineView
     {
         private readonly string _connectionString;
-        public event EventHandler AddData;
-        public event EventHandler UpdateData;
-        public event EventHandler DeleteData;
-        public event EventHandler RefreshData;
+        //public event EventHandler AddData;
+        //public event EventHandler UpdateData;
+        //public event EventHandler DeleteData;
+        //public event EventHandler RefreshData;
 
         public MedicinesView(string connectionString)
         {

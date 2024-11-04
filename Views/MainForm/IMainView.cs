@@ -12,9 +12,9 @@ namespace PharmacySystem.Views.MainForm
         event EventHandler Logout;
         event EventHandler ShowDashboard;
         void LoadUserData();
-        void LoadMedicineData(List<MedicineInfoModel> medicineInfo);
+        void LoadMedicineData(List<MedicineProductModel> medicineInfo);
         void LoadMedicineGroups(List<MedicineGroupModel> medicineGroups);
-        List<(string MedicineCode, int Quantity)> GetCartItems();
+        List<MedicineProductModel> GetCartItems();
         void CloseForm();
     }
 }

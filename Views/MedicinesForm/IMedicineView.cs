@@ -13,9 +13,9 @@ namespace PharmacySystem.Views.MedicinesForm
         void DisplayMedicines(List<MedicineModel> medicines);
         MedicineModel GetSelectedMedicine();
 
-        event EventHandler AddData;
-        event EventHandler UpdateData;
-        event EventHandler DeleteData;
-        event EventHandler RefreshData;
+        //event EventHandler AddData;
+        //event EventHandler UpdateData;
+        //event EventHandler DeleteData;
+        //event EventHandler RefreshData;
     }
 }

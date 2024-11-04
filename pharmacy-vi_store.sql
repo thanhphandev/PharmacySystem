@@ -1,10 +1,4 @@
 
-CREATE TABLE unit_type (
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	unit_name VARCHAR(100)           
-);
-
-
 CREATE TABLE supplier (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     supplier_name VARCHAR(100) NOT NULL,           
@@ -18,6 +12,12 @@ CREATE TABLE medicine_group (
     group_name VARCHAR(100) NOT NULL,                    
     group_content VARCHAR(255)                  
 );
+
+CREATE TABLE unit_type (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	unit_name VARCHAR(100)           
+);
+
 
 CREATE TABLE medicine_info (
     medicine_code VARCHAR(50) PRIMARY KEY,      

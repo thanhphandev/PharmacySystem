@@ -13,6 +13,8 @@ namespace PharmacySystem.Views.UIComponents
         string MedicineName { get; set; }
         decimal MedicinePrice { get; set; }
         string MedicineImage { get; set; }
+        string UnitType { get; set; }
+        int Quantity { get; set; }
         event EventHandler AddToCart;
     }
 }

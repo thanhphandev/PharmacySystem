@@ -160,6 +160,7 @@
     <Compile Include="Models\MedicineGroupModel.cs" />
     <Compile Include="Models\MedicineInfoModel.cs" />
     <Compile Include="Models\MedicineModel.cs" />
+    <Compile Include="Models\MedicineProductModel.cs" />
     <Compile Include="Models\MedicineQuantityModel.cs" />
     <Compile Include="Models\POSBillModel.cs" />
     <Compile Include="Models\RoleCountModel.cs" />
@@ -204,6 +205,7 @@
     <Compile Include="Services\MedicineService\MedicineQuantityService.cs" />
     <Compile Include="Services\MedicineService\MedicineService.cs" />
     <Compile Include="Services\POSService.cs" />
+    <Compile Include="Services\ReceiptPrinter.cs" />
     <Compile Include="Services\SupplierService.cs" />
     <Compile Include="Services\UnitTypeService.cs" />
     <Compile Include="Services\UserSession.cs" />
