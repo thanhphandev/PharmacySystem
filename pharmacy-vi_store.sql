@@ -69,10 +69,10 @@ CREATE TABLE pos_bill (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pos_bill_time DATETIME DEFAULT CURRENT_TIMESTAMP,           
     pos_bill_receive DECIMAL(10, 2),      
-    employee_id INT,                      
-    pos_is_sell_bill TINYINT(1) COMMENT '(1 nếu là hóa đơn bán hàng, 0 nếu là hóa đơn trả hàng',                 
+    employee_id INT,                                      
     FOREIGN KEY (employee_id) REFERENCES employee(id)
 );
+
 
 INSERT INTO unit_type (unit_name) VALUES
 ('Viên'),

@@ -14,6 +14,7 @@ namespace PharmacySystem.Views.MainForm
         void LoadUserData();
         void LoadMedicineData(List<MedicineInfoModel> medicineInfo);
         void LoadMedicineGroups(List<MedicineGroupModel> medicineGroups);
+        List<(string MedicineCode, int Quantity)> GetCartItems();
         void CloseForm();
     }
 }

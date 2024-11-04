@@ -11,6 +11,7 @@ namespace PharmacySystem.Repositories.MedicineRepository
     {
         int AddMedicine(MedicineModel medicine);
         void DeleteMedicine(int id);
+        int GetMedicineIdByEarliestExpiry(string medicineCode);
 
     }
 }

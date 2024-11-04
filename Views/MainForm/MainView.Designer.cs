@@ -41,10 +41,12 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnCharge = new System.Windows.Forms.Button();
+            this.btnPayment = new System.Windows.Forms.Button();
             this.txtTotal = new System.Windows.Forms.Label();
+            this.txtChange = new System.Windows.Forms.Label();
             this.txtVAT = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.CartItemsDataGrid = new System.Windows.Forms.DataGridView();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,8 +60,6 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtChange = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnDashboard)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -194,7 +194,7 @@
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.btnCancel);
-            this.panel2.Controls.Add(this.btnCharge);
+            this.panel2.Controls.Add(this.btnPayment);
             this.panel2.Controls.Add(this.txtTotal);
             this.panel2.Controls.Add(this.txtChange);
             this.panel2.Controls.Add(this.txtVAT);
@@ -221,20 +221,21 @@
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // btnCharge
+            // btnPayment
             // 
-            this.btnCharge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCharge.BackColor = System.Drawing.Color.Blue;
-            this.btnCharge.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.btnCharge.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCharge.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCharge.ForeColor = System.Drawing.Color.White;
-            this.btnCharge.Location = new System.Drawing.Point(319, 97);
-            this.btnCharge.Name = "btnCharge";
-            this.btnCharge.Size = new System.Drawing.Size(127, 30);
-            this.btnCharge.TabIndex = 2;
-            this.btnCharge.Text = "Thanh toán";
-            this.btnCharge.UseVisualStyleBackColor = false;
+            this.btnPayment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPayment.BackColor = System.Drawing.Color.Blue;
+            this.btnPayment.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.btnPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPayment.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPayment.ForeColor = System.Drawing.Color.White;
+            this.btnPayment.Location = new System.Drawing.Point(319, 97);
+            this.btnPayment.Name = "btnPayment";
+            this.btnPayment.Size = new System.Drawing.Size(127, 30);
+            this.btnPayment.TabIndex = 2;
+            this.btnPayment.Text = "Thanh toán";
+            this.btnPayment.UseVisualStyleBackColor = false;
+            this.btnPayment.Click += new System.EventHandler(this.btnPayment_Click);
             // 
             // txtTotal
             // 
@@ -245,6 +246,16 @@
             this.txtTotal.Size = new System.Drawing.Size(27, 17);
             this.txtTotal.TabIndex = 1;
             this.txtTotal.Text = "0 đ";
+            // 
+            // txtChange
+            // 
+            this.txtChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtChange.AutoSize = true;
+            this.txtChange.Location = new System.Drawing.Point(419, 62);
+            this.txtChange.Name = "txtChange";
+            this.txtChange.Size = new System.Drawing.Size(27, 17);
+            this.txtChange.TabIndex = 1;
+            this.txtChange.Text = "0 đ";
             // 
             // txtVAT
             // 
@@ -266,6 +277,17 @@
             this.label3.Size = new System.Drawing.Size(76, 19);
             this.label3.TabIndex = 0;
             this.label3.Text = "VAT (10%)";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label1.Location = new System.Drawing.Point(15, 61);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 19);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Tạm tính:";
             // 
             // label2
             // 
@@ -397,27 +419,6 @@
             this.dataGridViewImageColumn1.ReadOnly = true;
             this.dataGridViewImageColumn1.Width = 26;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
-            this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(15, 61);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 19);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Tổng hóa đơn:";
-            // 
-            // txtChange
-            // 
-            this.txtChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtChange.AutoSize = true;
-            this.txtChange.Location = new System.Drawing.Point(419, 62);
-            this.txtChange.Name = "txtChange";
-            this.txtChange.Size = new System.Drawing.Size(27, 17);
-            this.txtChange.TabIndex = 1;
-            this.txtChange.Text = "0 đ";
-            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -465,7 +466,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnCharge;
+        private System.Windows.Forms.Button btnPayment;
         private System.Windows.Forms.Label txtTotal;
         private System.Windows.Forms.Label txtVAT;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;

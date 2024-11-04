@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PharmacySystem.Views.PaymentForm;
 
 namespace PharmacySystem.Views.MainForm
 {
@@ -20,19 +21,19 @@ namespace PharmacySystem.Views.MainForm
         public event EventHandler Logout;
         public event EventHandler ShowDashboard;
         private readonly MainPresenter _presenter;
+        private readonly string _connectionString;
 
         public string TextSearch { get => txtSearch.Text; set => txtSearch.Text = value; }
 
         public MainView(string connectionString)
         {
             InitializeComponent();
+            _connectionString = connectionString;
             var presenter = new MainPresenter(this, connectionString);
             _presenter = presenter;
             presenter.LoadData();
             AssociateAndRaiseViewEvents();
             CartItemsDataGrid.CellValueChanged += CartItemsDataGrid_CellValueChanged;
-
-
         }
 
         public void LoadMedicineGroups(List<MedicineGroupModel> medicineGroups)
@@ -205,36 +206,35 @@ namespace PharmacySystem.Views.MainForm
             _presenter.SearchMedicines(TextSearch, cbMedicineGroup.SelectedValue as string);
         }
 
-        //private void txtCustomerPaidAmount_TextChanged(object sender, EventArgs e)
-        //{
-        //    // Ensure total is properly formatted for parsing
-        //    string totalText = txtTotal.Text.Replace("₫", "").Replace(".", "").Replace(",", "").Trim();
-        //    string paidAmountText = txtCustomerPaidAmount.Text.Replace("₫", "").Replace(".", "").Replace(",", "").Trim();
+        private void btnPayment_Click(object sender, EventArgs e)
+        {
+            decimal totalAmount = Convert.ToDecimal(txtChange.Text.Replace("₫", "").Replace(".", "").Trim());
+            var paymentView = new PaymentView(totalAmount);
+            new PaymentPresenter(paymentView, this, _connectionString);
 
-        //    if (decimal.TryParse(totalText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal totalAmount) &&
-        //        decimal.TryParse(paidAmountText, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal customerPaidAmount))
-        //    {
-        //        // Calculate the change amount
-        //        decimal changeAmount = customerPaidAmount - totalAmount;
+            paymentView.ShowDialog();
+            paymentView.CloseForm();
+            CartItemsDataGrid.Rows.Clear();
+            GetTotal();
+        }
 
-        //        // Validate if customer paid enough
-        //        if (changeAmount >= 0)
-        //        {
-        //            // Format and display the calculated change amount
-        //            txtVAT.Text = CurrencyFormatter.FormatVND(changeAmount);
-        //        }
-        //        else
-        //        {
-        //            // Show "0 ₫" if insufficient amount
-        //            txtVAT.Text = "0 ₫";
-        //        }
-        //    }
-        //    else
-        //    {
-        //        // Clear txtChange if input is invalid
-        //        txtVAT.Text = "0 ₫";
-        //    }
-        //}
+        public List<(string MedicineCode, int Quantity)> GetCartItems()
+        {
+            var cartItems = new List<(string MedicineCode, int Quantity)>();
+
+            foreach (DataGridViewRow row in CartItemsDataGrid.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                var medicineCode = row.Cells["dgvCode"].Value?.ToString();
+                if (int.TryParse(row.Cells["dgvQuantity"].Value?.ToString(), out int quantity) && !string.IsNullOrEmpty(medicineCode))
+                {
+                    cartItems.Add((medicineCode, quantity));
+                }
+            }
+
+            return cartItems;
+        }
 
 
     }

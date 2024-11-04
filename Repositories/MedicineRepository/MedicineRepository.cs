@@ -64,5 +64,41 @@ namespace PharmacySystem.Repositories.MedicineRepository
                 throw new Exception(ex.Message);
             }
         }
+
+        public int GetMedicineIdByEarliestExpiry(string medicineCode)
+        {
+            try
+            {
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    string query = @"SELECT id FROM medicine 
+                             WHERE medicine_code = @MedicineCode 
+                             ORDER BY medicine_expire_date ASC 
+                             LIMIT 1";
+
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("MedicineCode", medicineCode);
+
+                        connection.Open();
+                        var result = command.ExecuteScalar();
+
+                        if (result != null && int.TryParse(result.ToString(), out int medicineId))
+                        {
+                            return medicineId;
+                        }
+                        else
+                        {
+                            throw new Exception("No medicine found with the specified code and expiration date.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error fetching medicine with nearest expiration date: " + ex.Message);
+            }
+        }
+
     }
 }

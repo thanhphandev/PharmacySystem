@@ -1,5 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
 using PharmacySystem.Models;
+using PharmacySystem.Repositories.MedicineRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +48,7 @@ namespace PharmacySystem.Repositories.MedicineQuantityRepository
             {
                 using (var connection = new MySqlConnection(_connectionString))
                 {
-                    string query = "UPDATE medicine_quantity SET medicine_id = @MedicineId, quantity = @Quantity)";
+                    string query = "UPDATE medicine_quantity SET quantity = @Quantity WHERE medicine_id = @MedicineId";
                     using (var command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("MedicineId", medicineId);
@@ -62,6 +64,33 @@ namespace PharmacySystem.Repositories.MedicineQuantityRepository
                 throw new Exception(ex.Message);
             }
            
+        }
+
+        public int GetCurrentQuantity(int medicineId)
+        {
+            try
+            {
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    string query = "SELECT quantity FROM medicine_quantity WHERE medicine_id = @MedicineId";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("MedicineId", medicineId);
+                        connection.Open();
+                        var reader = command.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            int quantity = Convert.ToInt32(reader["quantity"]);
+                            return quantity;
+                        }
+                        return 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
