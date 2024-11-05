@@ -160,6 +160,7 @@ namespace PharmacySystem.Repositories.MedicineRepository
             {
                 using (var connection = new MySqlConnection(_connectionString))
                 {
+                    // Adjust the query to filter by groupCode only if it's not null
                     string query = @"
                 SELECT 
                     mi.medicine_code, 
@@ -177,12 +178,12 @@ namespace PharmacySystem.Repositories.MedicineRepository
                 LEFT JOIN 
                     medicine_quantity mq ON m.id = mq.medicine_id
                 WHERE 
-                    mi.group_code = @GroupCode 
+                    (@GroupCode IS NULL OR mi.group_code = @GroupCode) 
                     AND mi.medicine_name LIKE @SearchText";
 
                     using (var command = new MySqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@GroupCode", groupCode);
+                        command.Parameters.AddWithValue("@GroupCode", (object)groupCode ?? DBNull.Value);  // Handle null groupCode
                         command.Parameters.AddWithValue("@SearchText", "%" + searchText + "%"); // Wildcard search
 
                         connection.Open();
@@ -198,7 +199,6 @@ namespace PharmacySystem.Repositories.MedicineRepository
                                     Price = Convert.ToDecimal(reader["price"]),
                                     Quantity = reader["quantity"] != DBNull.Value ? Convert.ToInt32(reader["quantity"]) : 0,
                                     ImageUrl = reader["image_url"].ToString(),
-                                    
                                 };
                                 medicineProductModels.Add(medicineProductModel);
                             }
@@ -212,6 +212,7 @@ namespace PharmacySystem.Repositories.MedicineRepository
                 throw new Exception(ex.Message);
             }
         }
+
 
 
         public void DeleteMedicine(int id)
