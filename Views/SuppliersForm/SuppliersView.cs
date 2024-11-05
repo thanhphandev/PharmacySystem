@@ -20,25 +20,23 @@ namespace PharmacySystem.Views.SuppliersForm
         public event EventHandler RefreshData;
         public event EventHandler UpdateData;
         public event EventHandler DeleteData;
+        public event EventHandler SearchMedicineGroupsBasedOnFilter;
 
         public SuppliersView(string connectionString)
         {
             InitializeComponent();
             _connectionString = connectionString;
-            var presenter = new SupplierViewPresenter(this, _connectionString);
-            presenter.LoadData();
-            AssociateAndRaiseViewEvents(presenter);
+            new SupplierViewPresenter(this, _connectionString);
+            AssociateAndRaiseViewEvents();
 
         }
-        private void AssociateAndRaiseViewEvents(SupplierViewPresenter presenter)
+        private void AssociateAndRaiseViewEvents()
         {
             cbFilter.SelectedItem = "All";
 
             btnAdd.Click += delegate
-            {
-                
+            {               
                 AddData?.Invoke(this, EventArgs.Empty);
-
             };
 
             btnRefresh.Click += delegate
@@ -46,38 +44,20 @@ namespace PharmacySystem.Views.SuppliersForm
                 RefreshData?.Invoke(this, EventArgs.Empty);
             };
 
-
-            txtSearch.TextChanged += (s, e) => SearchMedicineGroupsBasedOnFilter(presenter);
-
-            cbFilter.SelectedIndexChanged += (s, e) => SearchMedicineGroupsBasedOnFilter(presenter);
-        }
-
-        private void SearchMedicineGroupsBasedOnFilter(SupplierViewPresenter presenter)
-        {
-
-            var filter = cbFilter.SelectedItem?.ToString();
-            
-            if (!string.IsNullOrWhiteSpace(TextSearch))
+            txtSearch.TextChanged += delegate
             {
-                if (filter == "All")
-                {
-                    presenter.SearchMedicineGroups(TextSearch);
-                }else
-                {
-                    bool searchByName = filter == "Tên";
-                    bool searchByPhone = filter == "SDT";
-                    bool searchByAddress = filter == "Địa chỉ";
-                    presenter.SearchMedicineGroups(TextSearch, searchByAddress: searchByAddress, searchByPhone: searchByPhone,searchByName: searchByName);
-                }
-                
-            }
-            else
+                SearchMedicineGroupsBasedOnFilter?.Invoke(this, EventArgs.Empty);
+            };
+
+            cbFilter.SelectedIndexChanged += delegate
             {
-                presenter.LoadData();
-            }
+                SearchMedicineGroupsBasedOnFilter?.Invoke(this, EventArgs.Empty);
+            };
+
         }
 
         public string TextSearch { get => txtSearch.Text; set => txtSearch.Text = value; }
+        public string TextFilter { get => cbFilter.SelectedItem?.ToString(); set => cbFilter.SelectedItem = value; }
 
         public void DisplaySuppliers(List<SupplierModel> suppliers)
         {

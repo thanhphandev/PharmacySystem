@@ -20,44 +20,14 @@ namespace PharmacySystem.Views.MainForm
     {
         public event EventHandler Logout;
         public event EventHandler ShowDashboard;
-        private readonly MainPresenter _presenter;
-        private readonly string _connectionString;
-
-        public string TextSearch { get => txtSearch.Text; set => txtSearch.Text = value; }
-        public decimal TotalAmount { get => Convert.ToDecimal(txtTotal.Text.Replace("₫", "").Replace(".", "").Trim()); set => txtTotal.Text = CurrencyFormatter.FormatVND(value); }
+        public event EventHandler SearchMedicinesByNameAndGroup;
+        public event EventHandler PurchaseMedicine;
 
         public MainView(string connectionString)
         {
             InitializeComponent();
-            _connectionString = connectionString;
-            var presenter = new MainPresenter(this, connectionString);
-            _presenter = presenter;
-            presenter.LoadData();
+            new MainPresenter(this, connectionString);
             AssociateAndRaiseViewEvents();
-            CartItemsDataGrid.CellValueChanged += CartItemsDataGrid_CellValueChanged;
-        }
-
-        public void LoadMedicineGroups(List<MedicineGroupModel> medicineGroups)
-        {
-            cbMedicineGroup.DataSource = medicineGroups;
-            cbMedicineGroup.DisplayMember = "GroupName";
-            cbMedicineGroup.ValueMember = "GroupCode";
-        }
-
-        private void CartItemsDataGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            // Update only for the Quantity column
-            if (e.ColumnIndex == CartItemsDataGrid.Columns["dgvQuantity"].Index && e.RowIndex >= 0)
-            {
-                var row = CartItemsDataGrid.Rows[e.RowIndex];
-
-                if (decimal.TryParse(row.Cells["dgvPrice"].Value?.ToString(), out decimal price) &&
-                    int.TryParse(row.Cells["dgvQuantity"].Value?.ToString(), out int quantity))
-                {
-                    row.Cells["dgvAmount"].Value = CurrencyFormatter.FormatVND(price * quantity);
-                    GetTotal(); // Update total whenever quantity changes
-                }
-            }
         }
 
         private void AssociateAndRaiseViewEvents()
@@ -71,7 +41,32 @@ namespace PharmacySystem.Views.MainForm
             {
                 ShowDashboard?.Invoke(this, EventArgs.Empty);
             };
+            btnPayment.Click += delegate
+            {
+                PurchaseMedicine?.Invoke(this, EventArgs.Empty);
+            };
+            cbMedicineGroup.SelectedIndexChanged += delegate
+            {
+                SearchMedicinesByNameAndGroup?.Invoke(this, EventArgs.Empty);
+            };
+            txtSearch.TextChanged += delegate
+            {
+                SearchMedicinesByNameAndGroup?.Invoke(this, EventArgs.Empty);
+            };
+            btnCancel.Click += delegate
+            {
+                ClearCartItems();
+            };
 
+            CartItemsDataGrid.CellValueChanged += CartItemsDataGrid_CellValueChanged;
+
+        }
+
+        public void LoadMedicineGroups(List<MedicineGroupModel> medicineGroups)
+        {
+            cbMedicineGroup.DataSource = medicineGroups;
+            cbMedicineGroup.DisplayMember = "GroupName";
+            cbMedicineGroup.ValueMember = "GroupCode";
         }
 
         public void LoadUserData()
@@ -79,6 +74,36 @@ namespace PharmacySystem.Views.MainForm
             lbFullName.Text = "Xin chào, " + UserSession.FullName;
         }
 
+        public void LoadMedicineData(List<MedicineProductModel> medicineInfo)
+        {
+            MedicineProductPanel.Controls.Clear();
+            foreach (var item in medicineInfo)
+            {
+                AddMedicineItems(item);
+            }
+        }
+
+        private void CartItemsDataGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            
+            if (e.ColumnIndex == CartItemsDataGrid.Columns["dgvQuantity"].Index && e.RowIndex >= 0)
+            {
+                var row = CartItemsDataGrid.Rows[e.RowIndex];
+
+                if (decimal.TryParse(row.Cells["dgvPrice"].Value?.ToString(), out decimal price) &&
+                    int.TryParse(row.Cells["dgvQuantity"].Value?.ToString(), out int quantity))
+                {
+                    row.Cells["dgvAmount"].Value = CurrencyFormatter.FormatVND(price * quantity);
+                    GetTotal();
+                }
+            }
+        }
+   
+
+        public string TextSearch { get => txtSearch.Text; set => txtSearch.Text = value; }
+        public decimal TotalAmount { get => Convert.ToDecimal(txtTotal.Text.Replace("₫", "").Replace(".", "").Trim()); set => txtTotal.Text = CurrencyFormatter.FormatVND(value); }
+        public string MedicineGroup { get => cbMedicineGroup.SelectedValue?.ToString() ; set => cbMedicineGroup.SelectedValue = value; }
+        public decimal GrandTotal { get => Convert.ToDecimal(txtChange.Text.Replace("₫", "").Replace(".", "").Trim()); set => txtChange.Text = CurrencyFormatter.FormatVND(value); }
 
         public void CloseForm()
         {
@@ -136,17 +161,6 @@ namespace PharmacySystem.Views.MainForm
             GetTotal();
         }
 
-
-        public void LoadMedicineData(List<MedicineProductModel> medicineInfo)
-        {
-            MedicineProductPanel.Controls.Clear();
-            foreach (var item in medicineInfo)
-            {
-                
-                AddMedicineItems(item);
-            }
-        }
-
         private void GetTotal()
         {
             decimal total = 0;
@@ -176,53 +190,14 @@ namespace PharmacySystem.Views.MainForm
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        public void ClearCartItems()
         {
             CartItemsDataGrid.Rows.Clear();
 
             GetTotal();
         }
 
-        private void cbMedicineGroup_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var selectedGroupCode = cbMedicineGroup.SelectedValue as string;
-
-            if (string.IsNullOrEmpty(selectedGroupCode))
-            {
-                _presenter.LoadAllMedicines();
-                if (!string.IsNullOrEmpty(TextSearch))
-                {
-                    _presenter.SearchMedicines(TextSearch, null);
-                }
-            }
-            else
-            {
-                _presenter.FilterMedicinesByGroupId(selectedGroupCode);
-                if (!string.IsNullOrEmpty(TextSearch))
-                {
-                    _presenter.SearchMedicines(TextSearch, selectedGroupCode);
-                }
-            }
-        }
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            _presenter.SearchMedicines(TextSearch, cbMedicineGroup.SelectedValue as string);
-        }
-
-        private void btnPayment_Click(object sender, EventArgs e)
-        {
-            decimal totalAmount = Convert.ToDecimal(txtChange.Text.Replace("₫", "").Replace(".", "").Trim());
-            var paymentView = new PaymentView(totalAmount);
-            new PaymentPresenter(paymentView, this, _connectionString);
-
-            paymentView.ShowDialog();
-            paymentView.CloseForm();
-            CartItemsDataGrid.Rows.Clear();
-            
-            GetTotal();
-        }
-
+        
         public List<MedicineProductModel> GetCartItems()
         {
             var cartItems = new List<MedicineProductModel>();

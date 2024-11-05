@@ -17,22 +17,21 @@ namespace PharmacySystem.Views
     public partial class LoginView : Form, ILoginView
     {
         
-        private readonly string _connectionString;
         public event EventHandler Login;
+        public event EventHandler NavigateToSignupPage;
 
         public LoginView(string connectionString)
         {
             InitializeComponent();
             new LoginPresenter(this, connectionString);
-            _connectionString = connectionString;
-
-            AsscociateAndRaiseViewEvents();
+            AssociateAndRaiseViewEvents();
             
         }
 
-        private void AsscociateAndRaiseViewEvents()
+        private void AssociateAndRaiseViewEvents()
         {
             btnLogin.Click += delegate { Login?.Invoke(this, EventArgs.Empty); };
+            lkRegister.Click += delegate { NavigateToSignupPage?.Invoke(this, EventArgs.Empty); };
             txtPassword.KeyDown += (s, e) =>
             {
                 if (e.KeyCode == Keys.Enter)
@@ -45,7 +44,11 @@ namespace PharmacySystem.Views
 
         public string Username { get => txtUsername.Text; set => txtUsername.Text = value; }
         public string Password { get => txtPassword.Text; set => txtPassword.Text = value; }
-        
+
+        public void CloseForm()
+        {
+            this.Hide();
+        }
 
         private void chkDisplayPassword_CheckedChanged(object sender, EventArgs e)
         {
@@ -60,21 +63,10 @@ namespace PharmacySystem.Views
             }
         }
 
-        private void lkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            SignupView signupView = new SignupView(_connectionString);
-            signupView.Show();
-            this.Hide();
-        }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        public void CloseForm()
-        {
-            this.Hide();
         }
 
     }

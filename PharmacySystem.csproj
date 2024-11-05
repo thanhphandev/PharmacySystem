@@ -157,6 +157,7 @@
   <ItemGroup>
     <Compile Include="Common\CurrencyFormatter.cs" />
     <Compile Include="Common\DiacriticsRemover.cs" />
+    <Compile Include="Common\Validator.cs" />
     <Compile Include="Models\MedicineGroupModel.cs" />
     <Compile Include="Models\MedicineInfoModel.cs" />
     <Compile Include="Models\MedicineModel.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Presenters\MedicineGroupPresenter\AddMedicineGroupPresenter.cs" />
     <Compile Include="Presenters\MedicineGroupPresenter\MedicineGroupViewPresenter.cs" />
     <Compile Include="Presenters\MedicinePresenter\AddMedicinePresenter.cs" />
+    <Compile Include="Presenters\MedicinePresenter\MedicineViewPresenter.cs" />
     <Compile Include="Presenters\PaymentPresenter.cs" />
     <Compile Include="Presenters\SignupPresenter.cs" />
     <Compile Include="Presenters\SupplierPresenter\AddSupplierPresenter.cs" />

@@ -11,9 +11,11 @@ namespace PharmacySystem.Views.MedicineCategoryForm
     public interface IMedicineCategoryView
     { 
         string TextSearch { get; set; }
+        string TextFilter { get; set; }
         void DisplayMedicineGroups(List<MedicineGroupModel> medicineGroups);
         MedicineGroupModel GetSelectedMedicineGroup();
 
+        event EventHandler SearchMedicineGroupsBasedOnFilter;
         event EventHandler AddData;
         event EventHandler RefreshData;
         event EventHandler UpdateData;

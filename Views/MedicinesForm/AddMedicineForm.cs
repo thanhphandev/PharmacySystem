@@ -19,11 +19,15 @@ namespace PharmacySystem.Views.MedicinesForm
     {
         private string selectedImagePath;
         private bool isEditMode;
+
+        public event EventHandler AddMedicine;
+        public event EventHandler UpdateMedicine;
+        public event EventHandler LeaveTextBoxName;
+
         public AddMedicineForm(string connectionString)
         {
             InitializeComponent();
-            var presenter = new AddMedicinePresenter(this, connectionString);
-            presenter.LoadData();
+            new AddMedicinePresenter(this, connectionString);
             txtName.Leave += delegate
             {
                 LeaveTextBoxName?.Invoke(this, EventArgs.Empty);
@@ -41,12 +45,14 @@ namespace PharmacySystem.Views.MedicinesForm
             txtName.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtName.AutoCompleteCustomSource = suggest;
         }
+
         public void LoadMedicineGroups(List<MedicineGroupModel> medicineGroups)
         {
             cbMedicineGroup.DataSource = medicineGroups;
             cbMedicineGroup.DisplayMember = "GroupName";
             cbMedicineGroup.ValueMember = "GroupCode";
         }
+
         public void LoadUnitTypes(List<UnitTypeModel> unitTypes)
         {
             cbUnitType.DataSource = unitTypes;
@@ -81,7 +87,6 @@ namespace PharmacySystem.Views.MedicinesForm
             set
             {
                 selectedImagePath = value;
-                // Automatically update the PictureBox with the new image location
                 pbMedicineImage.ImageLocation = selectedImagePath;
             }
         }
@@ -99,10 +104,6 @@ namespace PharmacySystem.Views.MedicinesForm
             set => txtQuantity.Text = value.ToString();
         }
         public bool IsEditMode { get => isEditMode; set => isEditMode = value; }
-
-        public event EventHandler AddMedicine;
-        public event EventHandler UpdateMedicine;
-        public event EventHandler LeaveTextBoxName;
 
         public void CloseForm()
         {

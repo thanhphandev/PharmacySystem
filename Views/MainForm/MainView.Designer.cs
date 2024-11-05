@@ -97,7 +97,6 @@
             this.cbMedicineGroup.Name = "cbMedicineGroup";
             this.cbMedicineGroup.Size = new System.Drawing.Size(133, 25);
             this.cbMedicineGroup.TabIndex = 7;
-            this.cbMedicineGroup.SelectedIndexChanged += new System.EventHandler(this.cbMedicineGroup_SelectedIndexChanged);
             // 
             // btnDashboard
             // 
@@ -128,7 +127,6 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(367, 25);
             this.txtSearch.TabIndex = 4;
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // lbFullName
             // 
@@ -219,7 +217,6 @@
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnPayment
             // 
@@ -235,7 +232,6 @@
             this.btnPayment.TabIndex = 2;
             this.btnPayment.Text = "Thanh toán";
             this.btnPayment.UseVisualStyleBackColor = false;
-            this.btnPayment.Click += new System.EventHandler(this.btnPayment_Click);
             // 
             // txtTotal
             // 

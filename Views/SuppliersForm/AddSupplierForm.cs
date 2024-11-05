@@ -17,6 +17,8 @@ namespace PharmacySystem.Views.SuppliersForm
     {
         private bool isEditMode;
         private int id;
+        public event EventHandler AddSupplier;
+        public event EventHandler UpdateSupplier;
         public AddSupplierForm(string connectionString)
         {
             InitializeComponent();
@@ -29,9 +31,6 @@ namespace PharmacySystem.Views.SuppliersForm
         public string SupplierPhone { get => txtSupplierPhone.Text; set => txtSupplierPhone.Text = value; }
         public string SupplierAddress { get => txtSupplierAddress.Text; set => txtSupplierAddress.Text = value; }
         public int SupplierId { get => id; set => id = value; }
-
-        public event EventHandler AddSupplier;
-        public event EventHandler UpdateSupplier;
 
         public void CloseForm()
         {

@@ -31,14 +31,38 @@ namespace PharmacySystem.Presenters.MedicineGroupPresenter
             _medicineCategoryView.UpdateData += OnUpdateData;
             _medicineCategoryView.DeleteData += OnDeleteData;
             _medicineCategoryView.RefreshData += OnRefreshData;
+            _medicineCategoryView.SearchMedicineGroupsBasedOnFilter += OnSearchMedicineGroupsBasedOnFilter;
+            LoadData();
         }
 
+        private void OnSearchMedicineGroupsBasedOnFilter(object sender, EventArgs e)
+        {
+            string filter = _medicineCategoryView.TextFilter;
+            string textSearch = _medicineCategoryView.TextSearch;
+
+            if (!string.IsNullOrWhiteSpace(textSearch))
+            {
+                if (filter == "Mã nhóm")
+                {
+                    SearchMedicineGroups(textSearch, searchByCode: true, searchByName: false);
+                }
+                else
+                {
+                    SearchMedicineGroups(textSearch, searchByCode: false, searchByName: true);
+                }
+            }
+            else
+            {
+                LoadData();
+            }
+        }
+        
         private void OnRefreshData(object sender, EventArgs e)
         { 
             LoadData();
         }
 
-        public void LoadData()
+        private void LoadData()
         {
 
             try
@@ -53,7 +77,6 @@ namespace PharmacySystem.Presenters.MedicineGroupPresenter
                 MessageBox.Show($"Error loading data: {ex.Message}");
             }
         }
-
 
         private void OnAddData(object sender, EventArgs e)
         {
@@ -102,8 +125,6 @@ namespace PharmacySystem.Presenters.MedicineGroupPresenter
             }
         }
 
-
-
         private void OnDeleteData(object sender, EventArgs e)
         {
             var medicineGroup = _medicineCategoryView.GetSelectedMedicineGroup();
@@ -119,8 +140,7 @@ namespace PharmacySystem.Presenters.MedicineGroupPresenter
             }
         }
 
-
-        public void SearchMedicineGroups(string searchText, bool searchByCode = true, bool searchByName = true)
+        private void SearchMedicineGroups(string searchText, bool searchByCode = true, bool searchByName = true)
         {
             try
             {

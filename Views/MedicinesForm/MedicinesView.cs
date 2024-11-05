@@ -16,7 +16,9 @@ namespace PharmacySystem.Views.MedicinesForm
     public partial class MedicinesView : BaseManagementForm, IMedicineView
     {
         private readonly string _connectionString;
-        //public event EventHandler AddData;
+        public event EventHandler AddMedicineData;
+        public event EventHandler AddUnitType;
+
         //public event EventHandler UpdateData;
         //public event EventHandler DeleteData;
         //public event EventHandler RefreshData;
@@ -25,11 +27,22 @@ namespace PharmacySystem.Views.MedicinesForm
         {
             InitializeComponent();
             _connectionString = connectionString;
+            AssociateAndRaiseViewEvents();
         }
 
-        public string SearchText { get => txtSearch.Text; set => txtSearch.Text = value; }
+        private void AssociateAndRaiseViewEvents()
+        {
+            btnAddUnitType.Click += delegate
+            {
+                AddUnitType?.Invoke(this, EventArgs.Empty);
+            };
+            btnAdd.Click += delegate
+            {
+                AddMedicineData?.Invoke(this, EventArgs.Empty);
+            };
+        }
 
-        
+        public string SearchText { get => txtSearch.Text; set => txtSearch.Text = value; }      
 
         public void DisplayMedicines(List<MedicineModel> medicines)
         {
@@ -39,18 +52,6 @@ namespace PharmacySystem.Views.MedicinesForm
         public MedicineModel GetSelectedMedicine()
         {
             throw new NotImplementedException();
-        }
-
-        private void btnAddUnitType_Click(object sender, EventArgs e)
-        {
-            UnitTypeView view = new UnitTypeView(_connectionString);
-            view.ShowDialog();
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            AddMedicineForm view = new AddMedicineForm(_connectionString);
-            view.ShowDialog();
         }
     }
 }

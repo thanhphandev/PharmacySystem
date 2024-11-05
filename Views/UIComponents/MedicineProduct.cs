@@ -10,6 +10,7 @@ namespace PharmacySystem.Views.UIComponents
         private string selectedImagePath;
         private string medicineCode;
         private string unitType;
+        public event EventHandler AddToCart;
 
         public MedicineProduct()
         {
@@ -88,10 +89,6 @@ namespace PharmacySystem.Views.UIComponents
                 pbMedicineImage.Image = Properties.Resources.Panadol_Extra_Advance_Box_32s380x463; // Set a default placeholder image
             }
         }
-
-        
-
-        public event EventHandler AddToCart;
 
        
     }

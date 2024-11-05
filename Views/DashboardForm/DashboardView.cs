@@ -28,9 +28,7 @@ namespace PharmacySystem.Views.DashboardForm
             _connectionString = connectionString;
             LoadUserData();
             DisplayFunctionBaseRole();
-           
         }
-
 
         private void DisplayFunctionBaseRole()
         {
@@ -66,8 +64,6 @@ namespace PharmacySystem.Views.DashboardForm
                 }
             }
         }
-
-
 
         private void LoadUserData()
         {

@@ -14,6 +14,11 @@ namespace PharmacySystem.Views.PaymentForm
         {
             InitializeComponent();
             TotalAmount = totalAmount;
+            AssociateAndRaiseViewEvents();
+        }
+
+        private void AssociateAndRaiseViewEvents()
+        {
             txtTotal.Text = CurrencyFormatter.FormatVND(TotalAmount);
 
             btnConfirmPayment.Click += delegate
@@ -23,7 +28,11 @@ namespace PharmacySystem.Views.PaymentForm
                     MessageBox.Show("Số tiền không đủ để thanh toán", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                ConfirmPayment?.Invoke(this, EventArgs.Empty);
+                var result = MessageBox.Show("Thông tin hợp lệ, hệ thống sẽ tiến hành ghi nhận và xuất hóa đơn!", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (result == DialogResult.Yes)
+                {
+                    ConfirmPayment?.Invoke(this, EventArgs.Empty);
+                }
             };
         }
 

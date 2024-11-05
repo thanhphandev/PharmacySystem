@@ -44,6 +44,7 @@ namespace PharmacySystem.Presenters.MedicinePresenter
 
             _addMedicineForm.AddMedicine += OnAddData;
             _addMedicineForm.LeaveTextBoxName += CheckExistMedicineInfo;
+            LoadData();
         }
 
         private void CheckExistMedicineInfo(object sender, EventArgs e)
@@ -59,7 +60,7 @@ namespace PharmacySystem.Presenters.MedicinePresenter
 
         }
 
-        public void LoadData()
+        private void LoadData()
         {
             var unitTypes = _unitTypeService.GetAllUnitTypes();
             var medicineGroups = _medicineGroupService.GetAllMedicineGroups();
@@ -96,7 +97,6 @@ namespace PharmacySystem.Presenters.MedicinePresenter
 
                     if (!IsValidData(medicine, existingMedicineInfo, medicineQuantity)) return;
 
-                    // Add Medicine and MedicineQuantity
                     int medicineId = _medicineService.AddMedicine(medicine);
                     int quantity = medicineQuantity.Quantity;
                     _medicineQuantityService.AddMedicineQuantity(medicineId, quantity);

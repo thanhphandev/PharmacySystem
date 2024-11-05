@@ -6,6 +6,7 @@ using PharmacySystem.Views;
 using PharmacySystem.Views.DashboardForm;
 using PharmacySystem.Views.LoginForm;
 using PharmacySystem.Views.MainForm;
+using PharmacySystem.Views.PaymentForm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,28 +28,63 @@ namespace PharmacySystem.Presenters
         {
             _mainView = mainView;
             _connectionString = connectionString;
-
             _authService = new AuthService(_connectionString);
             _medicineService = new MedicineService(_connectionString);
             _medicineGroup = new MedicineGroupService(_connectionString);
 
+            LoadData();
             _mainView.Logout += OnLogout;
             _mainView.ShowDashboard += OnShowDashboard;
+            _mainView.PurchaseMedicine += OnPurchaseMedicine;
+            _mainView.SearchMedicinesByNameAndGroup += OnSearchMedicinesByNameAndGroup;
+            
         }
 
-        public void LoadData()
+        private void OnSearchMedicinesByNameAndGroup(object sender, EventArgs e)
+        {
+            string selectedGroupCode = _mainView.MedicineGroup;
+            string textSearch = _mainView.TextSearch;
+
+            if (string.IsNullOrEmpty(selectedGroupCode))
+            {
+                LoadAllMedicines();
+                if (!string.IsNullOrEmpty(textSearch))
+                {
+                    SearchMedicines(textSearch, null);
+                }
+            }
+            else
+            {
+                FilterMedicinesByGroupId(selectedGroupCode);
+                if (!string.IsNullOrEmpty(textSearch))
+                {
+                    SearchMedicines(textSearch, selectedGroupCode);
+                }
+            }
+        }
+
+        private void OnPurchaseMedicine(object sender, EventArgs e)
+        {
+            decimal grandTotal = _mainView.GrandTotal;
+            PaymentView paymentView = new PaymentView(grandTotal);
+            new PaymentPresenter(paymentView, _mainView, _connectionString);
+            paymentView.ShowDialog();
+            _mainView.ClearCartItems();
+            LoadAllMedicines();
+        }
+
+        private void LoadData()
         {
             LoadMedicineGroups();
             LoadAllMedicines();
         }
 
-        public void LoadAllMedicines()
+        private void LoadAllMedicines()
         {
             var medicineProducts = _medicineService.GetAllMedicineProduct();
 
             _mainView.LoadMedicineData(medicineProducts);
         }
-
 
         private void LoadMedicineGroups()
         {
@@ -62,13 +98,13 @@ namespace PharmacySystem.Presenters
             _mainView.LoadMedicineGroups(medicineGroups);
         }
 
-        public void FilterMedicinesByGroupId(string groupId)
+        private void FilterMedicinesByGroupId(string groupId)
         {
             var filteredMedicines = _medicineService.GetMedicineProductsByGroupCode(groupId);
             _mainView.LoadMedicineData(filteredMedicines);
         }
 
-        public void SearchMedicines(string searchText, string groupCode)
+        private void SearchMedicines(string searchText, string groupCode)
         {
             try
             {
@@ -76,7 +112,6 @@ namespace PharmacySystem.Presenters
 
                 if (!string.IsNullOrEmpty(groupCode))
                 {
-                    // Search within the selected group
                     medicines = _medicineService.GetMedicineProductsByNameAndGroup(searchText, groupCode);
                 }
                 else

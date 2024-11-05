@@ -112,7 +112,7 @@
             this.lkRegister.TabIndex = 7;
             this.lkRegister.TabStop = true;
             this.lkRegister.Text = "Đăng ký ngay";
-            this.lkRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkRegister_LinkClicked);
+           
             // 
             // lbUsername
             // 

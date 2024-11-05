@@ -15,8 +15,7 @@ namespace PharmacySystem.Views.DashboardForm
         public HomeUI(string connectionString)
         {
             InitializeComponent();
-            var presenter = new HomePresenter(this, connectionString);
-            presenter.LoadEmployeeRoleChart();
+            new HomePresenter(this, connectionString);
         } 
 
         public void DisplayEmployeeRoleChart(List<RoleCountModel> roleCounts)

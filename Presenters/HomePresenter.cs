@@ -20,9 +20,10 @@ namespace PharmacySystem.Presenters
             _view = view;
 
             _userRepository = new UserRepository(_connectionString);
+            LoadEmployeeRoleChart();
         }
 
-        public async void LoadEmployeeRoleChart()
+        private async void LoadEmployeeRoleChart()
         {
             var roleCounts = await _userRepository.GetEmployeeCountByRole();
             _view.DisplayEmployeeRoleChart(roleCounts);
