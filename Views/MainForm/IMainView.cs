@@ -1,4 +1,5 @@
 ﻿using PharmacySystem.Models;
+using PharmacySystem.Views.UIComponents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace PharmacySystem.Views.MainForm
         void ClearCartItems();
         void LoadMedicineData(List<MedicineProductModel> medicineInfo);
         void LoadMedicineGroups(List<MedicineGroupModel> medicineGroups);
+        void UpdateMedicineProductPanel(MedicineProduct updatedProduct);
         List<MedicineProductModel> GetCartItems();
         void CloseForm();
     }

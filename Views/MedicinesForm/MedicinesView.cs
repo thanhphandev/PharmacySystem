@@ -1,4 +1,5 @@
 ﻿using PharmacySystem.Models;
+using PharmacySystem.Presenters.MedicinePresenter;
 using PharmacySystem.Views.DashboardForm.BaseForm;
 using PharmacySystem.Views.UnitTypeForm;
 using System;
@@ -15,7 +16,7 @@ namespace PharmacySystem.Views.MedicinesForm
 {
     public partial class MedicinesView : BaseManagementForm, IMedicineView
     {
-        private readonly string _connectionString;
+
         public event EventHandler AddMedicineData;
         public event EventHandler AddUnitType;
 
@@ -26,7 +27,7 @@ namespace PharmacySystem.Views.MedicinesForm
         public MedicinesView(string connectionString)
         {
             InitializeComponent();
-            _connectionString = connectionString;
+            new MedicineViewPresenter(this, connectionString);
             AssociateAndRaiseViewEvents();
         }
 

@@ -133,14 +133,27 @@ namespace PharmacySystem.Views.MainForm
 
         private void AddOrUpdateCartItem(MedicineProduct product)
         {
+
+            if (product.Quantity <= 0)
+            {
+                MessageBox.Show("Thuốc hiện đã hết hàng, không thể thêm vào giỏ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             foreach (DataGridViewRow row in CartItemsDataGrid.Rows)
             {
                 if (string.Equals(row.Cells["dgvCode"].Value?.ToString(), product.MedicineCode, StringComparison.OrdinalIgnoreCase))
                 {
                     int currentQuantity = Convert.ToInt32(row.Cells["dgvQuantity"].Value);
                     int newQuantity = currentQuantity + 1;
-                    row.Cells["dgvQuantity"].Value = newQuantity;
 
+                    if (newQuantity > product.Quantity)
+                    {
+                        MessageBox.Show("Không đủ số lượng thuốc trong kho.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    row.Cells["dgvQuantity"].Value = newQuantity;
                     decimal price = Convert.ToDecimal(row.Cells["dgvPrice"].Value.ToString().Replace("₫", "").Replace(".", "").Trim());
                     row.Cells["dgvAmount"].Value = CurrencyFormatter.FormatVND(newQuantity * price);
                     GetTotal();
@@ -148,7 +161,6 @@ namespace PharmacySystem.Views.MainForm
                 }
             }
 
-            // Add new item to cart if it doesn't exist
             CartItemsDataGrid.Rows.Add(new object[]
             {
                 CartItemsDataGrid.Rows.Count + 1,
@@ -159,6 +171,19 @@ namespace PharmacySystem.Views.MainForm
                 CurrencyFormatter.FormatVND(product.MedicinePrice)
             });
             GetTotal();
+        }
+
+        public void UpdateMedicineProductPanel(MedicineProduct updatedProduct)
+        {
+            foreach (Control control in MedicineProductPanel.Controls)
+            {
+                if (control is MedicineProduct medicineProduct &&
+                    medicineProduct.MedicineCode == updatedProduct.MedicineCode)
+                {
+                    medicineProduct.Quantity = updatedProduct.Quantity;
+                    break;
+                }
+            }
         }
 
         private void GetTotal()

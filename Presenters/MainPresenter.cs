@@ -23,6 +23,7 @@ namespace PharmacySystem.Presenters
         private readonly MedicineService _medicineService;
         private readonly MedicineGroupService _medicineGroup;
         private readonly string _connectionString;
+        private readonly List<MedicineProductModel> _medicineProducts;
 
         public MainPresenter(IMainView mainView, string connectionString)
         {
@@ -31,6 +32,7 @@ namespace PharmacySystem.Presenters
             _authService = new AuthService(_connectionString);
             _medicineService = new MedicineService(_connectionString);
             _medicineGroup = new MedicineGroupService(_connectionString);
+            _medicineProducts = _medicineService.GetAllMedicineProduct();
 
             LoadData();
             _mainView.Logout += OnLogout;
@@ -69,21 +71,20 @@ namespace PharmacySystem.Presenters
             PaymentView paymentView = new PaymentView(grandTotal);
             new PaymentPresenter(paymentView, _mainView, _connectionString);
             paymentView.ShowDialog();
-            _mainView.ClearCartItems();
             LoadAllMedicines();
+            _mainView.ClearCartItems();  
         }
 
         private void LoadData()
         {
-            LoadMedicineGroups();
             LoadAllMedicines();
+            LoadMedicineGroups();          
         }
 
         private void LoadAllMedicines()
         {
-            var medicineProducts = _medicineService.GetAllMedicineProduct();
 
-            _mainView.LoadMedicineData(medicineProducts);
+            _mainView.LoadMedicineData(_medicineProducts);
         }
 
         private void LoadMedicineGroups()

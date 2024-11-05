@@ -40,7 +40,7 @@ namespace PharmacySystem.Presenters
             {
                 _medicineQuantityService.UpdateQuantityByNearestExpiry(item.MedicineCode, item.Quantity);
             }
-            MessageBox.Show("Thanh toán thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Thanh toán đơn hàng thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             receiptPrinter.Print();
             _paymentView.CloseForm();
 
