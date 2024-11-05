@@ -24,6 +24,7 @@ namespace PharmacySystem.Views.MainForm
         private readonly string _connectionString;
 
         public string TextSearch { get => txtSearch.Text; set => txtSearch.Text = value; }
+        public decimal TotalAmount { get => Convert.ToDecimal(txtTotal.Text.Replace("₫", "").Replace(".", "").Trim()); set => txtTotal.Text = CurrencyFormatter.FormatVND(value); }
 
         public MainView(string connectionString)
         {
@@ -218,6 +219,7 @@ namespace PharmacySystem.Views.MainForm
             paymentView.ShowDialog();
             paymentView.CloseForm();
             CartItemsDataGrid.Rows.Clear();
+            
             GetTotal();
         }
 
@@ -248,7 +250,6 @@ namespace PharmacySystem.Views.MainForm
             return cartItems;
         }
 
-
-
+        
     }
 }

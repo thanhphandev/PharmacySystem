@@ -9,6 +9,8 @@ namespace PharmacySystem.Views.MainForm
 {
     public interface IMainView
     {
+        decimal TotalAmount { get; set; }
+
         event EventHandler Logout;
         event EventHandler ShowDashboard;
         void LoadUserData();

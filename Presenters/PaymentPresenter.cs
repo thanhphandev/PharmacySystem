@@ -27,7 +27,7 @@ namespace PharmacySystem.Presenters
 
         private void OnConfirmPayment(object sender, EventArgs e)
         {
-            var totalAmount = _paymentView.TotalAmount;
+            var totalAmount = _mainView.TotalAmount;
             var purchasedItems = _mainView.GetCartItems();
             int employeeId = UserSession.UserId;
             string employeeName = UserSession.FullName;
@@ -44,11 +44,6 @@ namespace PharmacySystem.Presenters
             receiptPrinter.Print();
             _paymentView.CloseForm();
 
-        }
-
-        private void PrintReceipt()
-        {
-            // Print receipt
         }
     }
 }
