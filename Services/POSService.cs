@@ -1,10 +1,12 @@
 ﻿using Org.BouncyCastle.Tls;
+using PharmacySystem.Models;
 using PharmacySystem.Repositories.POSBillRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PharmacySystem.Services
 {
@@ -26,6 +28,20 @@ namespace PharmacySystem.Services
                 throw new Exception(ex.Message);
             }
            
+        }
+
+        public List<POSBillReport> GetFinancialReport(DateTime fromDate, DateTime toDate)
+        {
+            try
+            {
+                List<POSBillReport> reports = _posBillRepository.GetFinancialReport(fromDate, toDate);
+                MessageBox.Show($"Report generated successfully {reports.Count}");
+                return reports;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

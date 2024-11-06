@@ -1,4 +1,5 @@
 ﻿using PharmacySystem.Repositories.UserRepository;
+using PharmacySystem.Services;
 using PharmacySystem.Views.DashboardForm;
 using System;
 using System.Collections.Generic;
@@ -14,19 +15,31 @@ namespace PharmacySystem.Presenters
         private readonly string _connectionString;
         private readonly IHomeView _view;
         private readonly UserRepository _userRepository;
+        private readonly POSService _posService;
         public HomePresenter(IHomeView view, string connectionString)
         {
             _connectionString = connectionString;
             _view = view;
 
             _userRepository = new UserRepository(_connectionString);
+            _posService = new POSService(_connectionString);
+
             LoadEmployeeRoleChart();
+            LoadFinancialReport();
         }
 
         private async void LoadEmployeeRoleChart()
         {
             var roleCounts = await _userRepository.GetEmployeeCountByRole();
             _view.DisplayEmployeeRoleChart(roleCounts);
+        }
+
+        private void LoadFinancialReport()
+        {
+            DateTime fromDate = _view.FromDate;
+            DateTime toDate = _view.ToDate;
+            var financialReport = _posService.GetFinancialReport(fromDate, toDate);
+            _view.DisplayFinancialReport(financialReport);
         }
     }
 }

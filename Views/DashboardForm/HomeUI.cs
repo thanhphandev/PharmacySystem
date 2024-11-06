@@ -16,7 +16,12 @@ namespace PharmacySystem.Views.DashboardForm
         {
             InitializeComponent();
             new HomePresenter(this, connectionString);
-        } 
+            FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            ToDate = DateTime.Now;
+        }
+
+        public DateTime FromDate { get => dtpFromDate.Value; set => dtpFromDate.Value = value; }
+        public DateTime ToDate { get => dtpToDate.Value; set => dtpToDate.Value = value; }
 
         public void DisplayEmployeeRoleChart(List<RoleCountModel> roleCounts)
         {
@@ -24,7 +29,6 @@ namespace PharmacySystem.Views.DashboardForm
             chartEmployeeRoles.Series.Clear();
             chartEmployeeRoles.Titles.Clear();
 
-            // Thiết lập series cho biểu đồ
             var series = new Series("Số lượng nhân viên")
             {
                 ChartType = SeriesChartType.Bar,
@@ -33,14 +37,59 @@ namespace PharmacySystem.Views.DashboardForm
             };
             chartEmployeeRoles.Series.Add(series);
 
-            // Thêm dữ liệu vào biểu đồ
             foreach (var roleCount in roleCounts)
             {
                 series.Points.AddXY(roleCount.Role, roleCount.Count);
             }
 
-            // Tùy chỉnh trục và tiêu đề biểu đồ
             ConfigureChartDisplay();
+        }
+
+        public void DisplayFinancialReport(List<POSBillReport> financialReport) 
+        {
+            
+            FinanceChartControl.Series.Clear();
+            FinanceChartControl.Titles.Clear();
+
+            // Tạo biểu đồ doanh thu
+            var revenueChart = new Series("Doanh thu")
+            {
+                ChartType = SeriesChartType.Line,
+                IsValueShownAsLabel = true,
+                LabelFormat = "C0" // Định dạng tiền tệ
+            };
+            FinanceChartControl.Series.Add(revenueChart);
+
+            // Tạo biểu đồ số hóa đơn
+            var billsChart = new Series("Số hóa đơn")
+            {
+                ChartType = SeriesChartType.Line,
+                IsValueShownAsLabel = true,
+                LabelFormat = "N0" // Định dạng số nguyên
+            };
+            FinanceChartControl.Series.Add(billsChart);
+
+            // Tạo biểu đồ doanh thu trung bình
+            var avgRevenueChart = new Series("Doanh thu trung bình")
+            {
+                ChartType = SeriesChartType.Line,
+                IsValueShownAsLabel = true,
+                LabelFormat = "C0" // Định dạng tiền tệ
+            };
+            FinanceChartControl.Series.Add(avgRevenueChart);
+
+            // Thêm dữ liệu vào các biểu đồ
+            foreach (var report in financialReport)
+            {
+                revenueChart.Points.AddXY(report.Date.ToString("dd/MM/yyyy"), report.TotalRevenue);
+                billsChart.Points.AddXY(report.Date.ToString("dd/MM/yyyy"), report.TotalBills);
+                avgRevenueChart.Points.AddXY(report.Date.ToString("dd/MM/yyyy"), report.AverageReceiveAmount);
+            }
+
+            // Cấu hình biểu đồ
+            FinanceChartControl.ChartAreas[0].AxisX.Title = "Ngày";
+            FinanceChartControl.ChartAreas[0].AxisY.Title = "Giá trị";
+            FinanceChartControl.Titles.Add("Báo cáo tài chính");
         }
 
         private void ConfigureChartDisplay()
@@ -59,6 +108,6 @@ namespace PharmacySystem.Views.DashboardForm
             chartEmployeeRoles.ChartAreas[0].AxisY.Interval = 1;
         }
 
-       
+        
     }
 }

@@ -164,6 +164,7 @@
     <Compile Include="Models\MedicineProductModel.cs" />
     <Compile Include="Models\MedicineQuantityModel.cs" />
     <Compile Include="Models\POSBillModel.cs" />
+    <Compile Include="Models\POSBillReport.cs" />
     <Compile Include="Models\RoleCountModel.cs" />
     <Compile Include="Models\SupplierModel.cs" />
     <Compile Include="Models\UnitTypeModel.cs" />
