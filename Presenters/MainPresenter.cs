@@ -48,17 +48,16 @@ namespace PharmacySystem.Presenters
 
                 List<MedicineProductModel> medicines;
 
-                // Nếu không chọn nhóm và không có text search
+               
                 if (string.IsNullOrEmpty(selectedGroupCode) && string.IsNullOrEmpty(textSearch))
                 {
                     medicines = _medicineService.GetAllMedicineProduct();
                 }
-                // Nếu chỉ có group code
+               
                 else if (!string.IsNullOrEmpty(selectedGroupCode) && string.IsNullOrEmpty(textSearch))
                 {
                     medicines = _medicineService.GetMedicineProductsByGroupCode(selectedGroupCode);
                 }
-                // Nếu có cả group code và text search
                 else
                 {
                     if(textSearch.Length < 3)
