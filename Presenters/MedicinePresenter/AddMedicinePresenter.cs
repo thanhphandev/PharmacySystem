@@ -44,6 +44,7 @@ namespace PharmacySystem.Presenters.MedicinePresenter
 
             _addMedicineForm.AddMedicine += OnAddData;
             _addMedicineForm.LeaveTextBoxName += CheckExistMedicineInfo;
+
             LoadData();
         }
 
@@ -96,7 +97,7 @@ namespace PharmacySystem.Presenters.MedicinePresenter
                     };
 
                     if (!IsValidData(medicine, existingMedicineInfo, medicineQuantity)) return;
-
+                    
                     int medicineId = _medicineService.AddMedicine(medicine);
                     int quantity = medicineQuantity.Quantity;
                     _medicineQuantityService.AddMedicineQuantity(medicineId, quantity);

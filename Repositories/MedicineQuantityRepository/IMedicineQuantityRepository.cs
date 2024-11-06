@@ -12,6 +12,5 @@ namespace PharmacySystem.Repositories.MedicineQuantityRepository
         void AddMedicineQuantity(int medicineId, int quantity);
         void UpdateMedicineQuantity(int medicineId, int quantity);
         int GetCurrentQuantity(int medicineId);
-
     }
 }

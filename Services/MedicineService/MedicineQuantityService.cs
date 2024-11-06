@@ -12,6 +12,7 @@ namespace PharmacySystem.Services.MedicineService
     class MedicineQuantityService
     {
         private readonly IMedicineQuantityRepository _medicineQuantityRepository;
+
         private readonly IMedicineRepository _medicineRepository;
         public MedicineQuantityService(string connectionString)
         {

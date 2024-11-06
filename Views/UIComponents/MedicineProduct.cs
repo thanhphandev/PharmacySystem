@@ -1,4 +1,4 @@
-﻿using PharmacySystem.Common;
+using PharmacySystem.Common;
 using System;
 using System.Globalization;
 using System.Windows.Forms;

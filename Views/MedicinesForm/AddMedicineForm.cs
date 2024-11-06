@@ -45,14 +45,12 @@ namespace PharmacySystem.Views.MedicinesForm
             txtName.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtName.AutoCompleteCustomSource = suggest;
         }
-
         public void LoadMedicineGroups(List<MedicineGroupModel> medicineGroups)
         {
             cbMedicineGroup.DataSource = medicineGroups;
             cbMedicineGroup.DisplayMember = "GroupName";
             cbMedicineGroup.ValueMember = "GroupCode";
         }
-
         public void LoadUnitTypes(List<UnitTypeModel> unitTypes)
         {
             cbUnitType.DataSource = unitTypes;

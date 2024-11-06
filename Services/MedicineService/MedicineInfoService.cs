@@ -11,6 +11,7 @@ namespace PharmacySystem.Services.MedicineService
     public class MedicineInfoService
     {
         private readonly IMedicineInfoRepository _medicineRepository;
+
         public MedicineInfoService(string connectionString)
         {
             _medicineRepository = new MedicineInfoRepository(connectionString);

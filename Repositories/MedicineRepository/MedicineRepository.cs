@@ -232,7 +232,6 @@ namespace PharmacySystem.Repositories.MedicineRepository
         }
 
 
-
         public void DeleteMedicine(int id)
         {
             try

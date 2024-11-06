@@ -1,4 +1,3 @@
-
 CREATE TABLE supplier (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     supplier_name VARCHAR(100) NOT NULL,           

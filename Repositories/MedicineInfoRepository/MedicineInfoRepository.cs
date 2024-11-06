@@ -271,7 +271,6 @@ namespace PharmacySystem.Repositories.MedicineInfoRepository
             }
         }
 
-
         public void UpdateMedicineInfo(string medicineCode, MedicineInfoModel medicineInfo)
         {
             try
