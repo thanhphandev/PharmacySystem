@@ -35,7 +35,6 @@ namespace PharmacySystem.Services
             try
             {
                 List<POSBillReport> reports = _posBillRepository.GetFinancialReport(fromDate, toDate);
-                MessageBox.Show($"Report generated successfully {reports.Count}");
                 return reports;
             }
             catch (Exception ex)

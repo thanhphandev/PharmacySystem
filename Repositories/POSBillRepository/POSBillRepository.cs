@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PharmacySystem.Repositories.POSBillRepository
 {
@@ -75,13 +76,15 @@ namespace PharmacySystem.Repositories.POSBillRepository
                         {
                             while (reader.Read())
                             {
-                                reports.Add(new POSBillReport
+                                POSBillReport report = new POSBillReport
                                 {
                                     Date = reader.GetDateTime("Date"),
                                     TotalRevenue = reader.GetDecimal("TotalRevenue"),
                                     TotalBills = reader.GetInt32("TotalBills"),
                                     AverageReceiveAmount = reader.GetDecimal("AverageReceiveAmount")
-                                });
+                                };
+
+                                reports.Add(report);
                             }
                         }
                     }

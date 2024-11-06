@@ -14,5 +14,8 @@ namespace PharmacySystem.Views.DashboardForm
         DateTime ToDate { get; set; }
         void DisplayEmployeeRoleChart(List<RoleCountModel> roleCounts);
         void DisplayFinancialReport(List<POSBillReport> financialReport);
+
+        event EventHandler LoadFinancialReport;
+
     }
 }

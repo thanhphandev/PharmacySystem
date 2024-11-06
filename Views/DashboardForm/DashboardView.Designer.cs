@@ -180,6 +180,7 @@
             // 
             // ControlsPanel
             // 
+            this.ControlsPanel.AutoScroll = true;
             this.ControlsPanel.AutoSize = true;
             this.ControlsPanel.BackColor = System.Drawing.Color.Gainsboro;
             this.ControlsPanel.Cursor = System.Windows.Forms.Cursors.Hand;

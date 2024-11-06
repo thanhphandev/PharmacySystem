@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PharmacySystem.Presenters
 {
@@ -24,7 +25,13 @@ namespace PharmacySystem.Presenters
             _userRepository = new UserRepository(_connectionString);
             _posService = new POSService(_connectionString);
 
+            _view.LoadFinancialReport += OnLoadFinancialReport;
             LoadEmployeeRoleChart();
+            LoadFinancialReport();
+        }
+
+        private void OnLoadFinancialReport(object sender, EventArgs e)
+        {
             LoadFinancialReport();
         }
 
