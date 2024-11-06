@@ -23,7 +23,6 @@ namespace PharmacySystem.Presenters
         private readonly MedicineService _medicineService;
         private readonly MedicineGroupService _medicineGroup;
         private readonly string _connectionString;
-        private readonly List<MedicineProductModel> _medicineProducts;
 
         public MainPresenter(IMainView mainView, string connectionString)
         {
@@ -32,36 +31,48 @@ namespace PharmacySystem.Presenters
             _authService = new AuthService(_connectionString);
             _medicineService = new MedicineService(_connectionString);
             _medicineGroup = new MedicineGroupService(_connectionString);
-            _medicineProducts = _medicineService.GetAllMedicineProduct();
 
             LoadData();
             _mainView.Logout += OnLogout;
             _mainView.ShowDashboard += OnShowDashboard;
             _mainView.PurchaseMedicine += OnPurchaseMedicine;
             _mainView.SearchMedicinesByNameAndGroup += OnSearchMedicinesByNameAndGroup;
-            
         }
 
         private void OnSearchMedicinesByNameAndGroup(object sender, EventArgs e)
         {
-            string selectedGroupCode = _mainView.MedicineGroup;
-            string textSearch = _mainView.TextSearch;
+            try
+            {
+                string selectedGroupCode = _mainView.MedicineGroup;
+                string textSearch = _mainView.TextSearch?.Trim();
 
-            if (string.IsNullOrEmpty(selectedGroupCode))
-            {
-                LoadAllMedicines();
-                if (!string.IsNullOrEmpty(textSearch))
+                List<MedicineProductModel> medicines;
+
+                // Nếu không chọn nhóm và không có text search
+                if (string.IsNullOrEmpty(selectedGroupCode) && string.IsNullOrEmpty(textSearch))
                 {
-                    SearchMedicines(textSearch, null);
+                    medicines = _medicineService.GetAllMedicineProduct();
                 }
+                // Nếu chỉ có group code
+                else if (!string.IsNullOrEmpty(selectedGroupCode) && string.IsNullOrEmpty(textSearch))
+                {
+                    medicines = _medicineService.GetMedicineProductsByGroupCode(selectedGroupCode);
+                }
+                // Nếu có cả group code và text search
+                else
+                {
+                    if(textSearch.Length < 3)
+                    {
+                        return;
+                    }
+                    medicines = _medicineService.GetMedicineProductsByNameAndGroup(textSearch, selectedGroupCode);
+                }
+
+                _mainView.LoadMedicineData(medicines);
             }
-            else
+            catch (Exception ex)
             {
-                FilterMedicinesByGroupId(selectedGroupCode);
-                if (!string.IsNullOrEmpty(textSearch))
-                {
-                    SearchMedicines(textSearch, selectedGroupCode);
-                }
+                MessageBox.Show($"Error during search: {ex.Message}");
             }
         }
 
@@ -83,8 +94,8 @@ namespace PharmacySystem.Presenters
 
         private void LoadAllMedicines()
         {
-
-            _mainView.LoadMedicineData(_medicineProducts);
+            var medicineProducts = _medicineService.GetAllMedicineProduct();
+            _mainView.LoadMedicineData(medicineProducts);
         }
 
         private void LoadMedicineGroups()
@@ -97,36 +108,6 @@ namespace PharmacySystem.Presenters
             });
 
             _mainView.LoadMedicineGroups(medicineGroups);
-        }
-
-        private void FilterMedicinesByGroupId(string groupId)
-        {
-            var filteredMedicines = _medicineService.GetMedicineProductsByGroupCode(groupId);
-            _mainView.LoadMedicineData(filteredMedicines);
-        }
-
-        private void SearchMedicines(string searchText, string groupCode)
-        {
-            try
-            {
-                List<MedicineProductModel> medicines;
-
-                if (!string.IsNullOrEmpty(groupCode))
-                {
-                    medicines = _medicineService.GetMedicineProductsByNameAndGroup(searchText, groupCode);
-                }
-                else
-                {
-                    // Search across all groups
-                    medicines = _medicineService.GetMedicineProductsByNameAndGroup(searchText, null);
-                }
-
-                _mainView.LoadMedicineData(medicines); // Display results in the view
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error during search: {ex.Message}");
-            }
         }
 
         private void OnShowDashboard(object sender, EventArgs e)
@@ -148,5 +129,6 @@ namespace PharmacySystem.Presenters
             _authService.Logout();
             _mainView.CloseForm();
         }
+
     }
 }

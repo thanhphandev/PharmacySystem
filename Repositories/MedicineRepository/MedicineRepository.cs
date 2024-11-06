@@ -50,20 +50,23 @@ namespace PharmacySystem.Repositories.MedicineRepository
                 {
                     string query = @"
                 SELECT 
-                    mi.medicine_code, 
-                    mi.medicine_name, 
-                    ut.unit_name AS medicine_unit, 
-                    mi.medicine_price AS price, 
-                    mq.quantity, 
-                    mi.medicine_img AS image_url
-                FROM 
-                    medicine_info mi
-                INNER JOIN 
-                    unit_type ut ON mi.unit_type = ut.id
-                LEFT JOIN 
-                    medicine m ON mi.medicine_code = m.medicine_code
-                LEFT JOIN 
-                    medicine_quantity mq ON m.id = mq.medicine_id";
+                    mi.medicine_code,
+                    mi.medicine_name,
+                    ut.unit_name as medicine_unit,
+                    mi.medicine_price as price,
+                    COALESCE(SUM(mq.quantity), 0) as total_quantity,
+                    mi.medicine_img as image_url
+                FROM medicine_info mi
+                LEFT JOIN medicine m ON mi.medicine_code = m.medicine_code
+                LEFT JOIN medicine_quantity mq ON m.id = mq.medicine_id
+                LEFT JOIN unit_type ut ON mi.unit_type = ut.id
+                GROUP BY 
+                    mi.medicine_code,
+                    mi.medicine_name,
+                    ut.unit_name,
+                    mi.medicine_price,
+                    mi.medicine_img
+                HAVING total_quantity > 0";
 
                     using (var command = new MySqlCommand(query, connection))
                     {
@@ -78,7 +81,7 @@ namespace PharmacySystem.Repositories.MedicineRepository
                                     MedicineName = reader["medicine_name"].ToString(),
                                     MedicineUnit = reader["medicine_unit"].ToString(),
                                     Price = Convert.ToDecimal(reader["price"]),
-                                    Quantity = reader["quantity"] != DBNull.Value ? Convert.ToInt32(reader["quantity"]) : 0,
+                                    Quantity = reader["total_quantity"] != DBNull.Value ? Convert.ToInt32(reader["total_quantity"]) : 0,
                                     ImageUrl = reader["image_url"].ToString(),
                                   
                                 };
@@ -103,23 +106,31 @@ namespace PharmacySystem.Repositories.MedicineRepository
                 using (var connection = new MySqlConnection(_connectionString))
                 {
                     string query = @"
-                SELECT 
-                    mi.medicine_code, 
-                    mi.medicine_name, 
-                    ut.unit_name AS medicine_unit, 
-                    mi.medicine_price AS price, 
-                    mq.quantity, 
-                    mi.medicine_img AS image_url
-                FROM 
-                    medicine_info mi
-                INNER JOIN 
-                    unit_type ut ON mi.unit_type = ut.id
-                LEFT JOIN 
-                    medicine m ON mi.medicine_code = m.medicine_code
-                LEFT JOIN 
-                    medicine_quantity mq ON m.id = mq.medicine_id
-                WHERE 
-                    mi.group_code = @GroupCode";
+                                SELECT 
+                                    mi.medicine_code,
+                                    mi.medicine_name,
+                                    ut.unit_name AS medicine_unit,
+                                    mi.medicine_price AS price,
+                                    COALESCE(SUM(mq.quantity), 0) AS total_quantity,
+                                    mi.medicine_img AS image_url
+                                FROM 
+                                    medicine_info mi
+                                LEFT JOIN 
+                                    medicine m ON mi.medicine_code = m.medicine_code
+                                LEFT JOIN 
+                                    medicine_quantity mq ON m.id = mq.medicine_id
+                                LEFT JOIN 
+                                    unit_type ut ON mi.unit_type = ut.id
+                                WHERE 
+                                    mi.group_code = @GroupCode
+                                GROUP BY 
+                                    mi.medicine_code,
+                                    mi.medicine_name,
+                                    ut.unit_name,
+                                    mi.medicine_price,
+                                    mi.medicine_img
+                                HAVING 
+                                    total_quantity > 0";
 
                     using (var command = new MySqlCommand(query, connection))
                     {
@@ -136,7 +147,7 @@ namespace PharmacySystem.Repositories.MedicineRepository
                                     MedicineName = reader["medicine_name"].ToString(),
                                     MedicineUnit = reader["medicine_unit"].ToString(),
                                     Price = Convert.ToDecimal(reader["price"]),
-                                    Quantity = reader["quantity"] != DBNull.Value ? Convert.ToInt32(reader["quantity"]) : 0,
+                                    Quantity = reader["total_quantity"] != DBNull.Value ? Convert.ToInt32(reader["total_quantity"]) : 0,
                                     ImageUrl = reader["image_url"].ToString(),
                                     
                                 };
@@ -160,30 +171,37 @@ namespace PharmacySystem.Repositories.MedicineRepository
             {
                 using (var connection = new MySqlConnection(_connectionString))
                 {
-                    // Adjust the query to filter by groupCode only if it's not null
                     string query = @"
-                SELECT 
-                    mi.medicine_code, 
-                    mi.medicine_name, 
-                    ut.unit_name AS medicine_unit, 
-                    mi.medicine_price AS price, 
-                    mq.quantity, 
-                    mi.medicine_img AS image_url
-                FROM 
-                    medicine_info mi
-                INNER JOIN 
-                    unit_type ut ON mi.unit_type = ut.id
-                LEFT JOIN 
-                    medicine m ON mi.medicine_code = m.medicine_code
-                LEFT JOIN 
-                    medicine_quantity mq ON m.id = mq.medicine_id
-                WHERE 
-                    (@GroupCode IS NULL OR mi.group_code = @GroupCode) 
-                    AND mi.medicine_name LIKE @SearchText";
+                                SELECT 
+                                    mi.medicine_code,
+                                    mi.medicine_name,
+                                    ut.unit_name AS medicine_unit,
+                                    mi.medicine_price AS price,
+                                    COALESCE(SUM(mq.quantity), 0) AS total_quantity,
+                                    mi.medicine_img AS image_url
+                                FROM 
+                                    medicine_info mi
+                                LEFT JOIN 
+                                    medicine m ON mi.medicine_code = m.medicine_code
+                                LEFT JOIN 
+                                    medicine_quantity mq ON m.id = mq.medicine_id
+                                LEFT JOIN 
+                                    unit_type ut ON mi.unit_type = ut.id
+                                WHERE 
+                                    (@GroupCode IS NULL OR mi.group_code = @GroupCode) 
+                                    AND mi.medicine_name LIKE @SearchText
+                                GROUP BY 
+                                    mi.medicine_code,
+                                    mi.medicine_name,
+                                    ut.unit_name,
+                                    mi.medicine_price,
+                                    mi.medicine_img
+                                HAVING 
+                                    total_quantity > 0";  // Ensure we only return products with quantity > 0
 
                     using (var command = new MySqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@GroupCode", (object)groupCode ?? DBNull.Value);  // Handle null groupCode
+                        command.Parameters.AddWithValue("@GroupCode", (object)groupCode ?? DBNull.Value); // Handle null groupCode
                         command.Parameters.AddWithValue("@SearchText", "%" + searchText + "%"); // Wildcard search
 
                         connection.Open();
@@ -197,7 +215,7 @@ namespace PharmacySystem.Repositories.MedicineRepository
                                     MedicineName = reader["medicine_name"].ToString(),
                                     MedicineUnit = reader["medicine_unit"].ToString(),
                                     Price = Convert.ToDecimal(reader["price"]),
-                                    Quantity = reader["quantity"] != DBNull.Value ? Convert.ToInt32(reader["quantity"]) : 0,
+                                    Quantity = Convert.ToInt32(reader["total_quantity"]),
                                     ImageUrl = reader["image_url"].ToString(),
                                 };
                                 medicineProductModels.Add(medicineProductModel);

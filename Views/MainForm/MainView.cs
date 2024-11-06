@@ -45,12 +45,18 @@ namespace PharmacySystem.Views.MainForm
             {
                 PurchaseMedicine?.Invoke(this, EventArgs.Empty);
             };
-            cbMedicineGroup.SelectedIndexChanged += delegate
+            cbMedicineGroup.SelectedIndexChanged -= delegate { SearchMedicinesByNameAndGroup?.Invoke(this, EventArgs.Empty); };
+            txtSearch.TextChanged -= delegate { SearchMedicinesByNameAndGroup?.Invoke(this, EventArgs.Empty); };
+
+            // Thêm event handler mới
+            cbMedicineGroup.SelectedIndexChanged += (s, e) =>
             {
                 SearchMedicinesByNameAndGroup?.Invoke(this, EventArgs.Empty);
             };
-            txtSearch.TextChanged += delegate
+
+            txtSearch.TextChanged += (s, e) =>
             {
+                // Có thể thêm debounce ở đây để tránh search quá nhiều lần
                 SearchMedicinesByNameAndGroup?.Invoke(this, EventArgs.Empty);
             };
             btnCancel.Click += delegate
@@ -77,9 +83,12 @@ namespace PharmacySystem.Views.MainForm
         public void LoadMedicineData(List<MedicineProductModel> medicineInfo)
         {
             MedicineProductPanel.Controls.Clear();
-            foreach (var item in medicineInfo)
+            if (medicineInfo != null)
             {
-                AddMedicineItems(item);
+                foreach (var item in medicineInfo)
+                {
+                    AddMedicineItems(item);
+                }
             }
         }
 

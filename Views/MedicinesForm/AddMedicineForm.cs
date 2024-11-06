@@ -68,17 +68,33 @@ namespace PharmacySystem.Views.MedicinesForm
 
         // Properties
         public string LabelHeader { get => lbHeader.Text; set => lbHeader.Text = value; }
-        public string MedicineCode { get => txtCode.Text; set => txtCode.Text = value; }
+        public string MedicineCode
+        { 
+            get => txtCode.Text;
+            set
+            {
+                txtCode.Text = value;
+                txtCode.ReadOnly = true;
+            }
+        }
         public string MedicineName { get => txtName.Text; set => txtName.Text = value; }
         public int UnitType
         {
             get => (int)cbUnitType.SelectedValue;
-            set => cbUnitType.SelectedValue = value;
+            set 
+            {
+                cbUnitType.SelectedValue = value;
+                cbUnitType.Enabled = false;
+            }
         }
         public decimal MedicinePrice
         {
             get => decimal.TryParse(txtPrice.Text, out var price) ? price : 0;
-            set => txtPrice.Text = value.ToString("F2"); // Định dạng giá trị thành chuỗi với 2 chữ số sau dấu thập phân
+            set
+            {
+                txtPrice.Text = value.ToString("F2");
+                txtPrice.ReadOnly = true;
+            }
         }
 
         public string MedicineImage
@@ -88,13 +104,34 @@ namespace PharmacySystem.Views.MedicinesForm
             {
                 selectedImagePath = value;
                 pbMedicineImage.ImageLocation = selectedImagePath;
+                btnBrowse.Hide();
             }
         }
-        public string MedicineContent { get => txtContent.Text; set => txtContent.Text = value; }
-        public string MedicineElement { get => txtElement.Text; set => txtElement.Text = value; }
+        public string MedicineContent 
+        {
+            get => txtContent.Text;
+            set 
+            {
+                txtContent.Text = value;
+                txtContent.ReadOnly = true;
+            }
+        }
+        public string MedicineElement 
+        {
+            get => txtElement.Text;
+            set
+            {
+                txtElement.Text = value;
+                txtElement.ReadOnly = true;
+            }
+        }
         public string GroupCode {
             get => cbMedicineGroup.SelectedValue?.ToString() ?? string.Empty;
-            set => cbMedicineGroup.SelectedValue = value;
+            set 
+            {
+                cbMedicineGroup.SelectedValue = value;
+                cbMedicineGroup.Enabled = false;
+            }
         }
         public DateTime ExpireDate { get => txtExpireDate.Value; set => txtExpireDate.Value = value; }
         public int SupplierId { get => (int)cbSupplier.SelectedValue; set => cbSupplier.SelectedValue = value; }
