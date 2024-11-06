@@ -10,7 +10,8 @@ namespace PharmacySystem.Services.MedicineService
 {
     public class MedicineInfoService
     {
-        private IMedicineInfoRepository _medicineRepository;
+        private readonly IMedicineInfoRepository _medicineRepository;
+
         public MedicineInfoService(string connectionString)
         {
             _medicineRepository = new MedicineInfoRepository(connectionString);
@@ -71,6 +72,19 @@ namespace PharmacySystem.Services.MedicineService
             try
             {
                 var medicines = _medicineRepository.GetMedicinesByGroupCode(groupCode);
+                return medicines;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<MedicineInfoModel> GetMedicinesByNameAndGroup(string searchName, string groupCode)
+        {
+            try
+            {
+                var medicines = _medicineRepository.GetMedicinesByNameAndGroup(searchName, groupCode);
                 return medicines;
             }
             catch (Exception ex)

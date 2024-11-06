@@ -14,20 +14,20 @@ namespace PharmacySystem.Views
 {
     public partial class SignupView : Form, ISignupView
     {
-        private readonly string _connectionString;
         public event EventHandler Signup;
+        public event EventHandler NavigateToLoginPage;
 
         public SignupView(string connectionString)
         {
             InitializeComponent();
             new SignupPresenter(this, connectionString);
 
-            _connectionString = connectionString;
-            AsscociateAndRaiseViewEvents();
+            AssociateAndRaiseViewEvents();
         }
 
-        private void AsscociateAndRaiseViewEvents()
+        private void AssociateAndRaiseViewEvents()
         {
+            lkLogin.Click += delegate { NavigateToLoginPage?.Invoke(this, EventArgs.Empty); };
             btnSignup.Click += delegate { Signup?.Invoke(this, EventArgs.Empty); };
         }
 
@@ -54,13 +54,6 @@ namespace PharmacySystem.Views
 
         public void CloseForm()
         {
-            this.Hide();
-        }
-
-        private void lkLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LoginView loginView = new LoginView(_connectionString);
-            loginView.Show();
             this.Hide();
         }
 

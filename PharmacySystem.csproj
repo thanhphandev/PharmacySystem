@@ -157,10 +157,13 @@
   <ItemGroup>
     <Compile Include="Common\CurrencyFormatter.cs" />
     <Compile Include="Common\DiacriticsRemover.cs" />
+    <Compile Include="Common\Validator.cs" />
     <Compile Include="Models\MedicineGroupModel.cs" />
     <Compile Include="Models\MedicineInfoModel.cs" />
     <Compile Include="Models\MedicineModel.cs" />
+    <Compile Include="Models\MedicineProductModel.cs" />
     <Compile Include="Models\MedicineQuantityModel.cs" />
+    <Compile Include="Models\POSBillModel.cs" />
     <Compile Include="Models\RoleCountModel.cs" />
     <Compile Include="Models\SupplierModel.cs" />
     <Compile Include="Models\UnitTypeModel.cs" />
@@ -172,6 +175,8 @@
     <Compile Include="Presenters\MedicineGroupPresenter\AddMedicineGroupPresenter.cs" />
     <Compile Include="Presenters\MedicineGroupPresenter\MedicineGroupViewPresenter.cs" />
     <Compile Include="Presenters\MedicinePresenter\AddMedicinePresenter.cs" />
+    <Compile Include="Presenters\MedicinePresenter\MedicineViewPresenter.cs" />
+    <Compile Include="Presenters\PaymentPresenter.cs" />
     <Compile Include="Presenters\SignupPresenter.cs" />
     <Compile Include="Presenters\SupplierPresenter\AddSupplierPresenter.cs" />
     <Compile Include="Presenters\SupplierPresenter\SupplierViewPresenter.cs" />
@@ -186,6 +191,8 @@
     <Compile Include="Repositories\MedicineQuantityRepository\MedicineQuantityRepository.cs" />
     <Compile Include="Repositories\MedicineRepository\IMedicineRepository.cs" />
     <Compile Include="Repositories\MedicineRepository\MedicineRepository.cs" />
+    <Compile Include="Repositories\POSBillRepository\IPOSBillRepository.cs" />
+    <Compile Include="Repositories\POSBillRepository\POSBillRepository.cs" />
     <Compile Include="Repositories\SupplierRepository\ISupplierRepository.cs" />
     <Compile Include="Repositories\SupplierRepository\SupplierRepository.cs" />
     <Compile Include="Repositories\UnitTypeRepository\IUnitTypeRepository.cs" />
@@ -199,6 +206,8 @@
     <Compile Include="Services\MedicineService\MedicineInfoService.cs" />
     <Compile Include="Services\MedicineService\MedicineQuantityService.cs" />
     <Compile Include="Services\MedicineService\MedicineService.cs" />
+    <Compile Include="Services\POSService.cs" />
+    <Compile Include="Services\ReceiptPrinter.cs" />
     <Compile Include="Services\SupplierService.cs" />
     <Compile Include="Services\UnitTypeService.cs" />
     <Compile Include="Services\UserSession.cs" />
@@ -270,6 +279,13 @@
     <Compile Include="Views\MedicinesForm\MedicinesView.Designer.cs">
       <DependentUpon>MedicinesView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\PaymentForm\IPaymentView.cs" />
+    <Compile Include="Views\PaymentForm\PaymentView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PaymentForm\PaymentView.Designer.cs">
+      <DependentUpon>PaymentView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\RegisterForm\ISignupView.cs" />
     <Compile Include="Views\RegisterForm\SignupView.cs">
       <SubType>Form</SubType>
@@ -332,6 +348,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainForm\MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MedicineCategoryForm\MedicineCategoryAddForm.resx">
       <DependentUpon>MedicineCategoryAddForm.cs</DependentUpon>
@@ -344,6 +361,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MedicinesForm\MedicinesView.resx">
       <DependentUpon>MedicinesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PaymentForm\PaymentView.resx">
+      <DependentUpon>PaymentView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\RegisterForm\SignupView.resx">
       <DependentUpon>SignupView.cs</DependentUpon>

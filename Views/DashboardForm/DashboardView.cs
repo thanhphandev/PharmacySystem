@@ -26,11 +26,11 @@ namespace PharmacySystem.Views.DashboardForm
             InitializeComponent();
             new DashboardPresenter(this, connectionString);
             _connectionString = connectionString;
+            HomeUI homeUI = new HomeUI(_connectionString);
+            AddControls(homeUI);
             LoadUserData();
             DisplayFunctionBaseRole();
-           
         }
-
 
         private void DisplayFunctionBaseRole()
         {
@@ -42,7 +42,6 @@ namespace PharmacySystem.Views.DashboardForm
                 btnMedicine,
                 btnEmployees,
                 btnProvider,
-                btnReport
             };
 
             flowLayoutPanel.Controls.Clear();
@@ -55,10 +54,7 @@ namespace PharmacySystem.Views.DashboardForm
                     {
                         flowLayoutPanel.Controls.Add(control);
                     }
-                    if (control == btnReport)
-                    {
-                        flowLayoutPanel.Controls.Add(control);
-                    }
+                    
                 }
                 else
                 {
@@ -66,8 +62,6 @@ namespace PharmacySystem.Views.DashboardForm
                 }
             }
         }
-
-
 
         private void LoadUserData()
         {

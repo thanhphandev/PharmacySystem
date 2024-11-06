@@ -1,5 +1,4 @@
-﻿using Mysqlx.Crud;
-using PharmacySystem.Presenters;
+﻿using PharmacySystem.Presenters;
 using PharmacySystem.Presenters.MedicineGroupPresenter;
 using PharmacySystem.Views.DashboardForm.BaseForm;
 using System;
@@ -23,7 +22,6 @@ namespace PharmacySystem.Views.MedicineCategoryForm
         {
             new AddMedicineGroupPresenter(this, connectionString);
             InitializeComponent();
-
         }
 
         public string GroupCode { get => txtCode.Text; set => txtCode.Text = value; }

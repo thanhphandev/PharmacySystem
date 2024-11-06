@@ -18,6 +18,7 @@ namespace PharmacySystem.Views.RegisterForm
         DateTime BOD { get; set; }
         
         event EventHandler Signup;
+        event EventHandler NavigateToLoginPage;
         void CloseForm();
     }
 }

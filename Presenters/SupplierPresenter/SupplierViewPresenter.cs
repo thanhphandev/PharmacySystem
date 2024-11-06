@@ -28,6 +28,35 @@ namespace PharmacySystem.Presenters.SupplierPresenter
             _suppliersView.UpdateData += OnUpdateData;
             _suppliersView.DeleteData += OnDeleteData;
             _suppliersView.RefreshData += OnRefreshData;
+            _suppliersView.SearchMedicineGroupsBasedOnFilter += OnSearchMedicineGroupsBasedOnFilter;
+            LoadData();
+        }
+
+        private void OnSearchMedicineGroupsBasedOnFilter(object sender, EventArgs e)
+        {
+
+            string filter = _suppliersView.TextFilter;
+            string textSearch = _suppliersView.TextSearch;
+
+            if (!string.IsNullOrWhiteSpace(textSearch))
+            {
+                if (filter == "All")
+                {
+                    SearchMedicineGroups(textSearch);
+                }
+                else
+                {
+                    bool searchByName = filter == "Tên";
+                    bool searchByPhone = filter == "SDT";
+                    bool searchByAddress = filter == "Địa chỉ";
+                    SearchMedicineGroups(textSearch, searchByAddress: searchByAddress, searchByPhone: searchByPhone, searchByName: searchByName);
+                }
+
+            }
+            else
+            {
+                LoadData();
+            }
         }
 
         private void OnAddData(object sender, EventArgs e)
@@ -77,7 +106,7 @@ namespace PharmacySystem.Presenters.SupplierPresenter
             LoadData();
         }
 
-        public void LoadData()
+        private void LoadData()
         {
 
             try
@@ -109,7 +138,7 @@ namespace PharmacySystem.Presenters.SupplierPresenter
         }
 
 
-        public void SearchMedicineGroups(string searchText, bool searchByAddress = true, bool searchByPhone = true, bool searchByName = true)
+        private void SearchMedicineGroups(string searchText, bool searchByAddress = true, bool searchByPhone = true, bool searchByName = true)
         {
             try
             {

@@ -33,34 +33,33 @@
             this.cbMedicineGroup = new System.Windows.Forms.ComboBox();
             this.btnDashboard = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.lbFullName = new System.Windows.Forms.Label();
             this.btnLogout = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lbLogo = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnCharge = new System.Windows.Forms.Button();
+            this.btnPayment = new System.Windows.Forms.Button();
             this.txtTotal = new System.Windows.Forms.Label();
-            this.txtTempTotal = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.txtChange = new System.Windows.Forms.Label();
+            this.txtVAT = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.CartItemsDataGrid = new System.Windows.Forms.DataGridView();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-
             this.dgvName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Delete = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
             this.MedicineProductPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnDashboard)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -69,17 +68,15 @@
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CartItemsDataGrid)).BeginInit();
-
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel1.Controls.Add(this.cbMedicineGroup);
-
             this.panel1.Controls.Add(this.btnDashboard);
             this.panel1.Controls.Add(this.pictureBox2);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.txtSearch);
             this.panel1.Controls.Add(this.lbFullName);
             this.panel1.Controls.Add(this.btnLogout);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -91,16 +88,15 @@
             this.panel1.Size = new System.Drawing.Size(1255, 66);
             this.panel1.TabIndex = 3;
             // 
-
             // cbMedicineGroup
             // 
+            this.cbMedicineGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbMedicineGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbMedicineGroup.FormattingEnabled = true;
             this.cbMedicineGroup.Location = new System.Drawing.Point(237, 21);
             this.cbMedicineGroup.Name = "cbMedicineGroup";
             this.cbMedicineGroup.Size = new System.Drawing.Size(133, 25);
             this.cbMedicineGroup.TabIndex = 7;
-            this.cbMedicineGroup.SelectedIndexChanged += new System.EventHandler(this.cbMedicineGroup_SelectedIndexChanged);
-
             // 
             // btnDashboard
             // 
@@ -125,12 +121,12 @@
             this.pictureBox2.TabIndex = 5;
             this.pictureBox2.TabStop = false;
             // 
-            // textBox1
+            // txtSearch
             // 
-            this.textBox1.Location = new System.Drawing.Point(376, 21);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(367, 25);
-            this.textBox1.TabIndex = 4;
+            this.txtSearch.Location = new System.Drawing.Point(376, 21);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(367, 25);
+            this.txtSearch.TabIndex = 4;
             // 
             // lbFullName
             // 
@@ -183,7 +179,6 @@
             this.panel3.Controls.Add(this.panel2);
             this.panel3.Controls.Add(this.CartItemsDataGrid);
             this.panel3.Controls.Add(this.MedicineProductPanel);
-
             this.panel3.Controls.Add(this.flowLayoutPanel1);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -196,28 +191,18 @@
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.label3);
-
             this.panel2.Controls.Add(this.btnCancel);
-
-            this.panel2.Controls.Add(this.btnCharge);
+            this.panel2.Controls.Add(this.btnPayment);
             this.panel2.Controls.Add(this.txtTotal);
-            this.panel2.Controls.Add(this.txtTempTotal);
-            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.txtChange);
+            this.panel2.Controls.Add(this.txtVAT);
+            this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(756, 437);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Location = new System.Drawing.Point(749, 414);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(499, 119);
+            this.panel2.Size = new System.Drawing.Size(506, 142);
             this.panel2.TabIndex = 10;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 4);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 17);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Thuế VAT";
             // 
             // btnCancel
             // 
@@ -226,71 +211,90 @@
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.ForeColor = System.Drawing.Color.Red;
-            this.btnCancel.Location = new System.Drawing.Point(57, 79);
+            this.btnCancel.Location = new System.Drawing.Point(106, 97);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(127, 30);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-
             // 
-            // btnCharge
+            // btnPayment
             // 
-            this.btnCharge.BackColor = System.Drawing.Color.Blue;
-            this.btnCharge.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.btnCharge.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCharge.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCharge.ForeColor = System.Drawing.Color.White;
-            this.btnCharge.Location = new System.Drawing.Point(200, 79);
-            this.btnCharge.Name = "btnCharge";
-            this.btnCharge.Size = new System.Drawing.Size(127, 30);
-            this.btnCharge.TabIndex = 2;
-            this.btnCharge.Text = "Thanh toán";
-            this.btnCharge.UseVisualStyleBackColor = false;
+            this.btnPayment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPayment.BackColor = System.Drawing.Color.Blue;
+            this.btnPayment.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.btnPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPayment.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPayment.ForeColor = System.Drawing.Color.White;
+            this.btnPayment.Location = new System.Drawing.Point(319, 97);
+            this.btnPayment.Name = "btnPayment";
+            this.btnPayment.Size = new System.Drawing.Size(127, 30);
+            this.btnPayment.TabIndex = 2;
+            this.btnPayment.Text = "Thanh toán";
+            this.btnPayment.UseVisualStyleBackColor = false;
             // 
             // txtTotal
             // 
+            this.txtTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTotal.AutoSize = true;
-            this.txtTotal.Location = new System.Drawing.Point(309, 59);
+            this.txtTotal.Location = new System.Drawing.Point(419, 16);
             this.txtTotal.Name = "txtTotal";
-
             this.txtTotal.Size = new System.Drawing.Size(27, 17);
             this.txtTotal.TabIndex = 1;
             this.txtTotal.Text = "0 đ";
-
             // 
-            // txtTempTotal
+            // txtChange
             // 
-            this.txtTempTotal.AutoSize = true;
-            this.txtTempTotal.Location = new System.Drawing.Point(309, 29);
-            this.txtTempTotal.Name = "txtTempTotal";
-            this.txtTempTotal.Size = new System.Drawing.Size(27, 17);
-            this.txtTempTotal.TabIndex = 1;
-            this.txtTempTotal.Text = "0 đ";
-
+            this.txtChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtChange.AutoSize = true;
+            this.txtChange.Location = new System.Drawing.Point(419, 62);
+            this.txtChange.Name = "txtChange";
+            this.txtChange.Size = new System.Drawing.Size(27, 17);
+            this.txtChange.TabIndex = 1;
+            this.txtChange.Text = "0 đ";
             // 
-            // label2
+            // txtVAT
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
-            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(14, 57);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 19);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Tổng:";
+            this.txtVAT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtVAT.AutoSize = true;
+            this.txtVAT.Location = new System.Drawing.Point(419, 37);
+            this.txtVAT.Name = "txtVAT";
+            this.txtVAT.Size = new System.Drawing.Size(27, 17);
+            this.txtVAT.TabIndex = 1;
+            this.txtVAT.Text = "0 đ";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
+            this.label3.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label3.Location = new System.Drawing.Point(15, 35);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(76, 19);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "VAT (10%)";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(14, 27);
+            this.label1.Location = new System.Drawing.Point(15, 61);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 19);
             this.label1.TabIndex = 0;
             this.label1.Text = "Tạm tính:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label2.Location = new System.Drawing.Point(15, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 19);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Tổng hóa đơn:";
             // 
             // CartItemsDataGrid
             // 
@@ -313,10 +317,10 @@
             this.dgvPrice,
             this.dgvAmount,
             this.Delete});
-            this.CartItemsDataGrid.Location = new System.Drawing.Point(756, 72);
+            this.CartItemsDataGrid.Location = new System.Drawing.Point(749, 72);
             this.CartItemsDataGrid.Name = "CartItemsDataGrid";
             this.CartItemsDataGrid.RowTemplate.Height = 30;
-            this.CartItemsDataGrid.Size = new System.Drawing.Size(499, 358);
+            this.CartItemsDataGrid.Size = new System.Drawing.Size(506, 336);
             this.CartItemsDataGrid.TabIndex = 9;
             this.CartItemsDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CartItemsDataGrid_CellClick);
             // 
@@ -350,7 +354,6 @@
             // dgvPrice
             // 
             this.dgvPrice.FillWeight = 50.57392F;
-
             this.dgvPrice.HeaderText = "Giá";
             this.dgvPrice.Name = "dgvPrice";
             this.dgvPrice.ReadOnly = true;
@@ -365,12 +368,13 @@
             // Delete
             // 
             this.Delete.FillWeight = 16.21949F;
-            this.Delete.HeaderText = "Xóa";
+            this.Delete.HeaderText = "";
+            this.Delete.Image = global::PharmacySystem.Properties.Resources.remove;
+            this.Delete.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
             this.Delete.MinimumWidth = 10;
             this.Delete.Name = "Delete";
             this.Delete.ReadOnly = true;
             this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // MedicineProductPanel
             // 
@@ -381,7 +385,7 @@
             this.MedicineProductPanel.BackColor = System.Drawing.Color.GhostWhite;
             this.MedicineProductPanel.Location = new System.Drawing.Point(3, 72);
             this.MedicineProductPanel.Name = "MedicineProductPanel";
-            this.MedicineProductPanel.Size = new System.Drawing.Size(747, 484);
+            this.MedicineProductPanel.Size = new System.Drawing.Size(740, 484);
             this.MedicineProductPanel.TabIndex = 2;
             // 
             // flowLayoutPanel1
@@ -410,7 +414,6 @@
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.ReadOnly = true;
             this.dataGridViewImageColumn1.Width = 26;
-
             // 
             // MainView
             // 
@@ -437,7 +440,6 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CartItemsDataGrid)).EndInit();
-
             this.ResumeLayout(false);
 
         }
@@ -448,7 +450,7 @@
         private System.Windows.Forms.Label lbLogo;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox btnLogout;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label lbFullName;
@@ -459,12 +461,11 @@
         private System.Windows.Forms.DataGridView CartItemsDataGrid;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnCharge;
+        private System.Windows.Forms.Button btnPayment;
         private System.Windows.Forms.Label txtTotal;
-        private System.Windows.Forms.Label txtTempTotal;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label txtVAT;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvCode;
 
@@ -472,8 +473,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvQuantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Delete;
-        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
-
+        private System.Windows.Forms.DataGridViewImageColumn Delete;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label txtChange;
     }
 }

@@ -40,7 +40,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ControlsPanel = new System.Windows.Forms.Panel();
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnReport = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMain)).BeginInit();
@@ -197,26 +196,11 @@
             this.flowLayoutPanel.Controls.Add(this.btnMedicine);
             this.flowLayoutPanel.Controls.Add(this.btnEmployees);
             this.flowLayoutPanel.Controls.Add(this.btnProvider);
-            this.flowLayoutPanel.Controls.Add(this.btnReport);
             this.flowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel.Location = new System.Drawing.Point(3, 142);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
             this.flowLayoutPanel.Size = new System.Drawing.Size(182, 383);
             this.flowLayoutPanel.TabIndex = 0;
-            // 
-            // btnReport
-            // 
-            this.btnReport.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.btnReport.FlatAppearance.BorderColor = System.Drawing.Color.DarkTurquoise;
-            this.btnReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReport.Font = new System.Drawing.Font("Nirmala UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReport.ForeColor = System.Drawing.Color.White;
-            this.btnReport.Location = new System.Drawing.Point(3, 223);
-            this.btnReport.Name = "btnReport";
-            this.btnReport.Size = new System.Drawing.Size(175, 38);
-            this.btnReport.TabIndex = 2;
-            this.btnReport.Text = "Báo cáo";
-            this.btnReport.UseVisualStyleBackColor = false;
             // 
             // panel2
             // 
@@ -273,6 +257,5 @@
         private System.Windows.Forms.Button btnEmployees;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button btnReport;
     }
 }

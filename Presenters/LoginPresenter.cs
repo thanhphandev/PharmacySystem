@@ -29,7 +29,15 @@ namespace PharmacySystem.Presenters
             _authService = new AuthService(_connectionString);
 
             _loginView.Login += async (sender, args) => await OnLogin();
+            _loginView.NavigateToSignupPage += (sender, args) => OnNavigateToSignupPage();
 
+        }
+
+        private void OnNavigateToSignupPage()
+        {
+            SignupView signupView = new SignupView(_connectionString);
+            signupView.Show();
+            _loginView.CloseForm();
         }
 
         private async Task OnLogin()

@@ -6,6 +6,7 @@ using PharmacySystem.Views;
 using PharmacySystem.Views.DashboardForm;
 using PharmacySystem.Views.LoginForm;
 using PharmacySystem.Views.MainForm;
+using PharmacySystem.Views.PaymentForm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace PharmacySystem.Presenters
     {
         private readonly IMainView _mainView;
         private readonly AuthService _authService;
-        private readonly MedicineInfoService _medicineInfoService;
+        private readonly MedicineService _medicineService;
         private readonly MedicineGroupService _medicineGroup;
         private readonly string _connectionString;
 
@@ -29,11 +30,84 @@ namespace PharmacySystem.Presenters
             _connectionString = connectionString;
 
             _authService = new AuthService(_connectionString);
-            _medicineInfoService = new MedicineInfoService(_connectionString);
+            _medicineService = new MedicineService(_connectionString);
             _medicineGroup = new MedicineGroupService(_connectionString);
 
+            LoadData();
             _mainView.Logout += OnLogout;
             _mainView.ShowDashboard += OnShowDashboard;
+            _mainView.PurchaseMedicine += OnPurchaseMedicine;
+            _mainView.SearchMedicinesByNameAndGroup += OnSearchMedicinesByNameAndGroup;
+        }
+
+        private void OnSearchMedicinesByNameAndGroup(object sender, EventArgs e)
+        {
+            try
+            {
+                string selectedGroupCode = _mainView.MedicineGroup;
+                string textSearch = _mainView.TextSearch?.Trim();
+
+                List<MedicineProductModel> medicines;
+
+               
+                if (string.IsNullOrEmpty(selectedGroupCode) && string.IsNullOrEmpty(textSearch))
+                {
+                    medicines = _medicineService.GetAllMedicineProduct();
+                }
+               
+                else if (!string.IsNullOrEmpty(selectedGroupCode) && string.IsNullOrEmpty(textSearch))
+                {
+                    medicines = _medicineService.GetMedicineProductsByGroupCode(selectedGroupCode);
+                }
+                else
+                {
+                    if(textSearch.Length < 3)
+                    {
+                        return;
+                    }
+                    medicines = _medicineService.GetMedicineProductsByNameAndGroup(textSearch, selectedGroupCode);
+                }
+
+                _mainView.LoadMedicineData(medicines);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during search: {ex.Message}");
+            }
+        }
+
+        private void OnPurchaseMedicine(object sender, EventArgs e)
+        {
+            decimal grandTotal = _mainView.GrandTotal;
+            PaymentView paymentView = new PaymentView(grandTotal);
+            new PaymentPresenter(paymentView, _mainView, _connectionString);
+            paymentView.ShowDialog();
+            LoadAllMedicines();
+            _mainView.ClearCartItems();  
+        }
+
+        private void LoadData()
+        {
+            LoadAllMedicines();
+            LoadMedicineGroups();          
+        }
+
+        private void LoadAllMedicines()
+        {
+            var medicineProducts = _medicineService.GetAllMedicineProduct();
+            _mainView.LoadMedicineData(medicineProducts);
+        }
+
+        private void LoadMedicineGroups()
+        {
+            var medicineGroups = _medicineGroup.GetAllMedicineGroups();
+            medicineGroups.Insert(0, new MedicineGroupModel
+            {
+                GroupCode = null,
+                GroupName = "Tất cả"
+            });
+
+            _mainView.LoadMedicineGroups(medicineGroups);
         }
 
         public void LoadData()
@@ -86,5 +160,6 @@ namespace PharmacySystem.Presenters
             _authService.Logout();
             _mainView.CloseForm();
         }
+
     }
 }

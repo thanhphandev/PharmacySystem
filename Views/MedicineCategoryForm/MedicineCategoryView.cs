@@ -23,18 +23,18 @@ namespace PharmacySystem.Views.MedicineCategoryForm
         public event EventHandler DeleteData;
         public event EventHandler AddData;
         public event EventHandler RefreshData;
+        public event EventHandler SearchMedicineGroupsBasedOnFilter;
 
         public MedicineCategoryView(string connectionString)
         {
 
             InitializeComponent();
             _connectionString = connectionString;
-            var presenter = new MedicineGroupViewPresenter(this, _connectionString);
-            presenter.LoadData();
-            AsscociateAndRaiseViewEvents(presenter);
+            new MedicineGroupViewPresenter(this, _connectionString);
+            AssociateAndRaiseViewEvents();
         }
 
-        private void AsscociateAndRaiseViewEvents(MedicineGroupViewPresenter presenter)
+        private void AssociateAndRaiseViewEvents()
         {
             cbFilter.SelectedItem = "Tên Nhóm";
 
@@ -48,35 +48,20 @@ namespace PharmacySystem.Views.MedicineCategoryForm
                 RefreshData?.Invoke(this, EventArgs.Empty);
             };
 
+            txtSearch.TextChanged += delegate
+            {
+                SearchMedicineGroupsBasedOnFilter?.Invoke(this, EventArgs.Empty);
+            };
 
-            txtSearch.TextChanged += (s, e) => SearchMedicineGroupsBasedOnFilter(presenter);
-
-            cbFilter.SelectedIndexChanged += (s, e) => SearchMedicineGroupsBasedOnFilter(presenter);
+            cbFilter.SelectedIndexChanged += delegate
+            {
+                SearchMedicineGroupsBasedOnFilter?.Invoke(this, EventArgs.Empty);
+            };
 
         }
 
-        private void SearchMedicineGroupsBasedOnFilter(MedicineGroupViewPresenter presenter)
-        {
-
-            var filter = cbFilter.SelectedItem?.ToString();
-
-            if (!string.IsNullOrWhiteSpace(TextSearch))
-            {
-                if (filter == "Mã nhóm")
-                {
-                    presenter.SearchMedicineGroups(TextSearch, searchByCode: true, searchByName: false);
-                }
-                else
-                {
-                    presenter.SearchMedicineGroups(TextSearch, searchByCode: false, searchByName: true);
-                }
-            }
-            else
-            {
-                presenter.LoadData();
-            }
-        }
         public string TextSearch { get => txtSearch.Text; set => txtSearch.Text = value; }
+        public string TextFilter { get => cbFilter.SelectedItem?.ToString(); set => cbFilter.SelectedItem = value; }
 
         public void DisplayMedicineGroups(List<MedicineGroupModel> medicineGroups)
         {

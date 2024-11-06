@@ -58,7 +58,6 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // txtSearch
             // 
@@ -87,7 +86,6 @@
             this.btnAddUnitType.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnAddUnitType.TabIndex = 8;
             this.btnAddUnitType.TabStop = false;
-            this.btnAddUnitType.Click += new System.EventHandler(this.btnAddUnitType_Click);
             // 
             // label1
             // 

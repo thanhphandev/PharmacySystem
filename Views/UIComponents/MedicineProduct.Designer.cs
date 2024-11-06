@@ -32,6 +32,7 @@
             this.lbPrice = new System.Windows.Forms.Label();
             this.btnChoose = new System.Windows.Forms.Button();
             this.pbMedicineImage = new System.Windows.Forms.PictureBox();
+            this.lbQuantity = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbMedicineImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,7 +67,7 @@
             this.btnChoose.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChoose.ForeColor = System.Drawing.Color.White;
             this.btnChoose.Location = new System.Drawing.Point(19, 170);
-            this.btnChoose.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnChoose.Margin = new System.Windows.Forms.Padding(4);
             this.btnChoose.Name = "btnChoose";
             this.btnChoose.Size = new System.Drawing.Size(120, 30);
             this.btnChoose.TabIndex = 3;
@@ -84,17 +85,27 @@
             this.pbMedicineImage.TabIndex = 0;
             this.pbMedicineImage.TabStop = false;
             // 
+            // lbQuantity
+            // 
+            this.lbQuantity.AutoSize = true;
+            this.lbQuantity.Location = new System.Drawing.Point(124, 149);
+            this.lbQuantity.Name = "lbQuantity";
+            this.lbQuantity.Size = new System.Drawing.Size(15, 17);
+            this.lbQuantity.TabIndex = 4;
+            this.lbQuantity.Text = "1";
+            // 
             // MedicineProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.lbQuantity);
             this.Controls.Add(this.btnChoose);
             this.Controls.Add(this.lbPrice);
             this.Controls.Add(this.lbName);
             this.Controls.Add(this.pbMedicineImage);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MedicineProduct";
             this.Size = new System.Drawing.Size(158, 212);
             ((System.ComponentModel.ISupportInitialize)(this.pbMedicineImage)).EndInit();
@@ -109,5 +120,6 @@
         private System.Windows.Forms.Label lbName;
         private System.Windows.Forms.Label lbPrice;
         private System.Windows.Forms.Button btnChoose;
+        private System.Windows.Forms.Label lbQuantity;
     }
 }

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Drawing;
-using System.Reflection.Emit;
+using PharmacySystem.Common;
+using System;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace PharmacySystem.Views.UIComponents
@@ -9,6 +9,9 @@ namespace PharmacySystem.Views.UIComponents
     {
         private string selectedImagePath;
         private string medicineCode;
+        private string unitType;
+        public event EventHandler AddToCart;
+
         public MedicineProduct()
         {
             InitializeComponent();
@@ -16,6 +19,7 @@ namespace PharmacySystem.Views.UIComponents
             {
                 AddToCart?.Invoke(this, EventArgs.Empty);
             };
+           
         }
 
         public string MedicineName
@@ -23,11 +27,20 @@ namespace PharmacySystem.Views.UIComponents
             get => lbName.Text;
             set => lbName.Text = value;
         }
-
-        public decimal MedicinePrice
+        public int Quantity
         {
-            get => decimal.TryParse(lbPrice.Text, out var price) ? price : 0;
-            set => lbPrice.Text = value.ToString("F2");
+            get => int.TryParse(lbQuantity.Text, out int result) ? result : 0;
+            set => lbQuantity.Text = value.ToString();
+        }
+
+        public string UnitType
+        {
+            get => unitType;
+            set
+            {
+                // Gán giá trị cho unitType và có thể thực hiện các kiểm tra cần thiết
+                unitType = value ?? "N/A"; // Nếu giá trị null, gán giá trị mặc định
+            }
         }
 
         public string MedicineCode
@@ -36,25 +49,47 @@ namespace PharmacySystem.Views.UIComponents
             set => medicineCode = value;
         }
 
+        public decimal MedicinePrice
+        {
+            get
+            {
+
+                string priceText = lbPrice.Text.Replace("₫", "").Replace(".", "").Trim();
+                return decimal.TryParse(priceText, out var price) ? price : 0;
+            }
+            set
+            {
+                
+                lbPrice.Text = $"{CurrencyFormatter.FormatVND(value)}";
+            }
+        }
+
+
+
         public string MedicineImage
         {
             get => selectedImagePath;
             set
             {
                 selectedImagePath = value;
-                try
-                {
-                    pbMedicineImage.ImageLocation = selectedImagePath;
-                }
-                catch (Exception ex)
-                {
-                    // Handle image loading failure (optional logging or user feedback)
-                    MessageBox.Show($"Image not found or inaccessible\n Err{ex.Message}.", "Image Load Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    pbMedicineImage.Image = null; // or set a default placeholder image
-                }
+                LoadMedicineImage(selectedImagePath);
             }
         }
 
-        public event EventHandler AddToCart;
+        private void LoadMedicineImage(string imagePath)
+        {
+            try
+            {
+                pbMedicineImage.ImageLocation = imagePath;
+            }
+            catch (Exception ex)
+            {
+                // Handle image loading failure
+                MessageBox.Show($"Image not found or inaccessible\nErr: {ex.Message}.", "Image Load Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                pbMedicineImage.Image = Properties.Resources.Panadol_Extra_Advance_Box_32s380x463; // Set a default placeholder image
+            }
+        }
+
+       
     }
 }
