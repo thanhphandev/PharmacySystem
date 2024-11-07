@@ -10,5 +10,6 @@ namespace PharmacySystem.Repositories.POSBillRepository
     public interface IPOSBillRepository
     {
         void AddPosBill(decimal receiveAmount, int employeeId);
+        List<POSBillReport> GetFinancialReport(DateTime fromDate, DateTime toDate);
     }
 }

@@ -55,10 +55,5 @@ namespace PharmacySystem.Views.MedicinesForm
             throw new NotImplementedException();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            AddMedicineForm view = new AddMedicineForm(_connectionString);
-            view.ShowDialog();
-        }
     }
 }

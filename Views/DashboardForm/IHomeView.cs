@@ -10,6 +10,12 @@ namespace PharmacySystem.Views.DashboardForm
 {
     public interface IHomeView
     {
+        DateTime FromDate { get; set; }
+        DateTime ToDate { get; set; }
         void DisplayEmployeeRoleChart(List<RoleCountModel> roleCounts);
+        void DisplayFinancialReport(List<POSBillReport> financialReport);
+
+        event EventHandler LoadFinancialReport;
+
     }
 }

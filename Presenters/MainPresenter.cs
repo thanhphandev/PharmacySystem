@@ -28,7 +28,6 @@ namespace PharmacySystem.Presenters
         {
             _mainView = mainView;
             _connectionString = connectionString;
-
             _authService = new AuthService(_connectionString);
             _medicineService = new MedicineService(_connectionString);
             _medicineGroup = new MedicineGroupService(_connectionString);
@@ -49,19 +48,19 @@ namespace PharmacySystem.Presenters
 
                 List<MedicineProductModel> medicines;
 
-               
+
                 if (string.IsNullOrEmpty(selectedGroupCode) && string.IsNullOrEmpty(textSearch))
                 {
                     medicines = _medicineService.GetAllMedicineProduct();
                 }
-               
+
                 else if (!string.IsNullOrEmpty(selectedGroupCode) && string.IsNullOrEmpty(textSearch))
                 {
                     medicines = _medicineService.GetMedicineProductsByGroupCode(selectedGroupCode);
                 }
                 else
                 {
-                    if(textSearch.Length < 3)
+                    if (textSearch.Length < 3)
                     {
                         return;
                     }
@@ -83,13 +82,13 @@ namespace PharmacySystem.Presenters
             new PaymentPresenter(paymentView, _mainView, _connectionString);
             paymentView.ShowDialog();
             LoadAllMedicines();
-            _mainView.ClearCartItems();  
+            _mainView.ClearCartItems();
         }
 
         private void LoadData()
         {
             LoadAllMedicines();
-            LoadMedicineGroups();          
+            LoadMedicineGroups();
         }
 
         private void LoadAllMedicines()
@@ -108,37 +107,6 @@ namespace PharmacySystem.Presenters
             });
 
             _mainView.LoadMedicineGroups(medicineGroups);
-        }
-
-        public void LoadData()
-        {
-            LoadMedicineGroups();
-            LoadAllMedicines();
-        }
-
-        public void LoadAllMedicines()
-        {
-            var medicines = _medicineInfoService.GetAllMedicineInfo();
-            _mainView.LoadMedicineData(medicines);
-        }
-
-
-        private void LoadMedicineGroups()
-        {
-            var medicineGroups = _medicineGroup.GetAllMedicineGroups();
-            medicineGroups.Insert(0, new MedicineGroupModel
-            {
-                GroupCode = "",  // Blank or a special value to represent all
-                GroupName = "Tất cả"
-            });
-
-            _mainView.LoadMedicineGroups(medicineGroups);
-        }
-
-        public void FilterMedicinesByGroupId(string groupId)
-        {
-            var filteredMedicines = _medicineInfoService.GetMedicinesByGroupCode(groupId);
-            _mainView.LoadMedicineData(filteredMedicines);
         }
 
         private void OnShowDashboard(object sender, EventArgs e)
