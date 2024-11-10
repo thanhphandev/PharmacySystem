@@ -47,23 +47,20 @@ namespace PharmacySystem.Views.MainForm
             };
             cbMedicineGroup.SelectedIndexChanged -= delegate { SearchMedicinesByNameAndGroup?.Invoke(this, EventArgs.Empty); };
             txtSearch.TextChanged -= delegate { SearchMedicinesByNameAndGroup?.Invoke(this, EventArgs.Empty); };
-
-            // Thêm event handler mới
+            
             cbMedicineGroup.SelectedIndexChanged += (s, e) =>
             {
                 SearchMedicinesByNameAndGroup?.Invoke(this, EventArgs.Empty);
             };
 
             txtSearch.TextChanged += (s, e) =>
-            {
-                // Có thể thêm debounce ở đây để tránh search quá nhiều lần
+            {       
                 SearchMedicinesByNameAndGroup?.Invoke(this, EventArgs.Empty);
             };
             btnCancel.Click += delegate
             {
                 ClearCartItems();
             };
-
             CartItemsDataGrid.CellValueChanged += CartItemsDataGrid_CellValueChanged;
 
         }
@@ -94,17 +91,21 @@ namespace PharmacySystem.Views.MainForm
 
         private void CartItemsDataGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            
             if (e.ColumnIndex == CartItemsDataGrid.Columns["dgvQuantity"].Index && e.RowIndex >= 0)
             {
                 var row = CartItemsDataGrid.Rows[e.RowIndex];
-
-                if (decimal.TryParse(row.Cells["dgvPrice"].Value?.ToString(), out decimal price) &&
-                    int.TryParse(row.Cells["dgvQuantity"].Value?.ToString(), out int quantity))
+                int quantity = Convert.ToInt32(row.Cells["dgvQuantity"].Value?.ToString());
+                
+                if (quantity <= 0)
                 {
-                    row.Cells["dgvAmount"].Value = CurrencyFormatter.FormatVND(price * quantity);
-                    GetTotal();
+                    MessageBox.Show("Số lượng không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    row.Cells["dgvQuantity"].Value = 1;
+                    return;
                 }
+                decimal price = Convert.ToDecimal(row.Cells["dgvPrice"].Value.ToString().Replace("₫", "").Replace(".", "").Trim());
+                row.Cells["dgvAmount"].Value = CurrencyFormatter.FormatVND(quantity * price);
+                GetTotal();
+                
             }
         }
    
@@ -112,7 +113,24 @@ namespace PharmacySystem.Views.MainForm
         public string TextSearch { get => txtSearch.Text; set => txtSearch.Text = value; }
         public decimal TotalAmount { get => Convert.ToDecimal(txtTotal.Text.Replace("₫", "").Replace(".", "").Trim()); set => txtTotal.Text = CurrencyFormatter.FormatVND(value); }
         public string MedicineGroup { get => cbMedicineGroup.SelectedValue?.ToString() ; set => cbMedicineGroup.SelectedValue = value; }
-        public decimal GrandTotal { get => Convert.ToDecimal(txtChange.Text.Replace("₫", "").Replace(".", "").Trim()); set => txtChange.Text = CurrencyFormatter.FormatVND(value); }
+        public decimal GrandTotal
+        {
+            get
+            {
+                // Attempt to parse the value, if null or invalid, return 0
+                return decimal.TryParse(txtChange.Text.Replace("₫", "").Replace(".", "").Trim(), out var value) && value != 0 ? value : 0;
+            }
+            set
+            {
+              
+                if (value == 0)
+                {
+                    return;
+                }
+                txtChange.Text = CurrencyFormatter.FormatVND(value);
+            }
+        }
+
 
         public void CloseForm()
         {
@@ -259,6 +277,6 @@ namespace PharmacySystem.Views.MainForm
             return cartItems;
         }
 
-        
+    
     }
 }
