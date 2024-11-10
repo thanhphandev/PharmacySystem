@@ -78,6 +78,11 @@ namespace PharmacySystem.Presenters
         private void OnPurchaseMedicine(object sender, EventArgs e)
         {
             decimal grandTotal = _mainView.GrandTotal;
+            if(grandTotal == 0)
+            {
+                MessageBox.Show("Giỏ hàng trống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return; 
+            }
             PaymentView paymentView = new PaymentView(grandTotal);
             new PaymentPresenter(paymentView, _mainView, _connectionString);
             paymentView.ShowDialog();

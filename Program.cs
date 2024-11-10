@@ -8,6 +8,8 @@ using PharmacySystem.Views;
 using PharmacySystem.Views.LoginForm;
 using PharmacySystem.Presenters;
 using PharmacySystem.Views.RegisterForm;
+using System.IO;
+using PharmacySystem.Common;
 
 namespace PharmacySystem
 {
@@ -20,12 +22,12 @@ namespace PharmacySystem
         static void Main()
         {
 
-       
             string connectionString = ConfigurationManager.ConnectionStrings["PharmacyDb"].ConnectionString;
-            
+
             if (string.IsNullOrEmpty(connectionString))
             {
-                Console.WriteLine("Connection string not found");
+                MessageBox.Show("Connection string not found");
+                return;
             }
 
             Application.EnableVisualStyles();
