@@ -13,6 +13,7 @@ namespace PharmacySystem.Views.SuppliersForm
         string SupplierName { get; set; }
         string SupplierPhone { get; set; }
         string SupplierAddress { get; set; }
+        string TaxCode { get; set; }
         bool IsEditMode { get; set; }
 
         void CloseForm();

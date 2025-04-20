@@ -1,7 +1,7 @@
-﻿using MySql.Data.MySqlClient;
-using PharmacySystem.Models;
+﻿using PharmacySystem.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,14 +20,15 @@ namespace PharmacySystem.Repositories.SupplierRepository
         {
             try
             {
-                using (var connection = new MySqlConnection(_connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    string query = "INSERT INTO supplier (supplier_name, supplier_phone, supplier_address) VALUES (@SupplierName, @SupplierPhone, @SupplierAddress)";
-                    using (var command = new MySqlCommand(query, connection))
+                    string query = "INSERT INTO suppliers (name, phone, address, tax_code) VALUES (@Name, @Phone, @Address, @TaxCode)";
+                    using (var command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("SupplierName", supplier.SupplierName);
-                        command.Parameters.AddWithValue("SupplierPhone", supplier.SupplierPhone);
-                        command.Parameters.AddWithValue("SupplierAddress", supplier.SupplierAddress);
+                        command.Parameters.AddWithValue("Name", supplier.Name);
+                        command.Parameters.AddWithValue("Phone", supplier.Phone);
+                        command.Parameters.AddWithValue("Address", supplier.Address);
+                        command.Parameters.AddWithValue("TaxCode", supplier.TaxCode);
 
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -47,12 +48,12 @@ namespace PharmacySystem.Repositories.SupplierRepository
         {
             try
             {
-                using (var connection = new MySqlConnection(_connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    string query = "DELETE FROM supplier WHERE id = @SupplierId";
-                    using (var command = new MySqlCommand(query, connection))
+                    string query = "DELETE FROM suppliers WHERE id = @ID";
+                    using (var command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("SupplierId", id);
+                        command.Parameters.AddWithValue("ID", id);
 
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -67,13 +68,13 @@ namespace PharmacySystem.Repositories.SupplierRepository
 
         public List<SupplierModel> GetAllSuppliers()
         {
-            List<SupplierModel> suppliers = new List<SupplierModel>();
+            var suppliers = new List<SupplierModel>();
             try
             {
-                using (var connection = new MySqlConnection(_connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    string query = "SELECT * FROM supplier";
-                    using (var command = new MySqlCommand(query, connection))
+                    string query = "SELECT * FROM suppliers";
+                    using (var command = new SqlCommand(query, connection))
                     {
                         connection.Open();
                         using (var reader = command.ExecuteReader())
@@ -82,10 +83,11 @@ namespace PharmacySystem.Repositories.SupplierRepository
                             {
                                 var supplier = new SupplierModel
                                 {
-                                    SupplierId = reader.GetInt32("id"),
-                                    SupplierName = reader.GetString("supplier_name"),
-                                    SupplierPhone = reader.IsDBNull(reader.GetOrdinal("supplier_phone")) ? null : reader.GetString("supplier_phone"),
-                                    SupplierAddress = reader.IsDBNull(reader.GetOrdinal("supplier_address")) ? null : reader.GetString("supplier_address")
+                                    ID = reader.GetInt32(reader.GetOrdinal("id")),
+                                    Name = reader.GetString(reader.GetOrdinal("name")),
+                                    Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? null : reader.GetString(reader.GetOrdinal("phone")),
+                                    Address = reader.IsDBNull(reader.GetOrdinal("address")) ? null : reader.GetString(reader.GetOrdinal("address")),
+                                    TaxCode = reader.IsDBNull(reader.GetOrdinal("tax_code")) ? null : reader.GetString(reader.GetOrdinal("tax_code"))
                                 };
 
                                 suppliers.Add(supplier);
@@ -93,39 +95,41 @@ namespace PharmacySystem.Repositories.SupplierRepository
                         }
                     }
                 }
+
                 return suppliers;
             }
-            catch (MySqlException ex)
+            catch (SqlException ex)
             {
-                // Consider logging the full exception details (e.g., using a logging framework)
                 throw new Exception($"Database error retrieving suppliers: {ex.Message}", ex);
             }
             catch (Exception ex)
             {
-                // General error logging
                 throw new Exception("Error retrieving all suppliers: " + ex.Message, ex);
             }
         }
+
 
 
         public void UpdateSupplier(int id, SupplierModel supplier)
         {
             try
             {
-                using (var connection = new MySqlConnection(_connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    string query = @"UPDATE supplier 
-                                     SET supplier_name = @SupplierName, 
-                                         supplier_phone = @SupplierPhone, 
-                                         supplier_address = @SupplierAddress 
-                                     WHERE id = @SupplierId";
+                    string query = @"UPDATE suppliers 
+                             SET name = @Name, 
+                                 phone = @Phone, 
+                                 address = @Address,
+                                 tax_code = @TaxCode
+                             WHERE id = @Id";
 
-                    using (var command = new MySqlCommand(query, connection))
+                    using (var command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("SupplierId", id);
-                        command.Parameters.AddWithValue("SupplierName", supplier.SupplierName);
-                        command.Parameters.AddWithValue("SupplierPhone", supplier.SupplierPhone);
-                        command.Parameters.AddWithValue("SupplierAddress", supplier.SupplierAddress);
+                        command.Parameters.AddWithValue("@Id", id);
+                        command.Parameters.AddWithValue("@Name", supplier.Name);
+                        command.Parameters.AddWithValue("@Phone", supplier.Phone ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@Address", supplier.Address ?? (object)DBNull.Value);
+                        command.Parameters.AddWithValue("@TaxCode", supplier.TaxCode ?? (object)DBNull.Value);
 
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -134,10 +138,9 @@ namespace PharmacySystem.Repositories.SupplierRepository
             }
             catch (Exception ex)
             {
-                throw new Exception("Error updating supplier: " + ex.Message);
+                throw new Exception("Error updating supplier: " + ex.Message, ex);
             }
         }
-
 
     }
 

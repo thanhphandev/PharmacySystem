@@ -34,6 +34,8 @@
             this.txtSupplierPhone = new System.Windows.Forms.TextBox();
             this.txtSupplierAddress = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.txtTaxCode = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbHeader
@@ -100,6 +102,22 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Địa chỉ";
             // 
+            // txtTaxCode
+            // 
+            this.txtTaxCode.Location = new System.Drawing.Point(261, 120);
+            this.txtTaxCode.Name = "txtTaxCode";
+            this.txtTaxCode.Size = new System.Drawing.Size(173, 25);
+            this.txtTaxCode.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(258, 91);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(74, 17);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Mã số thuế";
+            // 
             // AddSupplierForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -107,8 +125,10 @@
             this.ClientSize = new System.Drawing.Size(468, 361);
             this.Controls.Add(this.txtSupplierAddress);
             this.Controls.Add(this.txtSupplierPhone);
+            this.Controls.Add(this.txtTaxCode);
             this.Controls.Add(this.txtSupplierName);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.Phone);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -116,8 +136,10 @@
             this.Text = "AddSupplierForm";
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.Phone, 0);
+            this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.txtSupplierName, 0);
+            this.Controls.SetChildIndex(this.txtTaxCode, 0);
             this.Controls.SetChildIndex(this.txtSupplierPhone, 0);
             this.Controls.SetChildIndex(this.txtSupplierAddress, 0);
             this.ResumeLayout(false);
@@ -133,5 +155,7 @@
         private System.Windows.Forms.TextBox txtSupplierPhone;
         private System.Windows.Forms.RichTextBox txtSupplierAddress;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtTaxCode;
+        private System.Windows.Forms.Label label3;
     }
 }

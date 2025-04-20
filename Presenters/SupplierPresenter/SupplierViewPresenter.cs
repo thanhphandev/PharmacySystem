@@ -84,10 +84,11 @@ namespace PharmacySystem.Presenters.SupplierPresenter
             {
                 AddSupplierForm view = new AddSupplierForm(_connectionString)
                 {
-                    SupplierId = currentSupplier.SupplierId,
-                    SupplierName = currentSupplier.SupplierName,
-                    SupplierPhone = currentSupplier.SupplierPhone,
-                    SupplierAddress = currentSupplier.SupplierAddress,
+                    SupplierId = currentSupplier.ID,
+                    SupplierName = currentSupplier.Name,
+                    SupplierPhone = currentSupplier.Phone,
+                    SupplierAddress = currentSupplier.Address,
+                    TaxCode = currentSupplier.TaxCode,
                     IsEditMode = true,
                     LabelHeader = "Cập nhật thông tin nhà cung cấp"
                 };
@@ -132,7 +133,7 @@ namespace PharmacySystem.Presenters.SupplierPresenter
                 {
                     return;
                 }
-                _supplierService.DeleteSupplier(supplier.SupplierId);
+                _supplierService.DeleteSupplier(supplier.ID);
                 LoadData();
             }
         }
@@ -147,9 +148,9 @@ namespace PharmacySystem.Presenters.SupplierPresenter
                 string normalizedSearchText = DiacriticsRemover.RemoveDiacritics(searchText).ToLowerInvariant();
 
                 var filteredMedicineGroups = allSuppliers.Where(mg =>
-                    (searchByAddress && DiacriticsRemover.RemoveDiacritics(mg.SupplierAddress).ToLowerInvariant().Contains(normalizedSearchText)) ||
-                    (searchByName && DiacriticsRemover.RemoveDiacritics(mg.SupplierName).ToLowerInvariant().Contains(normalizedSearchText)) ||
-                    (searchByPhone && DiacriticsRemover.RemoveDiacritics(mg.SupplierPhone).ToLowerInvariant().Contains(normalizedSearchText))
+                    (searchByAddress && DiacriticsRemover.RemoveDiacritics(mg.Address).ToLowerInvariant().Contains(normalizedSearchText)) ||
+                    (searchByName && DiacriticsRemover.RemoveDiacritics(mg.Name).ToLowerInvariant().Contains(normalizedSearchText)) ||
+                    (searchByPhone && DiacriticsRemover.RemoveDiacritics(mg.Phone).ToLowerInvariant().Contains(normalizedSearchText))
                 ).ToList();
 
                 _suppliersView.DisplaySuppliers(filteredMedicineGroups);

@@ -33,6 +33,7 @@
             this.SupplierName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SupplierPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SupplierAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaxCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Edit = new System.Windows.Forms.DataGridViewImageColumn();
             this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.btnAdd)).BeginInit();
@@ -76,6 +77,7 @@
             this.SupplierName,
             this.SupplierPhone,
             this.SupplierAddress,
+            this.TaxCode,
             this.Edit,
             this.Delete});
             this.SupplierDataGrid.Location = new System.Drawing.Point(46, 141);
@@ -113,6 +115,12 @@
             this.SupplierAddress.HeaderText = "Địa chỉ";
             this.SupplierAddress.Name = "SupplierAddress";
             this.SupplierAddress.ReadOnly = true;
+            // 
+            // TaxCode
+            // 
+            this.TaxCode.HeaderText = "Mã số thuế";
+            this.TaxCode.Name = "TaxCode";
+            this.TaxCode.ReadOnly = true;
             // 
             // Edit
             // 
@@ -165,6 +173,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SupplierName;
         private System.Windows.Forms.DataGridViewTextBoxColumn SupplierPhone;
         private System.Windows.Forms.DataGridViewTextBoxColumn SupplierAddress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaxCode;
         private System.Windows.Forms.DataGridViewImageColumn Edit;
         private System.Windows.Forms.DataGridViewImageColumn Delete;
     }

@@ -3,70 +3,86 @@ using PharmacySystem.Repositories.SupplierRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PharmacySystem.Services
+public class SupplierService
 {
-    public class SupplierService
+    private readonly ISupplierRepository _supplierRepository;
+    public SupplierService(string connectionString)
     {
-        private readonly ISupplierRepository _supplierRepository;
-        public SupplierService(string connectionString)
-        {
-            _supplierRepository = new SupplierRepository(connectionString);
-        }
+        _supplierRepository = new SupplierRepository(connectionString);
+    }
 
-        public bool AddSupplier(SupplierModel supplier)
-        {
-            try
-            {
-                _supplierRepository.AddSupplier(supplier);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+    public (bool Success, string ErrorMessage) AddSupplier(SupplierModel supplier)
+    {
+        var validation = ValidateSupplier(supplier);
+        if (!validation.Success) return validation;
 
+        supplier.Phone = NormalizePhone(supplier.Phone);
 
-        public bool DeleteSupplier(int id)
-        {
-            try
-            {
-                _supplierRepository.DeleteSupplier(id);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+        var exists = _supplierRepository.GetAllSuppliers()
+            .Any(s => s.Phone == supplier.Phone);
+        if (exists)
+            return (false, "Số điện thoại đã tồn tại");
 
-        public bool UpdateSupplier(int id, SupplierModel supplier)
+        try
         {
-            try
-            {
-                _supplierRepository.UpdateSupplier(id, supplier);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            _supplierRepository.AddSupplier(supplier);
+            return (true, string.Empty);
         }
+        catch (Exception ex)
+        {
+            return (false, "Lỗi hệ thống: " + ex.Message);
+        }
+    }
 
-        public List<SupplierModel> GetAllSuppliers()
+    public (bool Success, string ErrorMessage) UpdateSupplier(int id, SupplierModel supplier)
+    {
+        var validation = ValidateSupplier(supplier);
+        if (!validation.Success) return validation;
+
+        supplier.Phone = NormalizePhone(supplier.Phone);
+
+        try
         {
-            try
-            {
-                var suppliers = _supplierRepository.GetAllSuppliers();
-                return suppliers;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            _supplierRepository.UpdateSupplier(id, supplier);
+            return (true, string.Empty);
         }
+        catch (Exception ex)
+        {
+            return (false, "Lỗi hệ thống: " + ex.Message);
+        }
+    }
+
+    private (bool Success, string ErrorMessage) ValidateSupplier(SupplierModel supplier)
+    {
+        if (string.IsNullOrWhiteSpace(supplier.Name) || string.IsNullOrWhiteSpace(supplier.Phone))
+            return (false, "Tên và số điện thoại không được để trống");
+
+        string cleanedPhone = new string(supplier.Phone.Where(char.IsDigit).ToArray());
+        if (cleanedPhone.Length < 10 || cleanedPhone.Length > 15)
+            return (false, "Số điện thoại không hợp lệ");
+
+        return (true, string.Empty);
+    }
+
+    private string NormalizePhone(string phone) =>
+        new string(phone.Where(char.IsDigit).ToArray());
+
+    public bool DeleteSupplier(int id)
+    {
+        try
+        {
+            _supplierRepository.DeleteSupplier(id);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public List<SupplierModel> GetAllSuppliers()
+    {
+        return _supplierRepository.GetAllSuppliers();
     }
 }

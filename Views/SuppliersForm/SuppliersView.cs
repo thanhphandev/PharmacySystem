@@ -66,10 +66,11 @@ namespace PharmacySystem.Views.SuppliersForm
             foreach (var supplier in suppliers)
             {
                 SupplierDataGrid.Rows.Add(
-                    supplier.SupplierId,
-                    supplier.SupplierName,
-                    supplier.SupplierPhone,
-                    supplier.SupplierAddress
+                    supplier.ID,
+                    supplier.Name,
+                    supplier.Phone,
+                    supplier.Address,
+                    supplier.TaxCode
                     );
             }
         }
@@ -80,10 +81,11 @@ namespace PharmacySystem.Views.SuppliersForm
             {
                 return new SupplierModel
                 {
-                    SupplierId = Convert.ToInt32(SupplierDataGrid.CurrentRow.Cells["Index"].Value),
-                    SupplierName = SupplierDataGrid.CurrentRow.Cells["SupplierName"].Value.ToString(),
-                    SupplierPhone = SupplierDataGrid.CurrentRow.Cells["SupplierPhone"].Value.ToString(),
-                    SupplierAddress = SupplierDataGrid.CurrentRow.Cells["SupplierAddress"]?.Value.ToString()
+                    ID = Convert.ToInt32(SupplierDataGrid.CurrentRow.Cells["Index"].Value),
+                    Name = SupplierDataGrid.CurrentRow.Cells["SupplierName"].Value.ToString(),
+                    Phone = SupplierDataGrid.CurrentRow.Cells["SupplierPhone"].Value.ToString(),
+                    Address = SupplierDataGrid.CurrentRow.Cells["SupplierAddress"]?.Value.ToString(),
+                    TaxCode = SupplierDataGrid.CurrentRow.Cells["TaxCode"]?.Value.ToString()
                 };
 
             }

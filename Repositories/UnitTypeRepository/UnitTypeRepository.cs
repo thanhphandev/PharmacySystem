@@ -1,7 +1,7 @@
-﻿using MySql.Data.MySqlClient;
-using PharmacySystem.Models;
+﻿using PharmacySystem.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,11 +22,11 @@ namespace PharmacySystem.Repositories.UnitTypeRepository
         {
             try
             {
-                using (var connection = new MySqlConnection(_connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                  
-                    string query = "INSERT INTO unit_type(unit_name) VALUES (@UnitType)";
-                    using (var command = new MySqlCommand(query, connection))
+                    string query = "INSERT INTO unit_types(name) VALUES (@UnitType)";
+                    using (var command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("UnitType", unitType);
 
@@ -49,10 +49,10 @@ namespace PharmacySystem.Repositories.UnitTypeRepository
         {
             try
             {
-                using (var connection = new MySqlConnection(_connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    string query = "DELETE FROM unit_type WHERE unit_name =@UnitType";
-                    using (var command = new MySqlCommand(query, connection))
+                    string query = "DELETE FROM unit_types WHERE name =@UnitType";
+                    using (var command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("UnitType", unitType);
                         connection.Open();
@@ -69,10 +69,10 @@ namespace PharmacySystem.Repositories.UnitTypeRepository
         public List<UnitTypeModel> GetAllUnitTypes()
         {
             List<UnitTypeModel> unitTypes = new List<UnitTypeModel>();
-            using (var connection = new MySqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 string query = "SELECT * FROM unit_type";
-                using (var command = new MySqlCommand(query, connection))
+                using (var command = new SqlCommand(query, connection))
                 {
                     connection.Open();
                     using (var reader = command.ExecuteReader())
@@ -82,7 +82,7 @@ namespace PharmacySystem.Repositories.UnitTypeRepository
                             UnitTypeModel unitType = new UnitTypeModel
                             {
                                 Id = Convert.ToInt32(reader["id"]),
-                                UnitType = reader["unit_name"].ToString()
+                                UnitType = reader["name"].ToString()
                             };
                             unitTypes.Add(unitType);
                         }

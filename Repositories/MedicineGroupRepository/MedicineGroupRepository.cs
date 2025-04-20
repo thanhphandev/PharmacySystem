@@ -1,10 +1,11 @@
 ﻿using PharmacySystem.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
+
 
 namespace PharmacySystem.Repositories.MedicineGroupRepository
 {
@@ -20,10 +21,10 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
         {
             try
             {
-                using (var connection = new MySqlConnection(_connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    string query = "INSERT INTO medicine_group(group_code, group_name, group_content) VALUES (@GroupCode, @GroupName, @GroupDescription)";
-                    using (var command = new MySqlCommand(query, connection))
+                    string query = "INSERT INTO medicine_groups(code, name, description) VALUES (@GroupCode, @GroupName, @GroupDescription)";
+                    using (var command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("GroupCode", medicineCategory.GroupCode);
                         command.Parameters.AddWithValue("GroupName", medicineCategory.GroupName);
@@ -46,10 +47,10 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
         {
             try
             {
-                using (var connection = new MySqlConnection(_connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    string query = "DELETE FROM medicine_group WHERE group_code =@GroupCode";
-                    using (var command = new MySqlCommand(query, connection))
+                    string query = "DELETE FROM medicine_groups WHERE code = @GroupCode";
+                    using (var command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("GroupCode", groupCode);
                         connection.Open();
@@ -68,10 +69,10 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
         public List<MedicineGroupModel> GetAllMedicineGroups()
         {
             List<MedicineGroupModel> medicineGroups = new List<MedicineGroupModel>();
-            using (var connection = new MySqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM medicine_group";
-                using (var command = new MySqlCommand(query, connection))
+                string query = "SELECT * FROM medicine_groups";
+                using (var command = new SqlCommand(query, connection))
                 {
                     connection.Open();
                     using(var reader = command.ExecuteReader())
@@ -80,9 +81,9 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
                         {
                             MedicineGroupModel medicineGroup = new MedicineGroupModel
                             {
-                                GroupCode = reader["group_code"].ToString(),
-                                GroupName = reader["group_name"].ToString(),
-                                Description = reader["group_content"].ToString()
+                                GroupCode = reader["code"].ToString(),
+                                GroupName = reader["name"].ToString(),
+                                Description = reader["description"].ToString()
                             };
                             medicineGroups.Add(medicineGroup);
 
@@ -98,10 +99,10 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
             try 
             {
                 MedicineGroupModel medicineGroup = null;
-                using (var connection = new MySqlConnection(_connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    string query = "SELECT group_code, group_name, group_content FROM medicine_group WHERE group_code = @GroupCode";
-                    using (var command = new MySqlCommand(query, connection))
+                    string query = "SELECT code, name, description FROM medicine_groups WHERE code = @GroupCode";
+                    using (var command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("GroupCode", groupCode);
                         connection.Open();
@@ -111,9 +112,9 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
                             {
                                 medicineGroup = new MedicineGroupModel
                                 {
-                                    GroupCode = reader["group_code"].ToString(),
-                                    GroupName = reader["group_name"].ToString(),
-                                    Description = reader["group_content"].ToString()
+                                    GroupCode = reader["code"].ToString(),
+                                    GroupName = reader["name"].ToString(),
+                                    Description = reader["description"].ToString()
                                 };
                             }
                         }
@@ -132,13 +133,13 @@ namespace PharmacySystem.Repositories.MedicineGroupRepository
         {
             try
             {
-                using (var connection = new MySqlConnection(_connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    string query = @"UPDATE medicine_group 
-                             SET group_code = @NewGroupCode, group_name = @GroupName, group_content = @GroupContent 
-                             WHERE group_code = @OldGroupCode";
+                    string query = @"UPDATE medicine_groups 
+                             SET code = @NewGroupCode, name = @GroupName, description = @GroupContent 
+                             WHERE code = @OldGroupCode";
 
-                    using (var command = new MySqlCommand(query, connection))
+                    using (var command = new SqlCommand(query, connection))
                     {
                         
                         command.Parameters.AddWithValue("@NewGroupCode", updatedMedicineGroup.GroupCode);

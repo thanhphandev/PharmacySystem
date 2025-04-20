@@ -28,80 +28,49 @@ namespace PharmacySystem.Presenters.SupplierPresenter
         }
         private void OnAddData(object sender, EventArgs e)
         {
-            SupplierModel newSupplier = new SupplierModel
+            var newSupplier = new SupplierModel
             {
-                SupplierName = _addSupplierView.SupplierName.Trim(),
-                SupplierPhone = _addSupplierView.SupplierPhone.Trim(),
-                SupplierAddress = _addSupplierView.SupplierAddress.Trim()
+                Name = _addSupplierView.SupplierName.Trim(),
+                Phone = _addSupplierView.SupplierPhone.Trim(),
+                Address = _addSupplierView.SupplierAddress?.Trim(),
+                TaxCode = _addSupplierView.TaxCode?.Trim()
             };
 
+            var (Success, ErrorMessage) = _supplierService.AddSupplier(newSupplier);
 
-            if (!IsValidSupplierData(newSupplier)) return;
-
-
-            bool isAddSuccessfull = _supplierService.AddSupplier(newSupplier);
-            if (isAddSuccessfull)
+            if (Success)
             {
                 MessageBox.Show("Nhà cung cấp đã được thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 _addSupplierView.CloseForm();
-                
             }
             else
             {
-                MessageBox.Show("Thêm nhà cung cấp thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ErrorMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void OnUpdateData(object sender, EventArgs e)
         {
-            
-            int id = _addSupplierView.SupplierId;
-            string newSupplierName = _addSupplierView.SupplierName.Trim();
-            string newSupplierPhone = _addSupplierView.SupplierPhone.Trim();
-            string newSupplierAddress = _addSupplierView.SupplierAddress;
-
-
             var updatedSupplier = new SupplierModel
             {
-                SupplierId = id,
-                SupplierName = newSupplierName,
-                SupplierPhone = newSupplierPhone,
-                SupplierAddress = newSupplierAddress
+                ID = _addSupplierView.SupplierId,
+                Name = _addSupplierView.SupplierName.Trim(),
+                Phone = _addSupplierView.SupplierPhone.Trim(),
+                Address = _addSupplierView.SupplierAddress?.Trim(),
+                TaxCode = _addSupplierView.TaxCode?.Trim()
             };
 
-            if (!IsValidSupplierData(updatedSupplier)) return;
+            var (Success, ErrorMessage) = _supplierService.UpdateSupplier(updatedSupplier.ID, updatedSupplier);
 
-            bool isUpdateSuccessfull = _supplierService.UpdateSupplier(id, updatedSupplier);
-            if (isUpdateSuccessfull)
+            if (Success)
             {
                 MessageBox.Show("Nhà cung cấp đã được cập nhật thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 _addSupplierView.CloseForm();
             }
-
-        }
-
-        private bool IsValidSupplierData(SupplierModel supplier)
-        {
-            if (string.IsNullOrWhiteSpace(supplier.SupplierName) || string.IsNullOrWhiteSpace(supplier.SupplierPhone))
+            else
             {
-                MessageBox.Show("Tên nhà cung cấp và số điện thoại không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
+                MessageBox.Show(ErrorMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-            if (!IsValidPhoneNumber(supplier.SupplierPhone))
-            {
-                MessageBox.Show("Vui lòng nhập số điện thoại hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool IsValidPhoneNumber(string phoneNumber)
-        {
-
-            var cleaned = new string(phoneNumber.Where(char.IsDigit).ToArray());
-            return cleaned.Length >= 10 && cleaned.Length <= 15;
         }
     }
 }

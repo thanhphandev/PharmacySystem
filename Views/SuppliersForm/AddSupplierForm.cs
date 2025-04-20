@@ -31,6 +31,7 @@ namespace PharmacySystem.Views.SuppliersForm
         public string SupplierPhone { get => txtSupplierPhone.Text; set => txtSupplierPhone.Text = value; }
         public string SupplierAddress { get => txtSupplierAddress.Text; set => txtSupplierAddress.Text = value; }
         public int SupplierId { get => id; set => id = value; }
+        public string TaxCode { get => txtTaxCode.Text; set => txtTaxCode.Text = value; }
 
         public void CloseForm()
         {

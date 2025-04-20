@@ -1,10 +1,10 @@
 ﻿using PharmacySystem.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
 
 
 namespace PharmacySystem.Repositories.UserRepository
@@ -21,11 +21,11 @@ namespace PharmacySystem.Repositories.UserRepository
         
         public async Task AddUser(UserModel user)
         {
-            using (var connection = new MySqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
 
-                string query = "INSERT INTO employee(username, password, full_name, gender, email, phone, birth_date, address) VALUES (@Username, @Password, @FullName, @Gender, @Email, @Phone, @BOD, @Address)";
-                using (var command = new MySqlCommand(query, connection))
+                string query = "INSERT INTO employees(username, password, full_name, gender, email, phone, birth_date, address) VALUES (@Username, @Password, @FullName, @Gender, @Email, @Phone, @BOD, @Address)";
+                using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Username", user.Username);
                     command.Parameters.AddWithValue("@Password", user.Password);
@@ -44,10 +44,10 @@ namespace PharmacySystem.Repositories.UserRepository
         
         public async Task DeleteUser(string username)
         {
-            using (var connection = new MySqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                string query = "DELETE FROM employee WHERE id = @Id";
-                using (var command = new MySqlCommand(query, connection))
+                string query = "DELETE FROM employees WHERE id = @Id";
+                using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", username);
                     await connection.OpenAsync();
@@ -59,10 +59,10 @@ namespace PharmacySystem.Repositories.UserRepository
         public async Task<List<UserModel>> GetAllUsers()
         {
             List<UserModel> users = new List<UserModel>();
-            using(var connection = new MySqlConnection(_connectionString))
+            using(var connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM employee";
-                using(var command = new MySqlCommand(query, connection))
+                string query = "SELECT * FROM employees";
+                using(var command = new SqlCommand(query, connection))
                 {
                     await connection.OpenAsync();
                     using(var reader = await command.ExecuteReaderAsync())
@@ -93,11 +93,11 @@ namespace PharmacySystem.Repositories.UserRepository
         {
             UserModel user = null;
 
-            using (var connection = new MySqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT id, username, password, full_Name, gender, email, phone, birth_date, address, role  FROM employee WHERE username = @Username";
+                string query = "SELECT id, username, password, full_Name, gender, email, phone, birth_date, address, role  FROM employees WHERE username = @Username";
 
-                using (var command = new MySqlCommand(query, connection))
+                using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Username", username);
 
@@ -136,9 +136,9 @@ namespace PharmacySystem.Repositories.UserRepository
                 throw new ArgumentNullException(nameof(user), "User cannot be null.");
             }
 
-            using (var connection = new MySqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                string query = "UPDATE employee " +
+                string query = "UPDATE employees " +
                                "SET username = @Username, " +
                                "full_name = @FullName, " +
                                "gender = @Gender, " +
@@ -149,7 +149,7 @@ namespace PharmacySystem.Repositories.UserRepository
                                "role = @Role " +
                                "WHERE id = @Id";
 
-                using (var command = new MySqlCommand(query, connection))
+                using (var command = new SqlCommand(query, connection))
                 {
                    
                     command.Parameters.AddWithValue("@Id", user.UserId);
@@ -178,11 +178,11 @@ namespace PharmacySystem.Repositories.UserRepository
         {
             var roleCounts = new List<RoleCountModel>();
 
-            using (var connection = new MySqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT role, COUNT(*) AS count FROM employee GROUP BY role";
+                string query = "SELECT role, COUNT(*) AS count FROM employees GROUP BY role";
 
-                using (var command = new MySqlCommand(query, connection))
+                using (var command = new SqlCommand(query, connection))
                 {
                     await connection.OpenAsync();
 
