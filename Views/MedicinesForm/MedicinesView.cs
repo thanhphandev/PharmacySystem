@@ -45,12 +45,12 @@ namespace PharmacySystem.Views.MedicinesForm
 
         public string SearchText { get => txtSearch.Text; set => txtSearch.Text = value; }      
 
-        public void DisplayMedicines(List<MedicineModel> medicines)
+        public void DisplayMedicines(List<MedicineBatch> medicines)
         {
            
         }
 
-        public MedicineModel GetSelectedMedicine()
+        public MedicineBatch GetSelectedMedicine()
         {
             throw new NotImplementedException();
         }

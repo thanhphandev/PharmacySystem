@@ -10,18 +10,18 @@ namespace PharmacySystem.Services.MedicineService
 {
     public class MedicineService
     {
-        private readonly IMedicineRepository _medicineRepository;
+        private readonly IMedicineBatchRepository _medicineRepository;
 
         public MedicineService(string connectionString)
         {
-            _medicineRepository = new MedicineRepository(connectionString);
+            _medicineRepository = new MedicineBatchRepository(connectionString);
         }
 
-        public int AddMedicine(MedicineModel medicine)
+        public int AddMedicine(MedicineBatch medicine)
         {
             try
             {
-                int medicineId = _medicineRepository.AddMedicine(medicine);
+                int medicineId = _medicineRepository.AddMedicineBatch(medicine);
                 return medicineId;
             }
             catch (Exception ex)
@@ -34,7 +34,7 @@ namespace PharmacySystem.Services.MedicineService
         {
             try
             {
-                _medicineRepository.DeleteMedicine(id);
+                _medicineRepository.DeleteMedicineBatch(id);
             }
             catch (Exception ex)
             {
@@ -72,6 +72,50 @@ namespace PharmacySystem.Services.MedicineService
             {
                 var medicineProducts = _medicineRepository.GetMedicineProductsByNameAndGroup(searchText, groupCode);
                 return medicineProducts;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        // unused
+        public void AddMedicineQuantity(int medicineId, int quantity)
+        {
+            try
+            {
+                _medicineRepository.AddMedicineQuantity(medicineId, quantity);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void UpdateMedicineQuantity(int medicineId, int quantity)
+        {
+            try
+            {
+                _medicineRepository.UpdateMedicineQuantity(medicineId, quantity);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void UpdateQuantityByNearestExpiry(string medicineCode, int soldQuantity)
+        {
+            if (soldQuantity <= 0)
+                throw new ArgumentException("Sold quantity must be a positive integer.", nameof(soldQuantity));
+
+            try
+            {
+                int medicineId = _medicineRepository.GetMedicineIdByEarliestExpiry(medicineCode);
+                int currentQuantity = _medicineRepository.GetCurrentQuantity(medicineId);
+                if (soldQuantity > currentQuantity)
+                    throw new InvalidOperationException("Insufficient quantity in stock.");
+
+                _medicineRepository.UpdateMedicineQuantity(medicineId, currentQuantity - soldQuantity);
             }
             catch (Exception ex)
             {

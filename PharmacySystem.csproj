@@ -253,11 +253,11 @@
     <Compile Include="Common\CurrencyFormatter.cs" />
     <Compile Include="Common\DiacriticsRemover.cs" />
     <Compile Include="Common\Validator.cs" />
+    <Compile Include="Models\MedicineBatch.cs" />
     <Compile Include="Models\MedicineGroupModel.cs" />
     <Compile Include="Models\MedicineInfoModel.cs" />
-    <Compile Include="Models\MedicineModel.cs" />
     <Compile Include="Models\MedicineProductModel.cs" />
-    <Compile Include="Models\MedicineQuantityModel.cs" />
+    <Compile Include="Models\POSBillItemModel.cs" />
     <Compile Include="Models\POSBillModel.cs" />
     <Compile Include="Models\POSBillReport.cs" />
     <Compile Include="Models\RoleCountModel.cs" />
@@ -283,10 +283,8 @@
     <Compile Include="Repositories\MedicineGroupRepository\MedicineGroupRepository.cs" />
     <Compile Include="Repositories\MedicineInfoRepository\IMedicineInfoRepository.cs" />
     <Compile Include="Repositories\MedicineInfoRepository\MedicineInfoRepository.cs" />
-    <Compile Include="Repositories\MedicineQuantityRepository\IMedicineQuantityRepository.cs" />
-    <Compile Include="Repositories\MedicineQuantityRepository\MedicineQuantityRepository.cs" />
-    <Compile Include="Repositories\MedicineRepository\IMedicineRepository.cs" />
-    <Compile Include="Repositories\MedicineRepository\MedicineRepository.cs" />
+    <Compile Include="Repositories\MedicineBatchRepository\IMedicineBatchRepository.cs" />
+    <Compile Include="Repositories\MedicineBatchRepository\MedicineBatchRepository.cs" />
     <Compile Include="Repositories\POSBillRepository\IPOSBillRepository.cs" />
     <Compile Include="Repositories\POSBillRepository\POSBillRepository.cs" />
     <Compile Include="Repositories\SupplierRepository\ISupplierRepository.cs" />
@@ -300,7 +298,6 @@
     <Compile Include="Services\Interface\IImageUploadService.cs" />
     <Compile Include="Services\MedicineGroupService.cs" />
     <Compile Include="Services\MedicineService\MedicineInfoService.cs" />
-    <Compile Include="Services\MedicineService\MedicineQuantityService.cs" />
     <Compile Include="Services\MedicineService\MedicineService.cs" />
     <Compile Include="Services\POSService.cs" />
     <Compile Include="Services\ReceiptPrinter.cs" />

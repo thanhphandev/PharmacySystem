@@ -20,7 +20,6 @@ namespace PharmacySystem.Presenters.MedicinePresenter
 
         private readonly MedicineService _medicineService;
         private readonly MedicineInfoService _medicineInfoService;
-        private readonly MedicineQuantityService _medicineQuantityService;
 
         private readonly SupplierService _supplierService;
         private readonly UnitTypeService _unitTypeService;
@@ -34,7 +33,6 @@ namespace PharmacySystem.Presenters.MedicinePresenter
 
             _medicineService = new MedicineService(_connectionString);
             _medicineInfoService = new MedicineInfoService(_connectionString);
-            _medicineQuantityService = new MedicineQuantityService(_connectionString);
 
             _supplierService = new SupplierService(_connectionString);
             _unitTypeService = new UnitTypeService(_connectionString);
@@ -84,23 +82,18 @@ namespace PharmacySystem.Presenters.MedicinePresenter
                 if (existingMedicineInfo != null)
                 {
                     // Create the Medicine and MedicineQuantity using existing medicine info
-                    MedicineModel medicine = new MedicineModel
+                    MedicineBatch medicineBatch = new MedicineBatch
                     {
-                        MedicineCode = existingMedicineInfo.MedicineCode, // Use existing medicine code
+                        MedicineCode = _addMedicineForm.MedicineCode,
                         ExpireDate = _addMedicineForm.ExpireDate,
-                        SupplierId = _addMedicineForm.SupplierId
-                    };
-
-                    MedicineQuantityModel medicineQuantity = new MedicineQuantityModel
-                    {
+                        SupplierID = _addMedicineForm.SupplierId,
                         Quantity = _addMedicineForm.Quantity
+
                     };
 
-                    if (!IsValidData(medicine, existingMedicineInfo, medicineQuantity)) return;
+                    if (!IsValidData(medicineBatch, existingMedicineInfo)) return;
                     
-                    int medicineId = _medicineService.AddMedicine(medicine);
-                    int quantity = medicineQuantity.Quantity;
-                    _medicineQuantityService.AddMedicineQuantity(medicineId, quantity);
+                    int medicineId = _medicineService.AddMedicine(medicineBatch);
 
                     MessageBox.Show("Thuốc đã được thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -109,39 +102,35 @@ namespace PharmacySystem.Presenters.MedicinePresenter
                     // If MedicineInfo does not exist, create a new MedicineInfo and then Medicine
                     MedicineInfoModel medicineInfo = new MedicineInfoModel
                     {
-                        MedicineCode = _addMedicineForm.MedicineCode,
-                        MedicineName = _addMedicineForm.MedicineName,
-                        MedicinePrice = _addMedicineForm.MedicinePrice,
-                        UnitType = _addMedicineForm.UnitType,
+                        Code = _addMedicineForm.MedicineCode,
+                        Name = _addMedicineForm.MedicineName,
+                        Price = _addMedicineForm.MedicinePrice,
+                        UnitTypeId = _addMedicineForm.UnitType,
                         GroupCode = _addMedicineForm.GroupCode,
-                        MedicineElement = _addMedicineForm.MedicineElement,
-                        MedicineContent = _addMedicineForm.MedicineContent
+                        Ingredients = _addMedicineForm.MedicineElement,
+                        Description = _addMedicineForm.MedicineContent
                     };
 
-                    MedicineModel medicine = new MedicineModel
+                    MedicineBatch medicine = new MedicineBatch
                     {
-                        MedicineCode = medicineInfo.MedicineCode,
+                        MedicineCode = medicineInfo.Code,
                         ExpireDate = _addMedicineForm.ExpireDate,
-                        SupplierId = _addMedicineForm.SupplierId
-                    };
-
-                    MedicineQuantityModel medicineQuantity = new MedicineQuantityModel
-                    {
+                        SupplierID = _addMedicineForm.SupplierId,
                         Quantity = _addMedicineForm.Quantity
                     };
 
-                    if (!IsValidData(medicine, medicineInfo, medicineQuantity)) return;
+                   
+                    if (!IsValidData(medicine, medicineInfo)) return;
 
                     // Handle image upload if necessary
                     string imageUrl = await UploadImageAsync(_addMedicineForm.MedicineImage);
-                    medicineInfo.MedicineImage = imageUrl;
+                    medicineInfo.Image = imageUrl;
 
                     // Add new MedicineInfo and then Medicine
                     _medicineInfoService.AddMedicineInfo(medicineInfo);
                     int medicineId = _medicineService.AddMedicine(medicine);
-                    int quantity = medicineQuantity.Quantity;
+                    int quantity = medicine.Quantity;
 
-                    _medicineQuantityService.AddMedicineQuantity(medicineId, quantity);
 
                     MessageBox.Show("Thuốc đã được thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -169,24 +158,24 @@ namespace PharmacySystem.Presenters.MedicinePresenter
             }
         }
 
-        private bool IsValidData(MedicineModel medicine, MedicineInfoModel medicineInfo, MedicineQuantityModel medicineQuantity)
+        private bool IsValidData(MedicineBatch medicine, MedicineInfoModel medicineInfo)
         {
            
-            if (string.IsNullOrWhiteSpace(medicineInfo.MedicineCode) || string.IsNullOrWhiteSpace(medicineInfo.MedicineName))
+            if (string.IsNullOrWhiteSpace(medicineInfo.Code) || string.IsNullOrWhiteSpace(medicineInfo.Name))
             {
                 MessageBox.Show("Mã thuốc và tên thuốc không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
             
-            if (medicineInfo.MedicinePrice <= 0)
+            if (medicineInfo.Price <= 0)
             {
                 MessageBox.Show("Giá thuốc nhập không hợp lệ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
            
-            if (medicineInfo.UnitType <= 0)
+            if (medicineInfo.UnitTypeId <= 0)
             {
                 MessageBox.Show("Vui lòng chọn loại đơn vị hợp lệ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -200,7 +189,7 @@ namespace PharmacySystem.Presenters.MedicinePresenter
             }
 
 
-            if (medicineQuantity.Quantity < 0)
+            if (medicine.Quantity < 0)
             {
                 MessageBox.Show("Số lượng thuốc nhập không hợp lệ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -212,14 +201,14 @@ namespace PharmacySystem.Presenters.MedicinePresenter
                 return false;
             }
 
-            if (medicine.SupplierId <= 0)
+            if (medicine.SupplierID <= 0)
             {
                 MessageBox.Show("Vui lòng chọn nhà cung cấp hợp lệ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
 
-            if (string.IsNullOrWhiteSpace(medicineInfo.MedicineElement) || string.IsNullOrWhiteSpace(medicineInfo.MedicineContent))
+            if (string.IsNullOrWhiteSpace(medicineInfo.Ingredients) || string.IsNullOrWhiteSpace(medicineInfo.Description))
             {
                 MessageBox.Show("Thành phần và hàm lượng thuốc không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -231,12 +220,12 @@ namespace PharmacySystem.Presenters.MedicinePresenter
 
         private void AutoFillData(MedicineInfoModel medicineInfo)
         {
-            _addMedicineForm.MedicineCode = medicineInfo.MedicineCode;
-            _addMedicineForm.UnitType = medicineInfo.UnitType;
-            _addMedicineForm.MedicinePrice = medicineInfo.MedicinePrice;
-            _addMedicineForm.MedicineImage = medicineInfo.MedicineImage;
-            _addMedicineForm.MedicineContent = medicineInfo.MedicineContent;
-            _addMedicineForm.MedicineElement = medicineInfo.MedicineElement;
+            _addMedicineForm.MedicineCode = medicineInfo.Code;
+            _addMedicineForm.UnitType = medicineInfo.UnitTypeId;
+            _addMedicineForm.MedicinePrice = medicineInfo.Price;
+            _addMedicineForm.MedicineImage = medicineInfo.Image;
+            _addMedicineForm.MedicineContent = medicineInfo.Description;
+            _addMedicineForm.MedicineElement = medicineInfo.Ingredients;
             _addMedicineForm.GroupCode = medicineInfo.GroupCode;
 
         }

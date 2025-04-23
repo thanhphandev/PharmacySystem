@@ -24,7 +24,7 @@ CREATE TABLE unit_types (
     name NVARCHAR(100) NOT NULL UNIQUE
 );
 
--- Medicine Info (Static info)
+-- Medicine Info (Static info) done
 CREATE TABLE medicines (
     code VARCHAR(50) PRIMARY KEY,
     name NVARCHAR(100) NOT NULL UNIQUE,
@@ -39,7 +39,7 @@ CREATE TABLE medicines (
 );
 
 
--- Medicine Stock (per batch)
+-- Medicine Stock (per batch) - Done
 CREATE TABLE medicine_batches (
     id BIGINT IDENTITY(1,1) PRIMARY KEY,
     medicine_code VARCHAR(50) NOT NULL,
@@ -68,10 +68,11 @@ CREATE TABLE employees (
 CREATE TABLE pos_bills (
     id BIGINT IDENTITY(1,1) PRIMARY KEY,
     customer_phone NVARCHAR(50),
-    created_at DATETIME DEFAULT GETDATE(),
     received_amount DECIMAL(10,2) CHECK (received_amount >= 0),
     total_amount DECIMAL(10,2),
     employee_id BIGINT NOT NULL,
+    created_at DATETIME DEFAULT GETDATE(),
+    updated_at DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (employee_id) REFERENCES employees(id)
 );
 

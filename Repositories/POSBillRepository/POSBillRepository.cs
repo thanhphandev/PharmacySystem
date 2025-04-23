@@ -1,7 +1,7 @@
-﻿using MySql.Data.MySqlClient;
-using PharmacySystem.Models;
+﻿using PharmacySystem.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,12 +20,12 @@ namespace PharmacySystem.Repositories.POSBillRepository
         {
             try
             {
-                using (var connection = new MySqlConnection(_connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     // SQL query for inserting into pos_bill
                     string query = "INSERT INTO pos_bill(pos_bill_receive, employee_id) VALUES (@ReceiveAmount, @EmployeeId)";
 
-                    using (var command = new MySqlCommand(query, connection))
+                    using (var command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("ReceiveAmount", receiveAmount);
                         command.Parameters.AddWithValue("EmployeeId", employeeId);
@@ -48,7 +48,7 @@ namespace PharmacySystem.Repositories.POSBillRepository
             {
                 var reports = new List<POSBillReport>();
 
-                using (var connection = new MySqlConnection(_connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     string query = @"
                 SELECT
@@ -66,7 +66,7 @@ namespace PharmacySystem.Repositories.POSBillRepository
                     DATE(pos_bill_time);
                 ";
 
-                    using (var command = new MySqlCommand(query, connection))
+                    using (var command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@FromDate", fromDate);
                         command.Parameters.AddWithValue("@ToDate", toDate);
@@ -76,15 +76,15 @@ namespace PharmacySystem.Repositories.POSBillRepository
                         {
                             while (reader.Read())
                             {
-                                POSBillReport report = new POSBillReport
-                                {
-                                    Date = reader.GetDateTime("Date"),
-                                    TotalRevenue = reader.GetDecimal("TotalRevenue"),
-                                    TotalBills = reader.GetInt32("TotalBills"),
-                                    AverageReceiveAmount = reader.GetDecimal("AverageReceiveAmount")
-                                };
+                                //POSBillReport report = new POSBillReport
+                                //{
+                                //    Date = reader.GetDateTime("Date"),
+                                //    TotalRevenue = reader.GetDecimal("TotalRevenue"),
+                                //    TotalBills = reader.GetInt32("TotalBills"),
+                                //    AverageReceiveAmount = reader.GetDecimal("AverageReceiveAmount")
+                                //};
 
-                                reports.Add(report);
+                                //reports.Add(report);
                             }
                         }
                     }

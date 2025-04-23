@@ -10,8 +10,8 @@ namespace PharmacySystem.Views.MedicinesForm
     public interface IMedicineView
     {
         string SearchText { get; set; }
-        void DisplayMedicines(List<MedicineModel> medicines);
-        MedicineModel GetSelectedMedicine();
+        void DisplayMedicines(List<MedicineBatch> medicines);
+        MedicineBatch GetSelectedMedicine();
 
         event EventHandler AddUnitType;
         event EventHandler AddMedicineData;
